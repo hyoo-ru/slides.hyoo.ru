@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "9"
+install:
+  - cd ..
+  - mkdir hyoo
+  - mv slides.hyoo.ru hyoo/slides
+  - git init
+  - git remote add origin https://github.com/eigenmethod/mam.git
+  - git pull origin master
+  - npm install
+script:
+  - npm start hyoo/slides
+  - rm hyoo/slides/.gitignore
+  - mv hyoo/slides/- slides.hyoo.ru
+  - mv hyoo/slides/CNAME slides.hyoo.ru/CNAME
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: .
+  on:
+    branch: master
