@@ -79,8 +79,6 @@ namespace $.$$ {
 		@ $mol_mem
 		slide( next? : number ) {
 			
-			new $mol_defer( ()=> $mol_speech.forget() )
-			
 			const count = this.content_pages().length
 			
 			if( next >= count ) next = 0
@@ -160,7 +158,9 @@ namespace $.$$ {
 		}
 		
 		event_repeat( next? : Event ) {
-			$mol_speech.say( $mol_speech.text() )
+			const commands = $mol_speech.commands()
+			const command = commands[ commands.length - 2 ]
+			if( command ) $mol_speech.say( command )
 		}
 		
 		event_speech_on( next? : Event ) {
@@ -176,7 +176,8 @@ namespace $.$$ {
 		}
 
 		speech_text() {
-			return $mol_speech.text()
+			const commands = $mol_speech.commands()
+			return commands[ commands.length - 1 ] || ''
 		}
 		
 		@ $mol_mem

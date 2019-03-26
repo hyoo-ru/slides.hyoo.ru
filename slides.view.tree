@@ -16,8 +16,12 @@ $hyoo_slides $mol_view
 				\forward
 				\дальше
 				\далее
+				\даша
+				\дарья
+				\доля
 				\удали
-				\вперед
+				\впер[её]д
+				\период
 				\перевод
 		<= Speech_slide $mol_speech
 			event_catch?val <=> event_slide?val null
@@ -25,12 +29,16 @@ $hyoo_slides $mol_view
 				\slide number (\d+)
 				\(\d+) slide
 				\слайд номер (\d+)
+				\свой номер (\d+)
+				\смотреть номер (\d+)
 				\(\d+) слайд
 		<= Speech_prev $mol_speech
 			event_catch?val <=> event_prev?val null
 			patterns <= speech_prev /
 				\back
 				\назад
+				\назар
+				\надо
 		<= Speech_start $mol_speech
 			event_catch?val <=> event_start?val null
 			patterns <= speech_start /
