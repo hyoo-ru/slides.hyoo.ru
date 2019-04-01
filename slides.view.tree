@@ -56,11 +56,11 @@ $hyoo_slides $mol_view
 		<= Speech_about $mol_speech
 			event_catch?val <=> event_about?val null
 			patterns <= speech_about /
-				\slide about (\S+?)
-				\search (\S+?)
-				\слайд про (\S+?)
-				\найти (\S+?)
-				\найди (\S+?)
+				\slide about( \S+?)+
+				\search( \S+?)+
+				\слайд про( \S+?)+
+				\найти( \S+?)+
+				\найди( \S+?)+
 		<= Speech_repeat $mol_speech
 			event_catch?val <=> event_repeat?val null
 			patterns <= speech_repeat /
