@@ -2,6 +2,10 @@
 	display: flex;
 }
 
+[hyoo_slides_listener_title] {
+	padding: .5rem .5em;
+}
+
 [hyoo_slides_loader] {
 	border: none;
 }
