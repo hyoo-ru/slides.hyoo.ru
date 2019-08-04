@@ -59,7 +59,7 @@ namespace $.$$ {
 				if( token.name !== 'block' ) return false
 				if( '!['.indexOf( token.found[0] ) >= 0 ) return false
 				return true
-			} )
+			} ) as readonly $mol_syntax_token[]
 		}
 		
 		@ $mol_mem
@@ -189,7 +189,9 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		lights( next = true ) { return next }
+		lights( next = true ) {
+			return $mol_state_local.value( this.state_key( `lights` ) , next ) || false
+		}
 
 		event_lights_toggle() {
 			this.lights( !this.lights() )
