@@ -171,6 +171,10 @@ namespace $.$$ {
 			$mol_speech.speaking( false )
 		}
 		
+		event_sing() {
+			this.$.$mol_speech.say( 'Не хочу! Не буду!' )
+		}
+
 		speech_enabled( next? : boolean ) {
 			return $mol_speech.hearing( next )
 		}
@@ -178,6 +182,17 @@ namespace $.$$ {
 		speech_text() {
 			const commands = $mol_speech.commands()
 			return commands[ commands.length - 1 ] || ''
+		}
+
+		theme() {
+			return this.lights() ? '$mol_theme_light' : '$mol_theme_dark'
+		}
+
+		@ $mol_mem
+		lights( next = true ) { return next }
+
+		event_lights_toggle() {
+			this.lights( !this.lights() )
 		}
 		
 		@ $mol_mem

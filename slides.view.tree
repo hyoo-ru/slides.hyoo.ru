@@ -1,7 +1,8 @@
 $hyoo_slides $mol_view
 	attr *
 		^
-		hyoo_slides_role <= role \ 
+		hyoo_slides_role <= role \
+		mol_theme <= theme \$mol_theme_light
 	contents?val \
 	plugins /
 		<= Nav $mol_nav
@@ -79,6 +80,20 @@ $hyoo_slides $mol_view
 				\hush
 				\замолчи
 				\помолчи
+		<= Lights_toggle $mol_speech
+			event_catch?val <=> event_lights_toggle?val null
+			patterns <= lights_toggle /
+				\lights off
+				\lights on
+				\toggle lights
+				\выключи свет
+				\включи свет
+				\переключи свет
+		<= Sing $mol_speech
+			event_catch?val <=> event_sing?val null
+			patterns <= sing /
+				\sing( \S+?)+
+				\спой( \S+?)+
 	sub /
 		<= Listener $mol_page
 			title <= title
