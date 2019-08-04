@@ -59,7 +59,7 @@ namespace $.$$ {
 				if( token.name !== 'block' ) return false
 				if( '!['.indexOf( token.found[0] ) >= 0 ) return false
 				return true
-			} ) as readonly $mol_syntax_token[]
+			} )
 		}
 		
 		@ $mol_mem
