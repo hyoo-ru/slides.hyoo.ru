@@ -27,11 +27,9 @@ $hyoo_slides $mol_view
 		<= Speech_slide $mol_speech
 			event_catch?val <=> event_slide?val null
 			patterns <= speech_slide /
-				\slide number (\d+)
+				\number (\d+)
 				\(\d+) slide
-				\слайд номер (\d+)
-				\свой номер (\d+)
-				\смотреть номер (\d+)
+				\номер (\d+)
 				\(\d+) слайд
 		<= Speech_prev $mol_speech
 			event_catch?val <=> event_prev?val null
@@ -88,6 +86,7 @@ $hyoo_slides $mol_view
 				\toggle lights
 				\выключи свет
 				\включи свет
+				\включим свет
 				\переключи свет
 		<= Sing $mol_speech
 			event_catch?val <=> event_sing?val null
