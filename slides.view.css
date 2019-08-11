@@ -49,10 +49,11 @@
 
 [hyoo_slides_listener_content] {
 	flex: 0 1 auto;
-	margin: auto;
+	margin: auto 0;
 	max-width: none;
 	flex-wrap: wrap;
 	align-content: space-evenly;
+	justify-content: space-evenly;
 	align-items: flex-start;
 	box-shadow: none;
 	background: none;
