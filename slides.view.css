@@ -74,6 +74,7 @@
 	box-shadow: none;
 	background: transparent;
 	color: inherit;
+	flex: 1 1 40rem;
 }
 
 [hyoo_slides_listener_content] [mol_text_image] {
