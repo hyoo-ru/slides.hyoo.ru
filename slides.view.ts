@@ -81,8 +81,8 @@ namespace $.$$ {
 			
 			const count = this.content_pages().length
 			
-			if( next >= count ) next = 0
-			if( next < 0 ) next = count - 1
+			if( next >= count ) next = count - 1
+			if( next < 0 ) next = 0
 			
 			let str = ( next === undefined ) ? undefined : String( next )
 			
@@ -117,7 +117,7 @@ namespace $.$$ {
 		}
 		
 		event_end( next? : Event ) {
-			this.slide( -1 )
+			this.slide( this.content_pages().length  - 1 )
 		}
 		
 		event_slide( [ numb ] : [ string ] ) {
@@ -211,6 +211,21 @@ namespace $.$$ {
 		progress() {
 			const timing = this.timings().slice( 1 , this.slide() + 1 ).reduce( ( a , b )=> a + b , 0 )
 			return timing / this.timing_total()
+		}
+
+		@ $mol_mem
+		speech_next_auto() {
+			
+			const texts = this.speaker_content()
+			if( texts.length === 0 ) return []
+
+			const found = /[\s\S]*\s([^.!?\t\n\r ]+)[\s\S]*?/.exec( texts[ texts.length - 1 ].found )
+			if( !found ) return []
+
+			const suffix = found[1].replace( /(.)$/ , '$1?' )
+
+			return [ suffix ]
+
 		}
 		
 	}

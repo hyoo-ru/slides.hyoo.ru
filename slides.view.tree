@@ -24,6 +24,10 @@ $hyoo_slides $mol_view
 				\впер[её]д
 				\период
 				\перевод
+		<= Speech_next_auto $mol_speech
+			event_catch?val <=> event_next?val null
+			suffix \
+			patterns <= speech_next_auto /
 		<= Speech_slide $mol_speech
 			event_catch?val <=> event_slide?val null
 			patterns <= speech_slide /
@@ -44,6 +48,7 @@ $hyoo_slides $mol_view
 				\to beginning
 				\first slide
 				\начало
+				\начала
 				\первый слайд
 				\первый слой
 		<= Speech_end $mol_speech
