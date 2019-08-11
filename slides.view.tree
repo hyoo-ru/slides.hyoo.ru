@@ -3,6 +3,9 @@ $hyoo_slides $mol_view
 		^
 		hyoo_slides_role <= role \
 		mol_theme <= theme \$mol_theme_light
+	style *
+		^
+		touch-action \none
 	contents?val \
 	plugins /
 		<= Nav $mol_nav
@@ -10,6 +13,9 @@ $hyoo_slides $mol_view
 			keys_x <= slide_keys /
 			current_y?val <=> slide?val 0
 			current_x?val <=> slide?val 0
+		<= Touch $mol_touch
+			swipe_to_left?event <=> event_next?event null
+			swipe_to_right?event <=> event_prev?event null
 		<= Speech_next $mol_speech
 			event_catch?val <=> event_next?val null
 			patterns <= speech_next /
@@ -91,6 +97,8 @@ $hyoo_slides $mol_view
 				\lights on
 				\toggle lights
 				\свет
+				\след
+				\цвет
 		<= Sing $mol_speech
 			event_catch?val <=> event_sing?val null
 			patterns <= sing /
