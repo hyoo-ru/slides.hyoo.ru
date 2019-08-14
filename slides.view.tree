@@ -1,4 +1,5 @@
 $hyoo_slides $mol_view
+	uri_slides_default \https://nin-jin.github.io/slides/slides/
 	attr *
 		^
 		hyoo_slides_role <= role \
@@ -7,6 +8,34 @@ $hyoo_slides $mol_view
 		^
 		touch-action \none
 	contents?val \
+	Loader $mol_view
+		dom_name \iframe
+		attr *
+			src <= uri_slides <= uri_slides_default \https://nin-jin.github.io/slides/slides/
+		event *
+			load?val <=> event_load?val null
+	Page!index $hyoo_slides_page
+		title <= page_title!index \
+		slide?val <=> page_slide!index?val 0
+		uri_base <= uri_base \
+		role <= role \
+		listener_content <= listener_content!index /
+		speaker_content <= speaker_content!index /
+		progress <= progress!index 0
+		speaker_tools <= speaker_tools /
+			<= Speech_toggle $mol_check_icon
+				Icon <= Speech_toggle_icon $mol_icon_microphone
+				checked?val <=> speech_enabled?val false
+				hint <= speech_toggle_hint @ \Speech contol
+			<= Speech_text $mol_view sub / <= speech_text \
+			<= Open_listener $mol_link
+				target \_blank
+				hint <= open_listener_hint @ \Open slides window
+				arg *
+					role \listener
+					slide null
+				sub /
+					<= Open_listener_icon $mol_icon_external
 	plugins /
 		<= Nav $mol_nav
 			keys_y <= slide_keys /
@@ -106,40 +135,3 @@ $hyoo_slides $mol_view
 			patterns <= sing /
 				\sing( \S+?)*
 				\спой( \S+?)*
-	sub /
-		<= Listener $mol_page
-			title <= title
-			tools /
-				<= Slide_switcher $mol_paginator
-					value?val <=> slide?val 0
-			body /
-				<= Listener_content $mol_text
-					uri_base <= uri_base \
-					tokens <= listener_content /
-				<= Progress $mol_portion
-					portion <= progress 0
-		<= Speaker $mol_page
-			head /
-				<= Speech_toggle $mol_check_icon
-					Icon <= Speech_toggle_icon $mol_icon_microphone
-					checked?val <=> speech_enabled?val false
-					hint <= speech_toggle_hint @ \Speech contol
-				<= Speech_text $mol_view sub / <= speech_text \
-				<= Open_listener $mol_link
-					target \_blank
-					hint <= open_listener_hint @ \Open slides window
-					arg *
-						role \listener
-						slide null
-					sub /
-						<= Open_listener_icon $mol_icon_external
-			body /
-				<= Speaker_content $mol_text
-					uri_base <= uri_base \
-					tokens <= speaker_content /
-		<= Loader $mol_view
-			dom_name \iframe
-			attr *
-				src <= uri_slides <= uri_slides_default \https://nin-jin.github.io/slides/slides/
-			event *
-				load?val <=> event_load?val null

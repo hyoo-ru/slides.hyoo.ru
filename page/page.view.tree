@@ -1,0 +1,21 @@
+$hyoo_slides_page $mol_view
+	role \
+	contents?val \
+	sub /
+		<= Listener $mol_page
+			title <= title
+			tools /
+				<= Slide_switcher $mol_paginator
+					value?val <=> slide?val 0
+			body /
+				<= Listener_content $mol_text
+					uri_base <= uri_base \
+					tokens <= listener_content /
+				<= Progress $mol_portion
+					portion <= progress 0
+		<= Speaker $mol_page
+			head <= speaker_tools /
+			body /
+				<= Speaker_content $mol_text
+					uri_base <= uri_base \
+					tokens <= speaker_content /

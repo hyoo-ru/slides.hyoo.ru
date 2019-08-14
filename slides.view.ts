@@ -4,12 +4,13 @@ namespace $.$$ {
 		
 		sub() {
 			if( !this.contents() ) return [ this.Loader() ]
-			
-			const role = this.role()
-			return [
-				( role === 'listener' || !role ) ? this.Listener() : null ,
-				( role === 'speaker' || !role ) ? this.Speaker() : null ,
-			]
+
+			if( this.$.$mol_print.active() ) {
+				return $mol_range2( index => this.Page( index ) , ()=> this.slide_keys().length )
+			} else {
+				return [ this.Page( this.slide() ) ]
+			}
+
 		}
 		
 		uri_base() {
@@ -52,9 +53,9 @@ namespace $.$$ {
 			return this.page_title( this.slide() ) || super.title()
 		}
 
-		@ $mol_mem
-		speaker_content() {
-			return this.page_tokens( this.slide() ).filter( token => {
+		@ $mol_mem_key
+		speaker_content( index : number ) {
+			return this.page_tokens( index ).filter( token => {
 				if( token.name === 'header' ) return false
 				if( token.name !== 'block' ) return false
 				if( '!['.indexOf( token.found[0] ) >= 0 ) return false
@@ -62,9 +63,9 @@ namespace $.$$ {
 			} )
 		}
 		
-		@ $mol_mem
-		listener_content() {
-			return this.page_tokens( this.slide() ).filter( token => {
+		@ $mol_mem_key
+		listener_content( index : number ) {
+			return this.page_tokens( index ).filter( token => {
 				if( token.name === 'header' ) return false
 				if( token.name !== 'block' ) return true
 				if( '!['.indexOf( token.found[0] ) >= 0 ) return true
@@ -89,6 +90,11 @@ namespace $.$$ {
 			str = $mol_state_arg.value( this.state_key( 'slide' ) , str ) || undefined
 
 			return this.slide_local( this.uri_slides() , str && Number( str ) ) || 0
+		}
+
+		page_slide( index : number , next? : number ) {
+			if( next !== undefined ) this.slide( index )
+			return index			
 		}
 
 		@ $mol_mem
@@ -211,16 +217,16 @@ namespace $.$$ {
 			return this.timings().slice( 1 ).reduce( ( a , b )=> a + b , 0 )
 		}
 		
-		@ $mol_mem
-		progress() {
-			const timing = this.timings().slice( 1 , this.slide() + 1 ).reduce( ( a , b )=> a + b , 0 )
+		@ $mol_mem_key
+		progress( index : number ) {
+			const timing = this.timings().slice( 1 , index + 1 ).reduce( ( a , b )=> a + b , 0 )
 			return timing / this.timing_total()
 		}
 
 		@ $mol_mem
 		speech_next_auto() {
 			
-			const texts = this.speaker_content()
+			const texts = this.speaker_content( this.slide() )
 			if( texts.length === 0 ) return []
 
 			const found = /[\s\S]*\s([^.!?\t\n\r ]+)[\s\S]*?/.exec( texts[ texts.length - 1 ].found )
