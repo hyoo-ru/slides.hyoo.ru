@@ -30,6 +30,7 @@ $hyoo_slides $mol_view
 				\впер[её]д
 				\период
 				\перевод
+				\следующий слайд
 		<= Speech_next_auto $mol_speech
 			event_catch?val <=> event_next?val null
 			suffix \
@@ -48,6 +49,7 @@ $hyoo_slides $mol_view
 				\назад
 				\назар
 				\надо
+				\предыдущий слайд
 		<= Speech_start $mol_speech
 			event_catch?val <=> event_start?val null
 			patterns <= speech_start /
