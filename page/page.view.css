@@ -54,6 +54,10 @@
 	margin: 1rem;
 }
 
+[hyoo_slides_page_listener_content_row][mol_text_type="code"] {
+	white-space: pre;
+}
+
 [hyoo_slides_page_listener_content_quote] {
 	margin: 1rem;
 	box-shadow: none;
