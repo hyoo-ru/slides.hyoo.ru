@@ -20,7 +20,7 @@ namespace $.$$ {
 		event_load() {
 			const frame = this.Loader().dom_node() as HTMLIFrameElement
 			frame.contentWindow.postMessage( [ 'content' ] , '*' )
-			window.onmessage = event => {
+			window.onmessage = ( event : MessageEvent )=> {
 				if( event.data[ 0 ] !== 'done' ) return
 				window.onmessage = null
 				
