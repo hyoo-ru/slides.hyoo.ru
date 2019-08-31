@@ -54,7 +54,12 @@
 	margin: 1rem;
 }
 
-[hyoo_slides_page_listener_content_row][mol_text_type="code"] {
+[hyoo_slides_page_listener_content_quote] {
+	max-width: 30em;
+}
+
+[hyoo_slides_page] [mol_text_type="code"] ,
+[hyoo_slides_page] [mol_text_type="code-indent"] {
 	white-space: pre;
 }
 

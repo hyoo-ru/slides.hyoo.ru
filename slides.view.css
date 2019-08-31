@@ -7,7 +7,7 @@
 }
 
 [hyoo_slides_role="listener"] {
-	font-size: 4vmin;
+	font-size: 3.5vmin;
 }
 
 [hyoo_slides_speech_toggle] {
@@ -22,4 +22,3 @@
 	flex: 1 1 auto;
 	max-height: 2rem;
 }
-
