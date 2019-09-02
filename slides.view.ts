@@ -93,8 +93,8 @@ namespace $.$$ {
 		}
 
 		page_slide( index : number , next? : number ) {
-			if( next !== undefined ) this.slide( index )
-			return index			
+			if( next !== undefined ) this.slide( next )
+			return index
 		}
 
 		@ $mol_mem
