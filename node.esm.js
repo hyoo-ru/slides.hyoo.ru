@@ -1,8 +1,6 @@
 require( "source-map-support" ).install(); var exports = void 0;
-
 ;
-process.on( 'unhandledRejection' , up => { throw up } )
-;
+process.on( 'unhandledRejection' , up => { throw up } );
 "use strict"
 /// Fake namespace for optional overrides
 ///
@@ -19,7 +17,6 @@ $.$mol = $  // deprecated
 
 var $node = $node || {}
 void function( module ) { var exports = module.exports = this; function require( id ) { return $node[ id.replace( /^.\// , "' + src.parent().relate( this.root().resolve( 'node_modules' ) ) + '/" ) + ".js" ] }; 
-
 ;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -28,7 +25,6 @@ module.exports;
 ;
 
 $node[ "../mol/mol.js" ] = $node[ "../mol/mol.js" ] = module.exports }.call( {} , {} )
-
 ;
 "use strict";
 var $;
@@ -870,14 +866,14 @@ var $;
         let [app, ...args0] = command.split(' ');
         args = [...args0, ...args];
         console.info(`${$node.path.relative('', dir)}> ${app} ${args.join(' ')}`);
-        var res = $node.child_process.spawnSync(app, args, {
+        var res = $node['child_process'].spawnSync(app, args, {
             cwd: $node.path.resolve(dir),
             shell: true,
         });
         if (res.status || res.error)
-            return $.$mol_fail(res.error || new Error(res.stderr));
+            return $.$mol_fail(res.error || new Error(res.stderr.toString()));
         if (!res.stdout)
-            res.stdout = '';
+            res.stdout = new Buffer('');
         return res;
     }
     $.$mol_exec = $mol_exec;
@@ -886,12 +882,9 @@ var $;
 ;
 "use strict";
 var $node = new Proxy({}, { get(target, name, wrapper) {
-        try {
-            require.resolve(name);
-        }
-        catch (error) {
-            if (error.code !== 'MODULE_NOT_FOUND')
-                return $.$mol_fail_hidden(error);
+        if (require('module').builtinModules.indexOf(name) >= 0)
+            return require(name);
+        if (!require('fs').existsSync(`./node_modules/${name}`)) {
             $.$mol_exec('.', 'npm', 'install', name);
         }
         return require(name);
@@ -4042,7 +4035,7 @@ var $;
             return $.$mol_state_local.value('locale', next) || $.$mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
         }
         static source(lang) {
-            return JSON.parse($.$mol_file.relative(`web.locale=${lang}.json`).content());
+            return JSON.parse($.$mol_file.relative(`web.locale=${lang}.json`).content().toString());
         }
         static texts(lang, next) {
             if (next)
