@@ -5748,7 +5748,7 @@ var $;
             return ((obj) => {
                 obj.title = () => this.title();
                 obj.tools = () => [this.Slide_switcher()];
-                obj.body = () => [this.Listener_content(), this.Link(), this.Progress()];
+                obj.body = () => [this.Listener_content(), this.Progress(), this.Link()];
                 return obj;
             })(new this.$.$mol_page());
         }
@@ -5774,6 +5774,15 @@ var $;
         listener_content() {
             return [];
         }
+        Progress() {
+            return ((obj) => {
+                obj.portion = () => this.progress();
+                return obj;
+            })(new this.$.$mol_portion());
+        }
+        progress() {
+            return 0;
+        }
         Link() {
             return ((obj) => {
                 obj.uri = () => this.uri_page();
@@ -5783,15 +5792,6 @@ var $;
         }
         uri_page() {
             return "";
-        }
-        Progress() {
-            return ((obj) => {
-                obj.portion = () => this.progress();
-                return obj;
-            })(new this.$.$mol_portion());
-        }
-        progress() {
-            return 0;
         }
         Speaker() {
             return ((obj) => {
@@ -5831,10 +5831,10 @@ var $;
     ], $hyoo_slides_page.prototype, "Listener_content", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Link", null);
+    ], $hyoo_slides_page.prototype, "Progress", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Progress", null);
+    ], $hyoo_slides_page.prototype, "Link", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_slides_page.prototype, "Speaker", null);
@@ -5870,7 +5870,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("hyoo/slides/page/page.view.css", "[hyoo_slides_page] {\n\tdisplay: flex;\n\theight: 100%;\n\twidth: 100%;\n}\n\n[hyoo_slides_page_listener_title] {\n\tpadding: .5rem .5em;\n}\n\n[hyoo_slides_page_speaker] {\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_speaker_head] {\n\tflex-wrap: nowrap;\n}\n\n[hyoo_slides_page_listener] {\n\tflex: 1 1 66%;\n}\n\n[hyoo_slides_page_speaker_body] ,\n[hyoo_slides_page_listener_body] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[hyoo_slides_page_speaker_content] {\n\tflex: 1 0 auto;\n\tjustify-content: space-between;\n\tmax-width: none;\n}\n\n[hyoo_slides_page_listener_content] {\n\tflex: 0 1 auto;\n\tmargin: auto 0;\n\tmax-width: none;\n\tflex-wrap: wrap;\n\talign-content: space-evenly;\n\tjustify-content: space-evenly;\n\talign-items: flex-start;\n\tbox-shadow: none;\n\tbackground: none;\n\tflex-direction: row;\n}\n\n[hyoo_slides_page_slide_number] {\n\tmargin: .5rem;\n\tword-break: normal;\n}\n\n[hyoo_slides_page_listener_content_row] {\n\tmargin: 1rem;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmax-width: 30em;\n}\n\n[hyoo_slides_page] [mol_text_type=\"code\"] ,\n[hyoo_slides_page] [mol_text_type=\"code-indent\"] {\n\twhite-space: pre;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmargin: 1rem;\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: inherit;\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_listener_content] [mol_text_image] {\n\twidth: 100vw;\n\theight: 100vh;\n\tmax-height: 65vh;\n}\n\n[hyoo_slides_page_progress] {\n\tflex: 0 0 auto;\n\twidth: auto;\n}\n\n[hyoo_slides_page_link] {\n\tpadding: 0 .5rem;\n\ttext-align: center\t;\n}\n");
+    $.$mol_style_attach("hyoo/slides/page/page.view.css", "[hyoo_slides_page] {\n\tdisplay: flex;\n\theight: 100%;\n\twidth: 100%;\n}\n\n[hyoo_slides_page_listener_title] {\n\tpadding: .5rem .5em;\n}\n\n[hyoo_slides_page_speaker] {\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_speaker_head] {\n\tflex-wrap: nowrap;\n}\n\n[hyoo_slides_page_listener] {\n\tflex: 1 1 66%;\n}\n\n[hyoo_slides_page_speaker_body] ,\n[hyoo_slides_page_listener_body] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[hyoo_slides_page_speaker_content] {\n\tflex: 1 0 auto;\n\tjustify-content: space-between;\n\tmax-width: none;\n}\n\n[hyoo_slides_page_listener_content] {\n\tflex: 0 1 auto;\n\tmargin: auto 0;\n\tmax-width: none;\n\tflex-wrap: wrap;\n\talign-content: space-evenly;\n\tjustify-content: space-evenly;\n\talign-items: flex-start;\n\tbox-shadow: none;\n\tbackground: none;\n\tflex-direction: row;\n}\n\n[hyoo_slides_page_slide_number] {\n\tmargin: .5rem;\n\tword-break: normal;\n}\n\n[hyoo_slides_page_listener_content_row] {\n\tmargin: 1rem;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmax-width: 30em;\n}\n\n[hyoo_slides_page] [mol_text_type=\"code\"] ,\n[hyoo_slides_page] [mol_text_type=\"code-indent\"] {\n\twhite-space: pre;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmargin: 1rem;\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: inherit;\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_listener_content] [mol_text_image] {\n\twidth: 100vw;\n\theight: 100vh;\n\tmax-height: 75vh;\n}\n\n[hyoo_slides_page_progress] {\n\tflex: 0 0 auto;\n\twidth: auto;\n}\n\n[hyoo_slides_page_link] {\n\tpadding: 0 .5rem;\n\ttext-align: center;\n\tfont-size: .75em;\n}\n");
 })($ || ($ = {}));
 //page.view.css.js.map
 ;

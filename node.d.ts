@@ -1739,10 +1739,10 @@ declare namespace $ {
         Listener_content(): $$.$mol_text;
         uri_base(): string;
         listener_content(): readonly any[];
-        Link(): $$.$mol_link;
-        uri_page(): string;
         Progress(): $$.$mol_portion;
         progress(): number;
+        Link(): $$.$mol_link;
+        uri_page(): string;
         Speaker(): $$.$mol_page;
         speaker_tools(): readonly any[];
         Speaker_content(): $$.$mol_text;
