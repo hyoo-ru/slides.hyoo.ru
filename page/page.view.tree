@@ -11,6 +11,9 @@ $hyoo_slides_page $mol_view
 				<= Listener_content $mol_text
 					uri_base <= uri_base \
 					tokens <= listener_content /
+				<= Link $mol_link
+					uri <= uri_page \
+					sub / <= uri_page \
 				<= Progress $mol_portion
 					portion <= progress 0
 		<= Speaker $mol_page

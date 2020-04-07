@@ -9,6 +9,10 @@ namespace $.$$ {
 				... ( role === 'listener' ) ? [] : [ this.Speaker() ] ,
 			]
 		}
+
+		uri_page() {
+			return this.uri_base() + `#slide=${ this.slide() }`
+		}
 		
 	}
 	
