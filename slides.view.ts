@@ -19,7 +19,7 @@ namespace $.$$ {
 		
 		event_load() {
 			const frame = this.Loader().dom_node() as HTMLIFrameElement
-			frame.contentWindow.postMessage( [ 'content' ] , '*' )
+			frame.contentWindow!.postMessage( [ 'content' ] , '*' )
 			window.onmessage = ( event : MessageEvent )=> {
 				if( event.data[ 0 ] !== 'done' ) return
 				window.onmessage = null
@@ -73,7 +73,7 @@ namespace $.$$ {
 			} )
 		}
 		
-		slide_local( uri : string , next : number ) {
+		slide_local( uri : string , next? : number ) {
 			return $mol_state_local.value( this.state_key( `slide_local(${ JSON.stringify( uri ) })` ) , next ) || 0
 		}
 		
@@ -82,14 +82,14 @@ namespace $.$$ {
 			
 			const count = this.content_pages().length
 			
-			if( next >= count ) next = count - 1
-			if( next < 0 ) next = 0
+			if( next && next >= count ) next = count - 1
+			if( next && next < 0 ) next = 0
 			
 			let str = ( next === undefined ) ? undefined : String( next )
 			
 			str = $mol_state_arg.value( this.state_key( 'slide' ) , str ) || undefined
 
-			return this.slide_local( this.uri_slides() , str && Number( str ) ) || 0
+			return this.slide_local( this.uri_slides() , str === undefined ? undefined : Number( str ) ) || 0
 		}
 
 		page_slide( index : number , next? : number ) {
@@ -103,7 +103,7 @@ namespace $.$$ {
 		}
 		
 		role( next? : 'speaker' | 'listener' ) {
-			return $mol_state_arg.value( this.state_key( 'role' ) , next )
+			return $mol_state_arg.value( this.state_key( 'role' ) , next ) || 'speaker'
 		}
 		
 		uri_slides() {
