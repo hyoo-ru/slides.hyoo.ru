@@ -742,7 +742,7 @@ var $;
             if (!master || master.constructor !== $mol_fiber) {
                 master = new $mol_fiber;
                 master.cursor = -3;
-                master.error = request.call(this, ...args).then($.$mol_log2.func(master.push).bind(master), $.$mol_log2.func(master.fail).bind(master));
+                master.error = request.call(this, ...args).then($.$mol_log2.func((next) => master.push(next)), $.$mol_log2.func((error) => master.fail(error)));
                 const prefix = slave ? `${slave}/${slave.cursor / 2}:` : '/';
                 master[Symbol.toStringTag] = prefix + (request.name || $mol_fiber_sync.name);
             }
@@ -1535,6 +1535,12 @@ var $;
     $.$mol_range2_array = $mol_range2_array;
 })($ || ($ = {}));
 //range2.js.map
+;
+"use strict";
+//param.js.map
+;
+"use strict";
+//result.js.map
 ;
 "use strict";
 var $;
@@ -3204,7 +3210,7 @@ var $;
                 return null;
             });
             api.onerror = $.$mol_fiber_root((event) => {
-                console.error(new Error(event.error));
+                console.error(new Error(event.error || event));
                 this.event_result(null);
                 return null;
             });
@@ -3230,11 +3236,12 @@ var $;
             return event || null;
         }
         static recognitions() {
+            var _a, _b;
             const result = this.event_result();
             if (!result)
                 return [];
-            const results = this.event_result().results;
-            return [].slice.call(this.event_result().results);
+            const results = (_b = (_a = this.event_result()) === null || _a === void 0 ? void 0 : _a.results) !== null && _b !== void 0 ? _b : [];
+            return [].slice.call(results);
         }
         static commands() {
             return this.recognitions().map(result => result[0].transcript.toLowerCase().trim().replace(/[,\.]/g, ''));
@@ -3688,9 +3695,6 @@ var $;
 //unit.js.map
 ;
 "use strict";
-//result.js.map
-;
-"use strict";
 //error.js.map
 ;
 "use strict";
@@ -3734,8 +3738,14 @@ var $;
 (function ($) {
     function $mol_style_sheet(Component, config0) {
         let rules = [];
-        const make_class = (prefix, suffix, config) => {
+        const block = $.$mol_dom_qname(Component.name);
+        const make_class = (prefix, path, config) => {
             const props = [];
+            const selector = (prefix, path) => {
+                if (path.length === 0)
+                    return prefix || `[${block}]`;
+                return `${prefix ? prefix + ' ' : ''}[${block}_${path.join('_')}]`;
+            };
             for (const key of Object.keys(config).reverse()) {
                 if (/^[a-z]/.test(key)) {
                     const name = key.replace(/[A-Z]/g, letter => '-' + letter.toLowerCase());
@@ -3753,22 +3763,22 @@ var $;
                     }
                 }
                 else if (/^[A-Z]/.test(key)) {
-                    make_class(prefix + '_' + key.toLowerCase(), suffix, config[key]);
+                    make_class(prefix, [...path, key.toLowerCase()], config[key]);
                 }
                 else if (key[0] === '$') {
-                    make_class(prefix + '] [' + $.$mol_dom_qname(key), suffix, config[key]);
+                    make_class(selector(prefix, path) + ' [' + $.$mol_dom_qname(key) + ']', [], config[key]);
                 }
                 else if (key === '>') {
                     const types = config[key];
                     for (let type in types) {
-                        make_class(prefix + '] > [' + $.$mol_dom_qname(type), suffix, types[type]);
+                        make_class(selector(prefix, path) + ' > [' + $.$mol_dom_qname(type) + ']', [], types[type]);
                     }
                 }
                 else if (key === '@') {
                     const attrs = config[key];
                     for (let name in attrs) {
                         for (let val in attrs[name]) {
-                            make_class(prefix, suffix + '[' + name + '=' + JSON.stringify(val) + ']', attrs[name][val]);
+                            make_class(selector(prefix, path) + '[' + name + '=' + JSON.stringify(val) + ']', [], attrs[name][val]);
                         }
                     }
                 }
@@ -3776,19 +3786,19 @@ var $;
                     const media = config[key];
                     for (let query in media) {
                         rules.push('}\n');
-                        make_class(prefix, suffix, media[query]);
+                        make_class(prefix, path, media[query]);
                         rules.push(`${key} ${query} {\n`);
                     }
                 }
                 else {
-                    make_class(prefix, suffix + key, config[key]);
+                    make_class(selector(prefix, path) + key, [], config[key]);
                 }
             }
             if (props.length) {
-                rules.push(`${prefix}${suffix} {\n${props.reverse().join('')}}\n`);
+                rules.push(`${selector(prefix, path)} {\n${props.reverse().join('')}}\n`);
             }
         };
-        make_class('[' + $.$mol_dom_qname(Component.name), ']', config0);
+        make_class('', [], config0);
         return rules.reverse().join('');
     }
     $.$mol_style_sheet = $mol_style_sheet;
@@ -3863,8 +3873,8 @@ var $;
                 return next;
             }
             event_scroll(next) {
-                if (this._event_scroll_timer())
-                    this._event_scroll_timer().destructor();
+                var _a;
+                (_a = this._event_scroll_timer()) === null || _a === void 0 ? void 0 : _a.destructor();
                 const el = this.dom_node();
                 this._event_scroll_timer(new $.$mol_after_frame($.$mol_fiber_solid.func(() => {
                     this.scroll_top(Math.max(0, el.scrollTop));
@@ -4143,7 +4153,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tbackground-color: none;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n}\n[mol_button]:focus {\n\toutline: none;\n}\n\n[mol_button_typed] {\n\tjustify-content: center;\n\talign-content: center;\n\talign-items: center;\n\tvertical-align: middle;\n\ttext-align: center;\n\tpadding: .5rem 1rem;\n\tborder-radius: var(--mol_skin_round);\n}\n\n[mol_button_typed][disabled] {\n\tcolor: var(--mol_theme_text);\n\tpointer-events: none;\n}\n\n[mol_button_major] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_back);\n}\n\n[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_major][disabled] {\n\topacity: .5;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tcursor: pointer;\n\tbackground-color: var(--mol_theme_hover);\n}\n");
+    $.$mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tbackground-color: none;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n}\n[mol_button]:focus {\n\toutline: none;\n}\n\n[mol_button_typed] {\n\tjustify-content: center;\n\talign-content: center;\n\talign-items: center;\n\tvertical-align: middle;\n\ttext-align: center;\n\tpadding: .5rem 1rem;\n\tborder-radius: var(--mol_skin_round);\n}\n\n[mol_button_typed][disabled] {\n\tcolor: var(--mol_theme_text);\n\tpointer-events: none;\n}\n\n[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_major][disabled] {\n\topacity: .5;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tcursor: pointer;\n\tbackground-color: var(--mol_theme_hover);\n}\n");
 })($ || ($ = {}));
 //button.view.css.js.map
 ;
@@ -4397,7 +4407,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1em;\n\tflex: 0 0 auto;\n\tvertical-align: -.1em;\n\twill-change: transform;\n}\n");
+    $.$mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\twill-change: transform;\n\tmargin: .25rem 0;\n}\n");
 })($ || ($ = {}));
 //icon.view.css.js.map
 ;
@@ -4433,42 +4443,6 @@ var $;
     $.$mol_icon = $mol_icon;
 })($ || ($ = {}));
 //icon.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_tick extends $.$mol_icon {
-        path() {
-            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-        }
-    }
-    $.$mol_icon_tick = $mol_icon_tick;
-})($ || ($ = {}));
-//tick.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_check_box extends $.$mol_check {
-        Icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_tick());
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_box.prototype, "Icon", null);
-    $.$mol_check_box = $mol_check_box;
-})($ || ($ = {}));
-//box.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tmargin: .25rem;\n\tborder-radius: var(--mol_skin_round);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-//box.view.css.js.map
 ;
 "use strict";
 var $;
@@ -4550,7 +4524,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n}\n\n[mol_check_expand][disabled] [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin: .25rem 0;\n}\n[mol_check_expand]:not([mol_check_checked]) > [mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n[mol_check_expand][mol_check_checked] > [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand]:hover > [mol_check_expand_icon] {\n\ttransform: scale(1.25);\n}\n\n[mol_check_expand][mol_check_checked]:hover > [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg) scale(1.25);\n}\n\n[mol_check_box_icon] + div:not(:empty) {\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
+    $.$mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n}\n\n[mol_check_expand][disabled] [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin: .25rem 0;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n[mol_check_checked] > [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
 })($ || ($ = {}));
 //expand.view.css.js.map
 ;
@@ -5129,7 +5103,7 @@ var $;
         color: "var(--mol_theme_control)",
         stroke: 'currentColor',
         cursor: 'pointer',
-        padding: rem(.5),
+        padding: [rem(.5), rem(1)],
         boxSizing: 'border-box',
         position: 'relative',
         ':hover': {
@@ -5598,9 +5572,6 @@ var $;
         }
         Head() {
             return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
                 obj.sub = () => this.head();
                 return obj;
             })(new this.$.$mol_view());
@@ -5642,9 +5613,6 @@ var $;
         }
         Foot() {
             return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
                 obj.sub = () => this.foot();
                 return obj;
             })(new this.$.$mol_view());
@@ -5740,6 +5708,7 @@ var $;
                 padding: rem(.5),
                 wordBreak: 'normal',
                 cursor: 'default',
+                fontWeight: 'bolder',
                 ':empty': {
                     display: 'none',
                 },
@@ -6211,6 +6180,8 @@ var $;
     (function ($$) {
         class $mol_nav extends $.$mol_nav {
             event_key(event) {
+                if (!event)
+                    return event;
                 if (event.defaultPrevented)
                     return;
                 if (this.mod_ctrl() && !event.ctrlKey)
@@ -6229,6 +6200,8 @@ var $;
                 }
             }
             event_up(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_y();
                 if (keys.length < 2)
                     return;
@@ -6241,6 +6214,8 @@ var $;
                 this.current_y(this.keys_y()[index_new]);
             }
             event_down(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_y();
                 if (keys.length < 2)
                     return;
@@ -6253,6 +6228,8 @@ var $;
                 this.current_y(this.keys_y()[index_new]);
             }
             event_left(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_x();
                 if (keys.length < 2)
                     return;
@@ -6265,6 +6242,8 @@ var $;
                 this.current_x(this.keys_x()[index_new]);
             }
             event_right(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_x();
                 if (keys.length < 2)
                     return;
@@ -7127,13 +7106,13 @@ var $;
             }
             slide(next) {
                 const count = this.content_pages().length;
-                if (next >= count)
+                if (next && next >= count)
                     next = count - 1;
-                if (next < 0)
+                if (next && next < 0)
                     next = 0;
                 let str = (next === undefined) ? undefined : String(next);
                 str = $.$mol_state_arg.value(this.state_key('slide'), str) || undefined;
-                return this.slide_local(this.uri_slides(), str && Number(str)) || 0;
+                return this.slide_local(this.uri_slides(), str === undefined ? undefined : Number(str)) || 0;
             }
             page_slide(index, next) {
                 if (next !== undefined)
@@ -7144,7 +7123,7 @@ var $;
                 return this.content_pages().map((_, index) => index);
             }
             role(next) {
-                return $.$mol_state_arg.value(this.state_key('role'), next);
+                return $.$mol_state_arg.value(this.state_key('role'), next) || 'speaker';
             }
             uri_slides() {
                 return $.$mol_state_arg.value(this.state_key('slides')) || this.uri_slides_default();
