@@ -6,6 +6,7 @@
 
 [hyoo_slides_page_listener_title] {
 	padding: .5rem .5em;
+	justify-content: center;
 }
 
 [hyoo_slides_page_speaker] {
@@ -74,7 +75,7 @@
 [hyoo_slides_page_listener_content] [mol_text_image] {
 	width: 100vw;
 	height: 100vh;
-	max-height: 75vh;
+	max-height: 70vh;
 }
 
 [hyoo_slides_page_progress] {
