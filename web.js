@@ -1321,7 +1321,7 @@ var $;
     }
     $.$mol_mem_persist = $mol_mem_persist;
     function $mol_mem(proto, name, descr) {
-        const value = descr.value;
+        const orig = descr.value;
         const store = new WeakMap();
         Object.defineProperty(proto, name + "()", {
             get: function () {
@@ -1333,7 +1333,7 @@ var $;
             if (cache)
                 return cache;
             let cache2 = new $.$mol_atom2;
-            cache2.calculate = value.bind(host);
+            cache2.calculate = orig.bind(host);
             cache2[Symbol.toStringTag] = `${host}.${name}()`;
             cache2.abort = () => {
                 store.delete(host);
@@ -1345,24 +1345,25 @@ var $;
             store.set(host, cache2);
             return cache2;
         };
-        return Object.assign(Object.assign({}, descr || {}), { value(next, force) {
-                if (next === undefined) {
-                    const cache = get_cache(this);
-                    if (force === $.$mol_mem_force_cache)
-                        return cache.obsolete(Number.NaN);
-                    if ($.$mol_atom2.current)
-                        return cache.get();
-                    else
-                        return $.$mol_fiber.run(() => cache.get());
-                }
-                return $.$mol_fiber.run(() => {
-                    if (force === $.$mol_mem_force_fail)
-                        return get_cache(this).fail(next);
-                    if (force !== $.$mol_mem_force_cache)
-                        next = value.call(this, next);
-                    return get_cache(this).put(next);
-                });
-            } });
+        function value(next, force) {
+            if (next === undefined) {
+                const cache = get_cache(this);
+                if (force === $.$mol_mem_force_cache)
+                    return cache.obsolete(Number.NaN);
+                if ($.$mol_atom2.current)
+                    return cache.get();
+                else
+                    return $.$mol_fiber.run(() => cache.get());
+            }
+            return $.$mol_fiber.run(() => {
+                if (force === $.$mol_mem_force_fail)
+                    return get_cache(this).fail(next);
+                if (force !== $.$mol_mem_force_cache)
+                    next = orig.call(this, next);
+                return get_cache(this).put(next);
+            });
+        }
+        return Object.assign(Object.assign({}, descr || {}), { value: Object.assign(value, { orig }) });
     }
     $.$mol_mem = $mol_mem;
 })($ || ($ = {}));
@@ -3738,7 +3739,7 @@ var $;
 (function ($) {
     function $mol_style_sheet(Component, config0) {
         let rules = [];
-        const block = $.$mol_dom_qname(Component.name);
+        const block = $.$mol_dom_qname($.$mol_func_name(Component));
         const make_class = (prefix, path, config) => {
             const props = [];
             const selector = (prefix, path) => {
@@ -5698,6 +5699,9 @@ var $;
                 margin: 0,
                 minHeight: calc(`1.5em + 2rem`),
                 padding: rem(.5),
+                background: "var(--mol_theme_back)",
+                boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
+                zIndex: '1',
             },
             Title: {
                 flex: {
@@ -5735,119 +5739,14 @@ var $;
                 flex: 'none',
                 margin: 0,
                 overflow: 'hidden',
+                background: "var(--mol_theme_back)",
+                boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
+                zIndex: '1',
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //page.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_paginator extends $.$mol_view {
-        sub() {
-            return [this.Backward(), this.Value(), this.Forward()];
-        }
-        Backward() {
-            return ((obj) => {
-                obj.hint = () => this.backward_hint();
-                obj.click = (event) => this.backward(event);
-                obj.sub = () => [this.Backward_icon()];
-                return obj;
-            })(new this.$.$mol_button_minor());
-        }
-        backward_hint() {
-            return this.$.$mol_locale.text("$mol_paginator_backward_hint");
-        }
-        backward(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        Backward_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_chevron());
-        }
-        Value() {
-            return ((obj) => {
-                obj.sub = () => [this.value()];
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        value(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        Forward() {
-            return ((obj) => {
-                obj.hint = () => this.forward_hint();
-                obj.click = (event) => this.forward(event);
-                obj.sub = () => [this.Forward_icon()];
-                return obj;
-            })(new this.$.$mol_button_minor());
-        }
-        forward_hint() {
-            return this.$.$mol_locale.text("$mol_paginator_forward_hint");
-        }
-        forward(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        Forward_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_chevron());
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "Backward", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "backward", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "Backward_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "Value", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "value", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "Forward", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "forward", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_paginator.prototype, "Forward_icon", null);
-    $.$mol_paginator = $mol_paginator;
-})($ || ($ = {}));
-//paginator.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_paginator extends $.$mol_paginator {
-            backward() {
-                this.value(this.value() - 1);
-            }
-            forward() {
-                this.value(this.value() + 1);
-            }
-        }
-        $$.$mol_paginator = $mol_paginator;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//paginator.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/paginator/paginator.view.css", "[mol_paginator] {\n\tdisplay: flex;\n}\n\n[mol_paginator_backward] ,\n[mol_paginator_forward] {\n\tpadding: .5rem;\n\tmargin: 0 -.5rem;\n\ttransform: scale( 0 , 0 );\n}\n\n[mol_paginator_value] {\n\tpadding: .5rem;\n\tdisplay: flex;\n    align-items: center;\n}\n\n[mol_paginator]:hover [mol_paginator_backward] ,\n[mol_paginator_backward]:focus {\n\ttransform: scale( -1 , 1 );\n}\n\n[mol_paginator]:hover [mol_paginator_forward] ,\n[mol_paginator_forward]:focus {\n\ttransform: scale( 1 , 1 );\n}\n");
-})($ || ($ = {}));
-//paginator.view.css.js.map
 ;
 "use strict";
 var $;
@@ -5919,25 +5818,18 @@ var $;
         contents(val, force) {
             return (val !== void 0) ? val : "";
         }
+        slide(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
         sub() {
             return [this.Listener(), this.Speaker()];
         }
         Listener() {
             return ((obj) => {
                 obj.title = () => this.title();
-                obj.tools = () => [this.Slide_switcher()];
-                obj.body = () => [this.Listener_content(), this.Progress(), this.Link()];
+                obj.body = () => [this.Listener_content(), this.Link(), this.Progress()];
                 return obj;
             })(new this.$.$mol_page());
-        }
-        Slide_switcher() {
-            return ((obj) => {
-                obj.value = (val) => this.slide(val);
-                return obj;
-            })(new this.$.$mol_paginator());
-        }
-        slide(val, force) {
-            return (val !== void 0) ? val : 0;
         }
         Listener_content() {
             return ((obj) => {
@@ -5952,15 +5844,6 @@ var $;
         listener_content() {
             return [];
         }
-        Progress() {
-            return ((obj) => {
-                obj.portion = () => this.progress();
-                return obj;
-            })(new this.$.$mol_portion());
-        }
-        progress() {
-            return 0;
-        }
         Link() {
             return ((obj) => {
                 obj.uri = () => this.uri_page();
@@ -5970,6 +5853,15 @@ var $;
         }
         uri_page() {
             return "";
+        }
+        Progress() {
+            return ((obj) => {
+                obj.portion = () => this.progress();
+                return obj;
+            })(new this.$.$mol_portion());
+        }
+        progress() {
+            return 0;
         }
         Speaker() {
             return ((obj) => {
@@ -5997,22 +5889,19 @@ var $;
     ], $hyoo_slides_page.prototype, "contents", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Listener", null);
-    __decorate([
-        $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Slide_switcher", null);
-    __decorate([
-        $.$mol_mem
     ], $hyoo_slides_page.prototype, "slide", null);
+    __decorate([
+        $.$mol_mem
+    ], $hyoo_slides_page.prototype, "Listener", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_slides_page.prototype, "Listener_content", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Progress", null);
+    ], $hyoo_slides_page.prototype, "Link", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_slides_page.prototype, "Link", null);
+    ], $hyoo_slides_page.prototype, "Progress", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_slides_page.prototype, "Speaker", null);
@@ -6048,7 +5937,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("hyoo/slides/page/page.view.css", "[hyoo_slides_page] {\n\tdisplay: flex;\n\theight: 100%;\n\twidth: 100%;\n}\n\n[hyoo_slides_page_listener_title] {\n\tpadding: .5rem .5em;\n}\n\n[hyoo_slides_page_speaker] {\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_speaker_head] {\n\tflex-wrap: nowrap;\n}\n\n[hyoo_slides_page_listener] {\n\tflex: 1 1 66%;\n}\n\n[hyoo_slides_page_speaker_body] ,\n[hyoo_slides_page_listener_body] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[hyoo_slides_page_speaker_content] {\n\tflex: 1 0 auto;\n\tjustify-content: space-between;\n\tmax-width: none;\n}\n\n[hyoo_slides_page_listener_content] {\n\tflex: 0 1 auto;\n\tmargin: auto 0;\n\tmax-width: none;\n\tflex-wrap: wrap;\n\talign-content: space-evenly;\n\tjustify-content: space-evenly;\n\talign-items: flex-start;\n\tbox-shadow: none;\n\tbackground: none;\n\tflex-direction: row;\n}\n\n[hyoo_slides_page_slide_number] {\n\tmargin: .5rem;\n\tword-break: normal;\n}\n\n[hyoo_slides_page_listener_content_row] {\n\tmargin: 1rem;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmax-width: 30em;\n}\n\n[hyoo_slides_page] [mol_text_type=\"code\"] ,\n[hyoo_slides_page] [mol_text_type=\"code-indent\"] {\n\twhite-space: pre;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmargin: 1rem;\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: inherit;\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_listener_content] [mol_text_image] {\n\twidth: 100vw;\n\theight: 100vh;\n\tmax-height: 75vh;\n}\n\n[hyoo_slides_page_progress] {\n\tflex: 0 0 auto;\n\twidth: auto;\n}\n\n[hyoo_slides_page_link] {\n\tpadding: 0 .5rem;\n\ttext-align: center;\n\tfont-size: .75em;\n}\n");
+    $.$mol_style_attach("hyoo/slides/page/page.view.css", "[hyoo_slides_page] {\n\tdisplay: flex;\n\theight: 100%;\n\twidth: 100%;\n}\n\n[hyoo_slides_page_listener_title] {\n\tpadding: .5rem .5em;\n\tjustify-content: center;\n}\n\n[hyoo_slides_page_speaker] {\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_speaker_head] {\n\tflex-wrap: nowrap;\n}\n\n[hyoo_slides_page_listener] {\n\tflex: 1 1 66%;\n}\n\n[hyoo_slides_page_speaker_body] ,\n[hyoo_slides_page_listener_body] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[hyoo_slides_page_speaker_content] {\n\tflex: 1 0 auto;\n\tjustify-content: space-between;\n\tmax-width: none;\n}\n\n[hyoo_slides_page_listener_content] {\n\tflex: 0 1 auto;\n\tmargin: auto 0;\n\tmax-width: none;\n\tflex-wrap: wrap;\n\talign-content: space-evenly;\n\tjustify-content: space-evenly;\n\talign-items: flex-start;\n\tbox-shadow: none;\n\tbackground: none;\n\tflex-direction: row;\n}\n\n[hyoo_slides_page_slide_number] {\n\tmargin: .5rem;\n\tword-break: normal;\n}\n\n[hyoo_slides_page_listener_content_row] {\n\tmargin: 1rem;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmax-width: 30em;\n}\n\n[hyoo_slides_page] [mol_text_type=\"code\"] ,\n[hyoo_slides_page] [mol_text_type=\"code-indent\"] {\n\twhite-space: pre;\n}\n\n[hyoo_slides_page_listener_content_quote] {\n\tmargin: 1rem;\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: inherit;\n\tflex: 1 1 40rem;\n}\n\n[hyoo_slides_page_listener_content] [mol_text_image] {\n\twidth: 100vw;\n\theight: 100vh;\n\tmax-height: 70vh;\n}\n\n[hyoo_slides_page_progress] {\n\tflex: 0 0 auto;\n\twidth: auto;\n}\n\n[hyoo_slides_page_link] {\n\tpadding: 0 .5rem;\n\ttext-align: center;\n\tfont-size: .75em;\n}\n");
 })($ || ($ = {}));
 //page.view.css.js.map
 ;

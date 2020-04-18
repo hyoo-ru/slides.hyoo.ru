@@ -1,6 +1,4 @@
 {
 	"$hyoo_slides_open_listener_hint": "Open slides window",
-	"$hyoo_slides_speech_toggle_hint": "Speech contol",
-	"$mol_paginator_backward_hint": "Назад",
-	"$mol_paginator_forward_hint": "Вперёд"
+	"$hyoo_slides_speech_toggle_hint": "Speech contol"
 }

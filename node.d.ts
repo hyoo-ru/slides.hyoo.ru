@@ -328,11 +328,11 @@ declare namespace $ {
     class $mol_dom_listener extends $mol_object {
         _node: any;
         _event: string;
-        _handler: (event: Event) => any;
+        _handler: (event: any) => any;
         _config: boolean | {
             passive: boolean;
         };
-        constructor(_node: any, _event: string, _handler: (event: Event) => any, _config?: boolean | {
+        constructor(_node: any, _event: string, _handler: (event: any) => any, _config?: boolean | {
             passive: boolean;
         });
         destructor(): void;
@@ -1667,32 +1667,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_paginator extends $mol_view {
-        sub(): readonly any[];
-        Backward(): $mol_button_minor;
-        backward_hint(): string;
-        backward(event?: any, force?: $mol_mem_force): any;
-        Backward_icon(): $mol_icon_chevron;
-        Value(): $mol_view;
-        value(val?: any, force?: $mol_mem_force): any;
-        Forward(): $mol_button_minor;
-        forward_hint(): string;
-        forward(event?: any, force?: $mol_mem_force): any;
-        Forward_icon(): $mol_icon_chevron;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_paginator extends $.$mol_paginator {
-        backward(): void;
-        forward(): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_portion_indicator extends $mol_view {
         style(): {
             width: string;
@@ -1722,17 +1696,16 @@ declare namespace $ {
     class $hyoo_slides_page extends $mol_view {
         role(): string;
         contents(val?: any, force?: $mol_mem_force): any;
+        slide(val?: any, force?: $mol_mem_force): any;
         sub(): readonly any[];
         Listener(): $$.$mol_page;
-        Slide_switcher(): $$.$mol_paginator;
-        slide(val?: any, force?: $mol_mem_force): any;
         Listener_content(): $$.$mol_text;
         uri_base(): string;
         listener_content(): readonly any[];
-        Progress(): $$.$mol_portion;
-        progress(): number;
         Link(): $$.$mol_link;
         uri_page(): string;
+        Progress(): $$.$mol_portion;
+        progress(): number;
         Speaker(): $$.$mol_page;
         speaker_tools(): readonly any[];
         Speaker_content(): $$.$mol_text;
