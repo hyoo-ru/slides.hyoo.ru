@@ -35,7 +35,12 @@ namespace $.$$ {
 		
 		@ $mol_mem_key
 		page_tokens( index : number ) {
-			return $mol_syntax_md_flow.tokenize( this.content_pages()[ index ] || '' )
+			const tokens = [] as { name : string , found : string , chunks: string[] }[]
+			this.$.$mol_syntax2_md_flow.tokenize(
+				this.content_pages()[ index ] || '',
+				( name , found , chunks )=> tokens.push({ name , found , chunks }),
+			)
+			return tokens as Readonly< typeof tokens >
 		}
 		
 		@ $mol_mem_key
