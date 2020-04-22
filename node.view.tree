@@ -137,12 +137,22 @@ $hyoo_slides $mol_view
 				\sing( \S+?)*
 				\спой( \S+?)*
 
-$hyoo_slides_page $mol_view
+$hyoo_slides_page $mol_book
 	role \
 	contents?val \
 	slide?val 0
-	sub /
+	Placeholder null
+	pages /
+		<= Speaker $mol_page
+			minimal_width 300
+			head <= speaker_tools /
+			body /
+				<= Speaker_content $mol_text
+					uri_base <= uri_base \
+					tokens <= speaker_content /
 		<= Listener $mol_page
+			minimal_width <= listener_width 600
+			event_top?event <=> event_front_up?event
 			title <= title
 			body /
 				<= Listener_content $mol_text
@@ -153,12 +163,6 @@ $hyoo_slides_page $mol_view
 					sub / <= uri_page \
 				<= Progress $mol_portion
 					portion <= progress 0
-		<= Speaker $mol_page
-			head <= speaker_tools /
-			body /
-				<= Speaker_content $mol_text
-					uri_base <= uri_base \
-					tokens <= speaker_content /
 
 $mol_text $mol_list
 	uri_base \
@@ -421,6 +425,100 @@ $mol_image $mol_view
 		src <= uri \
 		alt <= title
 
+$mol_book $mol_view
+	sub <= pages_wrapped /$mol_view
+	minimal_width 0
+	pages /$mol_view
+	plugins /$mol_plugin
+		<= Meter $mol_meter
+			width => width
+		<= Touch $mol_touch
+			swipe_from_left?val <=> event_front_up?val null
+			swipe_to_left?val <=> event_front_down?val null
+	Page!index $mol_book_page
+		Sub <= page!index null
+		visible <= page_visible!index true
+	Placeholder $mol_book_placeholder
+		title <= title
+
+$mol_book_placeholder $mol_view
+	minimal_width 400
+	attr *
+		^
+		tabindex null
+
+$mol_book_page $mol_ghost
+	attr_static *
+		^
+		tabindex 0
+		mol_book_page_visible true
+	attr *
+		^
+		mol_book_page_focused <= focused
+		mol_book_page_visible <= visible true
+
+$mol_meter $mol_plugin
+	zoom 1
+	-
+	width?val 0
+	height?val 0
+	-
+	left?val 0
+	right?val 0
+	bottom?val 0
+	top?val 0
+
+$mol_touch $mol_plugin
+	start_zoom?val 0
+	start_distance?val 0
+	zoom?val 1
+	-
+	start_pan?val /
+		0
+		0
+	pan?val /
+		0
+		0
+	pos?val /
+		NaN
+		NaN
+	-
+	start_pos?val null
+	swipe_precision 16
+	-
+	swipe_right?val null
+	swipe_bottom?val null
+	swipe_left?val null
+	swipe_top?val null
+	-
+	swipe_from_right?val null
+	swipe_from_bottom?val null
+	swipe_from_left?val null
+	swipe_from_top?val null
+	-
+	swipe_to_right?val null
+	swipe_to_bottom?val null
+	swipe_to_left?val null
+	swipe_to_top?val null
+	-
+	style *
+		^
+		touch-action \none
+	-
+	event *
+		^
+		touchstart?event <=> event_start?event null
+		touchmove?event <=> event_move?event null
+		touchend?event <=> event_end?event null
+		mousedown?event <=> event_start?event null
+		mousemove?event <=> event_move?event null
+		mouseup?event <=> event_end?event null
+		mouseleave?event <=> event_leave?event null
+		wheel?event <=> event_wheel?event null
+
+$mol_ghost $mol_view
+	Sub $mol_view
+
 $mol_page $mol_view
 	sub /
 		<= Head $mol_view
@@ -474,51 +572,3 @@ $mol_nav $mol_plugin
 	event *
 		^
 		keydown?event <=> event_key?event null
-
-$mol_touch $mol_plugin
-	start_zoom?val 0
-	start_distance?val 0
-	zoom?val 1
-	-
-	start_pan?val /
-		0
-		0
-	pan?val /
-		0
-		0
-	pos?val /
-		NaN
-		NaN
-	-
-	start_pos?val null
-	swipe_precision 16
-	-
-	swipe_right?val null
-	swipe_bottom?val null
-	swipe_left?val null
-	swipe_top?val null
-	-
-	swipe_from_right?val null
-	swipe_from_bottom?val null
-	swipe_from_left?val null
-	swipe_from_top?val null
-	-
-	swipe_to_right?val null
-	swipe_to_bottom?val null
-	swipe_to_left?val null
-	swipe_to_top?val null
-	-
-	style *
-		^
-		touch-action \none
-	-
-	event *
-		^
-		touchstart?event <=> event_start?event null
-		touchmove?event <=> event_move?event null
-		touchend?event <=> event_end?event null
-		mousedown?event <=> event_start?event null
-		mousemove?event <=> event_move?event null
-		mouseup?event <=> event_end?event null
-		mouseleave?event <=> event_leave?event null
-		wheel?event <=> event_wheel?event null

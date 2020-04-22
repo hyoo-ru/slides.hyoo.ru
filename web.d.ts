@@ -938,13 +938,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_offline(uri?: string): void;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_list extends $mol_view {
         render_visible_only(): boolean;
         render_over(): number;
@@ -1920,141 +1913,35 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_page extends $mol_view {
-        sub(): readonly any[];
-        Head(): $mol_view;
-        head(): readonly any[];
-        Title(): $$.$mol_button;
-        event_top(val?: any, force?: $mol_mem_force): any;
-        Tools(): $mol_view;
-        tools(): readonly (string | number | boolean | Node | $mol_view)[];
-        Body(): $$.$mol_scroll;
-        body_scroll_top(val?: any, force?: $mol_mem_force): any;
-        body(): readonly (string | number | boolean | Node | $mol_view)[];
-        Foot(): $mol_view;
-        foot(): readonly $mol_view[];
+    class $mol_meter extends $mol_plugin {
+        zoom(): number;
+        width(val?: any, force?: $mol_mem_force): any;
+        height(val?: any, force?: $mol_mem_force): any;
+        left(val?: any, force?: $mol_mem_force): any;
+        right(val?: any, force?: $mol_mem_force): any;
+        bottom(val?: any, force?: $mol_mem_force): any;
+        top(val?: any, force?: $mol_mem_force): any;
     }
 }
 
 declare namespace $.$$ {
-    class $mol_page extends $.$mol_page {
-        body_scroll_top(next?: number): number;
-        style(): {
-            minWidth: number;
+    class $mol_meter extends $.$mol_meter {
+        rect(): {
+            left: number;
+            top: number;
+            right: number;
+            bottom: number;
+            width: number;
+            height: number;
+            zoom: number;
         };
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $mol_portion_indicator extends $mol_view {
-        style(): {
-            width: string;
-        };
-        width_style(): string;
-    }
-}
-declare namespace $ {
-    class $mol_portion extends $mol_view {
-        portion(): number;
-        sub(): readonly any[];
-        indicator(): $mol_portion_indicator;
-        indicator_width_style(): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_portion extends $.$mol_portion {
-        indicator_width_style(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $hyoo_slides_page extends $mol_view {
-        role(): string;
-        contents(val?: any, force?: $mol_mem_force): any;
-        slide(val?: any, force?: $mol_mem_force): any;
-        sub(): readonly any[];
-        Listener(): $$.$mol_page;
-        Listener_content(): $$.$mol_text;
-        uri_base(): string;
-        listener_content(): readonly any[];
-        Link(): $$.$mol_link;
-        uri_page(): string;
-        Progress(): $$.$mol_portion;
-        progress(): number;
-        Speaker(): $$.$mol_page;
-        speaker_tools(): readonly any[];
-        Speaker_content(): $$.$mol_text;
-        speaker_content(): readonly any[];
-    }
-}
-
-declare namespace $.$$ {
-    class $hyoo_slides_page extends $.$hyoo_slides_page {
-        sub(): $mol_page[];
-        uri_page(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_check_icon extends $mol_check {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_icon_microphone extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_external extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_nav extends $mol_plugin {
-        cycle(val?: any, force?: $mol_mem_force): any;
-        mod_ctrl(): boolean;
-        mod_shift(): boolean;
-        mod_alt(): boolean;
-        keys_x(val?: any, force?: $mol_mem_force): any;
-        keys_y(val?: any, force?: $mol_mem_force): any;
-        current_x(val?: any, force?: $mol_mem_force): any;
-        current_y(val?: any, force?: $mol_mem_force): any;
-        event_up(event?: any, force?: $mol_mem_force): any;
-        event_down(event?: any, force?: $mol_mem_force): any;
-        event_left(event?: any, force?: $mol_mem_force): any;
-        event_right(event?: any, force?: $mol_mem_force): any;
-        event(): {
-            keydown: (event?: any) => any;
-        };
-        event_key(event?: any, force?: $mol_mem_force): any;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_nav extends $.$mol_nav {
-        event_key(event?: KeyboardEvent): undefined;
-        event_up(event?: KeyboardEvent): undefined;
-        event_down(event?: KeyboardEvent): undefined;
-        event_left(event?: KeyboardEvent): undefined;
-        event_right(event?: KeyboardEvent): undefined;
-        index_y(): any;
-        index_x(): any;
+        top(): number;
+        bottom(): number;
+        left(): number;
+        right(): number;
+        width(): number;
+        height(): number;
+        zoom(): number;
     }
 }
 
@@ -2113,6 +2000,234 @@ declare namespace $.$$ {
         swipe_bottom(event?: TouchEvent | MouseEvent): void;
         event_end(event?: TouchEvent | MouseEvent): void;
         event_wheel(event: WheelEvent): void;
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_render_events(el: Element, events: {
+        [key: string]: (event: Event) => any;
+    }): void;
+    function $mol_dom_render_events_async(el: Element, events: {
+        [key: string]: (event: Event) => any;
+    }): void;
+}
+
+declare namespace $ {
+    class $mol_ghost extends $mol_view {
+        Sub(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_ghost extends $.$mol_ghost {
+        dom_node(): Element;
+        dom_node_actual(): Element;
+        dom_tree(): Element;
+        title(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_book extends $mol_view {
+        sub(): readonly $mol_view[];
+        pages_wrapped(): readonly $mol_view[];
+        minimal_width(): number;
+        pages(): readonly $mol_view[];
+        plugins(): readonly $mol_plugin[];
+        width(): number;
+        Meter(): $$.$mol_meter;
+        Touch(): $$.$mol_touch;
+        event_front_up(val?: any, force?: $mol_mem_force): any;
+        event_front_down(val?: any, force?: $mol_mem_force): any;
+        Page(index: any): $mol_book_page;
+        page(index: any): any;
+        page_visible(index: any): boolean;
+        Placeholder(): $mol_book_placeholder;
+    }
+}
+declare namespace $ {
+    class $mol_book_placeholder extends $mol_view {
+        minimal_width(): number;
+        attr(): {
+            tabindex: any;
+        };
+    }
+}
+declare namespace $ {
+    class $mol_book_page extends $mol_ghost {
+        attr_static(): {
+            tabindex: number;
+            mol_book_page_visible: boolean;
+        };
+        attr(): {
+            mol_book_page_focused: boolean;
+            mol_book_page_visible: boolean;
+        };
+        visible(): boolean;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_book extends $.$mol_book {
+        pages_extended(): $mol_view[];
+        break_point(): number;
+        page(index: number): $mol_view;
+        page_visible(index: number): boolean;
+        pages_wrapped(): $mol_view[];
+        title(): string;
+        event_front_up(event?: Event): void;
+        event_front_down(event?: Event): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_page extends $mol_view {
+        sub(): readonly any[];
+        Head(): $mol_view;
+        head(): readonly any[];
+        Title(): $$.$mol_button;
+        event_top(val?: any, force?: $mol_mem_force): any;
+        Tools(): $mol_view;
+        tools(): readonly (string | number | boolean | Node | $mol_view)[];
+        Body(): $$.$mol_scroll;
+        body_scroll_top(val?: any, force?: $mol_mem_force): any;
+        body(): readonly (string | number | boolean | Node | $mol_view)[];
+        Foot(): $mol_view;
+        foot(): readonly $mol_view[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_page extends $.$mol_page {
+        body_scroll_top(next?: number): number;
+        style(): {
+            minWidth: number;
+        };
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $mol_portion_indicator extends $mol_view {
+        style(): {
+            width: string;
+        };
+        width_style(): string;
+    }
+}
+declare namespace $ {
+    class $mol_portion extends $mol_view {
+        portion(): number;
+        sub(): readonly any[];
+        indicator(): $mol_portion_indicator;
+        indicator_width_style(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_portion extends $.$mol_portion {
+        indicator_width_style(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_slides_page extends $mol_book {
+        role(): string;
+        contents(val?: any, force?: $mol_mem_force): any;
+        slide(val?: any, force?: $mol_mem_force): any;
+        Placeholder(): any;
+        pages(): readonly any[];
+        Speaker(): $$.$mol_page;
+        speaker_tools(): readonly any[];
+        Speaker_content(): $$.$mol_text;
+        uri_base(): string;
+        speaker_content(): readonly any[];
+        Listener(): $$.$mol_page;
+        listener_width(): number;
+        Listener_content(): $$.$mol_text;
+        listener_content(): readonly any[];
+        Link(): $$.$mol_link;
+        uri_page(): string;
+        Progress(): $$.$mol_portion;
+        progress(): number;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_slides_page extends $.$hyoo_slides_page {
+        listener_width(): number;
+        uri_page(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    function $mol_offline(uri?: string): void;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_check_icon extends $mol_check {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_microphone extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_external extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_nav extends $mol_plugin {
+        cycle(val?: any, force?: $mol_mem_force): any;
+        mod_ctrl(): boolean;
+        mod_shift(): boolean;
+        mod_alt(): boolean;
+        keys_x(val?: any, force?: $mol_mem_force): any;
+        keys_y(val?: any, force?: $mol_mem_force): any;
+        current_x(val?: any, force?: $mol_mem_force): any;
+        current_y(val?: any, force?: $mol_mem_force): any;
+        event_up(event?: any, force?: $mol_mem_force): any;
+        event_down(event?: any, force?: $mol_mem_force): any;
+        event_left(event?: any, force?: $mol_mem_force): any;
+        event_right(event?: any, force?: $mol_mem_force): any;
+        event(): {
+            keydown: (event?: any) => any;
+        };
+        event_key(event?: any, force?: $mol_mem_force): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_nav extends $.$mol_nav {
+        event_key(event?: KeyboardEvent): undefined;
+        event_up(event?: KeyboardEvent): undefined;
+        event_down(event?: KeyboardEvent): undefined;
+        event_left(event?: KeyboardEvent): undefined;
+        event_right(event?: KeyboardEvent): undefined;
+        index_y(): any;
+        index_x(): any;
     }
 }
 
@@ -2194,7 +2309,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $hyoo_slides extends $.$hyoo_slides {
-        sub(): $mol_view[] | $hyoo_slides_page[];
+        sub(): $mol_view[];
         uri_base(): string;
         event_load(): void;
         content_pages(): string[];
