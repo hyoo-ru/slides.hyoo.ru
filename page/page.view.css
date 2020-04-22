@@ -5,12 +5,13 @@
 }
 
 [hyoo_slides_page_listener_title] {
-	padding: .5rem .5em;
 	justify-content: center;
 }
 
 [hyoo_slides_page_speaker] {
 	flex: 1 1 40rem;
+	max-width: 80vw;
+	min-width: 20vw;
 }
 
 [hyoo_slides_page_speaker_head] {
@@ -19,6 +20,10 @@
 
 [hyoo_slides_page_listener] {
 	flex: 1 1 66%;
+}
+
+[hyoo_slides_page_speaker_body] {
+	font-size: 1rem;
 }
 
 [hyoo_slides_page_speaker_body] ,
@@ -36,6 +41,7 @@
 [hyoo_slides_page_listener_content] {
 	flex: 0 1 auto;
 	margin: auto 0;
+	padding: .5rem;
 	max-width: none;
 	flex-wrap: wrap;
 	align-content: space-evenly;
@@ -52,7 +58,7 @@
 }
 
 [hyoo_slides_page_listener_content_row] {
-	margin: 1rem;
+	margin: .5rem;
 }
 
 [hyoo_slides_page_listener_content_quote] {
@@ -73,9 +79,7 @@
 }
 
 [hyoo_slides_page_listener_content] [mol_text_image] {
-	width: 100vw;
-	height: 100vh;
-	max-height: 70vh;
+	max-height: calc( 100vh - 4rem - 4em );
 }
 
 [hyoo_slides_page_progress] {

@@ -2,12 +2,9 @@ namespace $.$$ {
 	
 	export class $hyoo_slides_page extends $.$hyoo_slides_page {
 		
-		sub() {
-			const role = this.role()
-			return [
-				this.Listener() ,
-				... ( role === 'listener' ) ? [] : [ this.Speaker() ] ,
-			]
+		listener_width() {
+			if( this.role() === 'listener' ) return Number.POSITIVE_INFINITY
+			return super.listener_width()
 		}
 
 		uri_page() {

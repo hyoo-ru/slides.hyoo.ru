@@ -1,9 +1,19 @@
-$hyoo_slides_page $mol_view
+$hyoo_slides_page $mol_book
 	role \
 	contents?val \
 	slide?val 0
-	sub /
+	Placeholder null
+	pages /
+		<= Speaker $mol_page
+			minimal_width 300
+			head <= speaker_tools /
+			body /
+				<= Speaker_content $mol_text
+					uri_base <= uri_base \
+					tokens <= speaker_content /
 		<= Listener $mol_page
+			minimal_width <= listener_width 600
+			event_top?event <=> event_front_up?event
 			title <= title
 			body /
 				<= Listener_content $mol_text
@@ -14,9 +24,3 @@ $hyoo_slides_page $mol_view
 					sub / <= uri_page \
 				<= Progress $mol_portion
 					portion <= progress 0
-		<= Speaker $mol_page
-			head <= speaker_tools /
-			body /
-				<= Speaker_content $mol_text
-					uri_base <= uri_base \
-					tokens <= speaker_content /

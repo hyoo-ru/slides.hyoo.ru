@@ -1,13 +1,14 @@
 [hyoo_slides] {
 	-webkit-print-color-adjust: exact;
+	font-size: 3vmin;
 }
 
 [hyoo_slides_loader] {
 	border: none;
 }
 
-[hyoo_slides_role="listener"] {
-	font-size: 3.5vmin;
+[hyoo_slides_role="listener"] [hyoo_slides_page_listener]:before {
+	display: none;
 }
 
 [hyoo_slides_speech_toggle] {
