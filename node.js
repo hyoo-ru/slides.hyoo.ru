@@ -1740,7 +1740,7 @@ var $;
         'code-call': /\.?\w+(?=\()/,
         'code-field': /(?:\.\w+|[\w-]+\??\s*:(?!\/\/))/,
         'code-keyword': /\b(readonly|unknown|keyof|typeof|never|from|class|interface|type|function|extends|implements|module|namespace|import|export|include|require|var|let|const|for|do|while|until|in|of|new|if|then|else|switch|case|this|return|async|await|try|catch|break|continue|get|set|public|private|protected|string|boolean|number|null|undefined|true|false|void)\b/,
-        'code-global': /[$]\w*|[A-Z]\w*/,
+        'code-global': /[$]\w*|\b[A-Z]\w*/,
         'code-decorator': /@\s*\S+/,
         'code-tag': /<\/?[\w-]+\/?>?/,
         'code-punctuation': /[\-\[\]\{\}\(\)<=>`~!\?@#\$%&\*_\+\\\/\|'";:\.,\^]/,
@@ -2834,6 +2834,9 @@ var $;
         }
     }
     __decorate([
+        $.$mol_mem
+    ], $mol_file.prototype, "exists", null);
+    __decorate([
         $.$mol_mem_key
     ], $mol_file, "absolute", null);
     $.$mol_file = $mol_file;
@@ -3487,19 +3490,6 @@ var $;
 //timeout.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_after_frame extends $.$mol_after_timeout {
-        constructor(task) {
-            super(16, task);
-            this.task = task;
-        }
-    }
-    $.$mol_after_frame = $mol_after_frame;
-})($ || ($ = {}));
-//frame.node.js.map
-;
-"use strict";
 //error.js.map
 ;
 "use strict";
@@ -3831,7 +3821,7 @@ var $;
                 var _a;
                 (_a = this._event_scroll_timer()) === null || _a === void 0 ? void 0 : _a.destructor();
                 const el = this.dom_node();
-                this._event_scroll_timer(new $.$mol_after_frame($.$mol_fiber_solid.func(() => {
+                this._event_scroll_timer(new $.$mol_after_timeout(200, $.$mol_fiber_solid.func(() => {
                     this.scroll_top(Math.max(0, el.scrollTop));
                     this.scroll_left(Math.max(0, el.scrollLeft));
                 })));
@@ -4207,6 +4197,19 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //check.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_after_frame extends $.$mol_after_timeout {
+        constructor(task) {
+            super(16, task);
+            this.task = task;
+        }
+    }
+    $.$mol_after_frame = $mol_after_frame;
+})($ || ($ = {}));
+//frame.node.js.map
 ;
 "use strict";
 var $;
@@ -6462,9 +6465,6 @@ var $;
         class $mol_page extends $.$mol_page {
             body_scroll_top(next) {
                 return $.$mol_state_session.value(`${this}.body_scroll_top()`, next) || 0;
-            }
-            style() {
-                return Object.assign(Object.assign({}, super.style()), { minWidth: 0 });
             }
         }
         $$.$mol_page = $mol_page;
