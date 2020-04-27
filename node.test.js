@@ -7643,7 +7643,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("hyoo/slides/slides.view.css", "[hyoo_slides] {\n\t-webkit-print-color-adjust: exact;\n\tfont-size: 3vmin;\n}\n\n[hyoo_slides_loader] {\n\tborder: none;\n}\n\n[hyoo_slides_role=\"listener\"] [hyoo_slides_page_listener]:before {\n\tdisplay: none;\n}\n\n[hyoo_slides_speech_toggle] {\n\talign-items: center;\n}\n\n[hyoo_slides_speech_text] {\n\tline-height: 1;\n\tdisplay: flex;\n\talign-items: flex-end;\n\talign-self: center;\n\tflex: 1 1 auto;\n\tmax-height: 2rem;\n}\n");
+    $.$mol_style_attach("hyoo/slides/slides.view.css", "[hyoo_slides] {\n\t-webkit-print-color-adjust: exact;\n\tfont-size: 3.5vmin;\n}\n\n[hyoo_slides_loader] {\n\tborder: none;\n}\n\n[hyoo_slides_role=\"listener\"] [hyoo_slides_page_listener]:before {\n\tdisplay: none;\n}\n\n[hyoo_slides_speech_toggle] {\n\talign-items: center;\n}\n\n[hyoo_slides_speech_text] {\n\tline-height: 1;\n\tdisplay: flex;\n\talign-items: flex-end;\n\talign-self: center;\n\tflex: 1 1 auto;\n\tmax-height: 2rem;\n}\n");
 })($ || ($ = {}));
 //slides.view.css.js.map
 ;
