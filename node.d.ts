@@ -783,7 +783,7 @@ declare namespace $ {
         abstract watcher(): {
             destructor(): void;
         };
-        exists(next?: boolean): boolean;
+        exists(next?: boolean, force?: $mol_mem_force): boolean;
         type(): $mol_file_type;
         name(): string;
         ext(): string;
@@ -812,7 +812,7 @@ declare namespace $ {
         buffer(next?: Uint8Array, force?: $mol_mem_force): Uint8Array;
         sub(): $mol_file[];
         resolve(path: string): $mol_file;
-        relate(base?: $mol_file): string;
+        relate(base?: $mol_file): any;
         append(next: Uint8Array | string): void;
     }
 }
@@ -1972,6 +1972,8 @@ declare namespace $.$$ {
         dom_node_actual(): Element;
         dom_tree(): Element;
         title(): string;
+        minimal_width(): number;
+        minimal_height(): number;
     }
 }
 
@@ -2306,7 +2308,6 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
-/// <reference types="node" />
 declare namespace $ {
-    function $mol_exec(dir: string, command: string, ...args: string[]): import("child_process").SpawnSyncReturns<Buffer>;
+    function $mol_exec(dir: string, command: string, ...args: string[]): any;
 }
