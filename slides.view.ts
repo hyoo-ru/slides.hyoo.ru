@@ -201,11 +201,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		lights( next? : boolean ) {
-			
-			const lights = $mol_state_local.value( this.state_key( `lights` ) , next )
-			if( lights == null ) return true
-			
-			return lights
+			return $mol_state_local.value( this.state_key( `lights` ) , next ) ?? false
 		}
 
 		event_lights_toggle() {

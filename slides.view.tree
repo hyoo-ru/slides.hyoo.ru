@@ -15,6 +15,7 @@ $hyoo_slides $mol_view
 		event *
 			load?val <=> event_load?val null
 	Page!index $hyoo_slides_page
+		tools <= tools /
 		title <= page_title!index \
 		slide?val <=> page_slide!index?val 0
 		uri_base <= uri_base \

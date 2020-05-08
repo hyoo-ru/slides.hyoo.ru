@@ -12,6 +12,7 @@ $hyoo_slides_page $mol_book
 					uri_base <= uri_base \
 					tokens <= speaker_content /
 		<= Listener $mol_page
+			tools <= tools /
 			minimal_width <= listener_width 600
 			event_top?event <=> event_front_up?event
 			title <= title
