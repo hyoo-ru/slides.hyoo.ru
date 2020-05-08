@@ -230,7 +230,7 @@ namespace $.$$ {
 			const texts = this.speaker_content( this.slide() )
 			if( texts.length === 0 ) return []
 
-			const found = /[\s\S]*\s([\w]+)\p{L}*?/u.exec( texts[ texts.length - 1 ].found )
+			const found = /[\s\S]*\s([a-zа-яё]+)[^a-zа-яё]*?/ui.exec( texts[ texts.length - 1 ].found )
 			if( !found ) return []
 
 			const suffix = found[1].replace( /(.)$/ , '$1?' )
