@@ -551,8 +551,8 @@ declare namespace $ {
         state_key(suffix?: string): string;
         dom_name(): string;
         dom_name_space(): string;
-        sub(): readonly (string | number | boolean | $mol_view | Node)[];
-        sub_visible(): readonly (string | number | boolean | $mol_view | Node)[];
+        sub(): readonly (string | number | boolean | Node | $mol_view)[];
+        sub_visible(): readonly (string | number | boolean | Node | $mol_view)[];
         minimal_width(): number;
         maximal_width(): number;
         minimal_height(): number;
@@ -1072,7 +1072,7 @@ declare namespace $ {
         disabled(): boolean;
         tab_index(): number;
         hint(): string;
-        sub(): readonly (string | number | boolean | $mol_view | Node)[];
+        sub(): readonly (string | number | boolean | Node | $mol_view)[];
     }
 }
 
@@ -1250,10 +1250,10 @@ declare namespace $ {
         Title(): $$.$mol_button;
         event_top(val?: any, force?: $mol_mem_force): any;
         Tools(): $mol_view;
-        tools(): readonly (string | number | boolean | $mol_view | Node)[];
+        tools(): readonly (string | number | boolean | Node | $mol_view)[];
         Body(): $$.$mol_scroll;
         body_scroll_top(val?: any, force?: $mol_mem_force): any;
-        body(): readonly (string | number | boolean | $mol_view | Node)[];
+        body(): readonly (string | number | boolean | Node | $mol_view)[];
         Foot(): $mol_view;
         foot(): readonly $mol_view[];
     }
@@ -1463,8 +1463,8 @@ declare namespace $ {
     class $mol_dimmer extends $mol_view {
         haystack(): string;
         needle(): string;
-        sub(): readonly (string | number | boolean | $mol_view | Node)[];
-        parts(): readonly (string | number | boolean | $mol_view | Node)[];
+        sub(): readonly (string | number | boolean | Node | $mol_view)[];
+        parts(): readonly (string | number | boolean | Node | $mol_view)[];
         Low(id: any): $mol_view;
         string(id: any): string;
     }
@@ -1501,12 +1501,12 @@ declare namespace $ {
         Cell(id: any): $mol_view;
         cell(id: any): any;
         Cell_text(id: any): $mol_grid_cell;
-        cell_content_text(id: any): readonly (string | number | boolean | $mol_view | Node)[];
-        cell_content(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        cell_content_text(id: any): readonly (string | number | boolean | Node | $mol_view)[];
+        cell_content(id: any): readonly (string | number | boolean | Node | $mol_view)[];
         Cell_number(id: any): $mol_grid_number;
-        cell_content_number(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        cell_content_number(id: any): readonly (string | number | boolean | Node | $mol_view)[];
         Col_head(id: any): $mol_float;
-        col_head_content(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        col_head_content(id: any): readonly (string | number | boolean | Node | $mol_view)[];
         Cell_branch(id: any): $$.$mol_check_expand;
         cell_level(id: any): number;
         cell_expanded(id: any, val?: any, force?: $mol_mem_force): any;
@@ -1553,7 +1553,7 @@ declare namespace $.$$ {
         col_head_content(colId: string): readonly string[];
         rows(): readonly $mol_view[];
         cells(row_id: string[]): readonly $mol_view[];
-        col_type(col_id: string): "number" | "text" | "branch";
+        col_type(col_id: string): "text" | "number" | "branch";
         Cell(id: {
             row: string[];
             col: string;
@@ -1614,7 +1614,7 @@ declare namespace $ {
         target(): string;
         file_name(): string;
         current(): boolean;
-        sub(): readonly (string | number | boolean | $mol_view | Node)[];
+        sub(): readonly (string | number | boolean | Node | $mol_view)[];
         arg(): {};
         event(): {
             click: (event?: any) => any;
@@ -2142,11 +2142,11 @@ declare namespace $ {
                 isFinal: boolean;
             }>;
         })): (Event & {
-            results: ({
+            results: Array<{
                 transcript: string;
             }[] & {
                 isFinal: boolean;
-            })[];
+            }>;
         }) | null;
         static recognitions(): ({
             transcript: string;
