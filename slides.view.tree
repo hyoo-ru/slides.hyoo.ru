@@ -8,12 +8,8 @@ $hyoo_slides $mol_view
 		^
 		touch-action \none
 	contents?val \
-	Loader $mol_view
-		dom_name \iframe
-		attr *
-			src <= uri_slides <= uri_slides_default \https://nin-jin.github.io/slides/slides/
-		event *
-			load?val <=> event_load?val null
+	Loader $mol_frame
+		uri <= uri_slides <= uri_slides_default \https://nin-jin.github.io/slides/slides/
 	Page!index $hyoo_slides_page
 		tools <= tools /
 		title <= page_title!index \

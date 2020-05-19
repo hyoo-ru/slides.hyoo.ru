@@ -39,7 +39,7 @@
 }
 
 [hyoo_slides_page_listener_content] {
-	flex: 0 1 auto;
+	flex: 1 1 auto;
 	margin: auto 0;
 	padding: .5rem;
 	max-width: none;
@@ -89,6 +89,6 @@
 
 [hyoo_slides_page_link] {
 	padding: 0 .5rem;
-	text-align: center;
+	justify-content: center;
 	font-size: .75em;
 }

@@ -3,29 +3,43 @@ namespace $.$$ {
 	export class $hyoo_slides extends $.$hyoo_slides {
 		
 		sub() {
-			if( !this.contents() ) return [ this.Loader() ]
 
-			if( this.$.$mol_print.active() ) {
-				return $mol_range2( index => this.Page( index ) , ()=> this.slide_keys().length )
-			} else {
-				return [ this.Page( this.slide() ) ]
-			}
-
+			return [
+				this.Loader() ,
+				... this.$.$mol_print.active()
+					? $mol_range2(
+						index => this.Page( index ) ,
+						()=> this.slide_keys().length ,
+					)
+					: [ this.Page( this.slide() ) ]
+			]
+				
 		}
 		
 		uri_base() {
 			return this.uri_slides().replace( /[^/]*$/ , '' )
 		}
 		
-		event_load() {
-			const frame = this.Loader().dom_node() as HTMLIFrameElement
-			frame.contentWindow!.postMessage( [ 'content' ] , '*' )
-			window.onmessage = ( event : MessageEvent )=> {
-				if( event.data[ 0 ] !== 'done' ) return
-				window.onmessage = null
-				
-				this.contents( event.data[ 1 ] )
-			}
+		@ $mol_mem
+		contents() {
+
+			const remote = this.Loader().window() as Window
+					
+			return $mol_fiber_sync( ()=> new Promise< string >( done => {
+
+				remote.postMessage( [ 'content' ] , '*' )
+			
+				$mol_dom_context.onmessage = ( event : MessageEvent )=> {
+					
+					if( event.data[ 0 ] !== 'done' ) return
+					$mol_dom_context.onmessage = null
+					
+					done( event.data[ 1 ] )
+
+				}
+	
+			} ) )()
+
 		}
 		
 		@ $mol_mem
@@ -85,10 +99,14 @@ namespace $.$$ {
 		@ $mol_mem
 		slide( next? : number ) {
 			
-			const count = this.content_pages().length
-			
-			if( next && next >= count ) next = count - 1
-			if( next && next < 0 ) next = 0
+			if( next !== undefined ) {
+
+				const count = this.content_pages().length
+				
+				if( next >= count ) next = count - 1
+				if( next < 0 ) next = 0
+
+			}
 			
 			let str = ( next === undefined ) ? undefined : String( next )
 			
