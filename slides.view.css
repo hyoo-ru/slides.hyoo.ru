@@ -1,6 +1,6 @@
 [hyoo_slides] {
 	-webkit-print-color-adjust: exact;
-	flex-direction: colum;
+	flex-direction: column;
 }
 [hyoo_slides][hyoo_slides_role="listener"] {
 	font-size: 3vmin;
