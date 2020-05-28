@@ -2804,10 +2804,30 @@ var $;
         attr() {
             return ({
                 "src": this.uri(),
+                "allow": "",
+                "allowfullscreen": this.fullscreen(),
             });
         }
         uri() {
             return "";
+        }
+        fullscreen() {
+            return true;
+        }
+        accelerometer() {
+            return true;
+        }
+        autoplay() {
+            return true;
+        }
+        encription() {
+            return true;
+        }
+        gyroscope() {
+            return true;
+        }
+        pip() {
+            return true;
         }
     }
     $.$mol_frame = $mol_frame;
@@ -2844,6 +2864,15 @@ var $;
                 render() {
                     this.window();
                     return super.render();
+                }
+                allow() {
+                    return [
+                        ...this.accelerometer() ? ['accelerometer'] : [],
+                        ...this.autoplay() ? ['autoplay'] : [],
+                        ...this.encription() ? ['encrypted-media'] : [],
+                        ...this.gyroscope() ? ['gyroscope'] : [],
+                        ...this.pip() ? ['picture-in-picture'] : [],
+                    ];
                 }
             }
             __decorate([

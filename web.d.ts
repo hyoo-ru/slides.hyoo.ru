@@ -882,8 +882,16 @@ declare namespace $ {
         dom_name(): string;
         attr(): {
             src: string;
+            allow: string;
+            allowfullscreen: boolean;
         };
         uri(): string;
+        fullscreen(): boolean;
+        accelerometer(): boolean;
+        autoplay(): boolean;
+        encription(): boolean;
+        gyroscope(): boolean;
+        pip(): boolean;
     }
 }
 
@@ -895,6 +903,7 @@ declare namespace $.$$ {
         dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
         window(): unknown;
         render(): void;
+        allow(): string[];
     }
 }
 
