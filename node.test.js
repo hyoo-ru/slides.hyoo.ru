@@ -2333,12 +2333,16 @@ var $;
             const node = this.dom_node(next);
             try {
                 $.$mol_dom_render_attributes(node, { mol_view_error: null });
-                for (let plugin of this.plugins()) {
-                    if (plugin instanceof $.$mol_plugin) {
-                        plugin.render();
+                try {
+                    this.render();
+                }
+                finally {
+                    for (let plugin of this.plugins()) {
+                        if (plugin instanceof $.$mol_plugin) {
+                            plugin.dom_tree();
+                        }
                     }
                 }
-                this.render();
             }
             catch (error) {
                 const need_catch = $.$mol_fail_catch(error);
@@ -7023,6 +7027,49 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_theme_auto extends $.$mol_plugin {
+        attr() {
+            return ({
+                "mol_theme": this.theme(),
+            });
+        }
+        theme() {
+            return "";
+        }
+    }
+    $.$mol_theme_auto = $mol_theme_auto;
+})($ || ($ = {}));
+//auto.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_lights(next) {
+        var _a;
+        return (_a = this.$.$mol_state_local.value('$mol_lights', next)) !== null && _a !== void 0 ? _a : $.$mol_dom_context.matchMedia('(prefers-color-scheme: light)').matches;
+    }
+    $.$mol_lights = $mol_lights;
+})($ || ($ = {}));
+//lights.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_theme_auto extends $.$mol_theme_auto {
+            theme() {
+                return this.$.$mol_lights() ? '$mol_theme_light' : '$mol_theme_dark';
+            }
+        }
+        $$.$mol_theme_auto = $mol_theme_auto;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//auto.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_nav extends $.$mol_plugin {
         cycle(val, force) {
             return (val !== void 0) ? val : false;
@@ -7390,13 +7437,10 @@ var $;
             return "https://nin-jin.github.io/slides/slides/";
         }
         attr() {
-            return (Object.assign(Object.assign({}, super.attr()), { "hyoo_slides_role": this.role(), "mol_theme": this.theme() }));
+            return (Object.assign(Object.assign({}, super.attr()), { "hyoo_slides_role": this.role() }));
         }
         role() {
             return "";
-        }
-        theme() {
-            return "$mol_theme_light";
         }
         style() {
             return (Object.assign(Object.assign({}, super.style()), { "touch-action": "none" }));
@@ -7500,7 +7544,12 @@ var $;
             })(new this.$.$mol_icon_external());
         }
         plugins() {
-            return [this.Nav(), this.Touch(), this.Speech_next(), this.Speech_next_auto(), this.Speech_slide(), this.Speech_prev(), this.Speech_start(), this.Speech_end(), this.Speech_about(), this.Speech_repeat(), this.Speech_on(), this.Speech_off(), this.Lights_toggle(), this.Sing()];
+            return [this.Theme(), this.Nav(), this.Touch(), this.Speech_next(), this.Speech_next_auto(), this.Speech_slide(), this.Speech_prev(), this.Speech_start(), this.Speech_end(), this.Speech_about(), this.Speech_repeat(), this.Speech_on(), this.Speech_off(), this.Lights_toggle(), this.Sing()];
+        }
+        Theme() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_theme_auto());
         }
         Nav() {
             return ((obj) => {
@@ -7709,6 +7758,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $hyoo_slides.prototype, "Open_listener_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $hyoo_slides.prototype, "Theme", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_slides.prototype, "Nav", null);
@@ -8057,12 +8109,8 @@ var $;
                 const commands = $.$mol_speech.commands();
                 return commands[commands.length - 1] || '';
             }
-            theme() {
-                return this.lights() ? '$mol_theme_light' : '$mol_theme_dark';
-            }
             lights(next) {
-                var _a;
-                return (_a = $.$mol_state_local.value(this.state_key(`lights`), next)) !== null && _a !== void 0 ? _a : false;
+                return this.$.$mol_lights(next);
             }
             event_lights_toggle() {
                 this.lights(!this.lights());

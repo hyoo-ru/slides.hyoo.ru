@@ -2152,6 +2152,25 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_theme_auto extends $mol_plugin {
+        attr(): {
+            mol_theme: string;
+        };
+        theme(): string;
+    }
+}
+
+declare namespace $ {
+    function $mol_lights(this: $mol_ambient_context, next?: boolean): boolean;
+}
+
+declare namespace $.$$ {
+    class $mol_theme_auto extends $.$mol_theme_auto {
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
+    }
+}
+
+declare namespace $ {
     class $mol_nav extends $mol_plugin {
         cycle(val?: any, force?: $mol_mem_force): any;
         mod_ctrl(): boolean;
@@ -2227,10 +2246,8 @@ declare namespace $ {
         uri_slides_default(): string;
         attr(): {
             hyoo_slides_role: string;
-            mol_theme: string;
         };
         role(): string;
-        theme(): string;
         style(): {
             "touch-action": string;
         };
@@ -2256,6 +2273,7 @@ declare namespace $ {
         open_listener_hint(): string;
         Open_listener_icon(): $mol_icon_external;
         plugins(): readonly any[];
+        Theme(): $$.$mol_theme_auto;
         Nav(): $$.$mol_nav;
         slide_keys(): readonly any[];
         slide(val?: any, force?: $mol_mem_force): any;
@@ -2356,7 +2374,6 @@ declare namespace $.$$ {
         event_sing(): void;
         speech_enabled(next?: boolean): boolean;
         speech_text(): string;
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
         lights(next?: boolean): boolean;
         event_lights_toggle(): void;
         timings(): number[];

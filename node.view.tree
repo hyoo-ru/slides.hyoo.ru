@@ -423,6 +423,9 @@ $mol_icon_microphone $mol_icon path \M12,2C13.66,2 15,3.34 15,5V11C15,12.66 13.6
 
 $mol_icon_external $mol_icon path \M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z
 
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
+
 $mol_nav $mol_plugin
 	cycle?val false
 	-
@@ -449,7 +452,6 @@ $hyoo_slides $mol_view
 	attr *
 		^
 		hyoo_slides_role <= role \
-		mol_theme <= theme \$mol_theme_light
 	style *
 		^
 		touch-action \none
@@ -480,6 +482,7 @@ $hyoo_slides $mol_view
 				sub /
 					<= Open_listener_icon $mol_icon_external
 	plugins /
+		<= Theme $mol_theme_auto
 		<= Nav $mol_nav
 			keys_y <= slide_keys /
 			keys_x <= slide_keys /
