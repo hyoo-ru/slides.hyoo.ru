@@ -213,13 +213,9 @@ namespace $.$$ {
 			return commands[ commands.length - 1 ] || ''
 		}
 
-		theme() {
-			return this.lights() ? '$mol_theme_light' : '$mol_theme_dark'
-		}
-
 		@ $mol_mem
 		lights( next? : boolean ) {
-			return $mol_state_local.value( this.state_key( `lights` ) , next ) ?? false
+			return this.$.$mol_lights( next )
 		}
 
 		event_lights_toggle() {

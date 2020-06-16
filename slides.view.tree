@@ -3,7 +3,6 @@ $hyoo_slides $mol_view
 	attr *
 		^
 		hyoo_slides_role <= role \
-		mol_theme <= theme \$mol_theme_light
 	style *
 		^
 		touch-action \none
@@ -34,6 +33,7 @@ $hyoo_slides $mol_view
 				sub /
 					<= Open_listener_icon $mol_icon_external
 	plugins /
+		<= Theme $mol_theme_auto
 		<= Nav $mol_nav
 			keys_y <= slide_keys /
 			keys_x <= slide_keys /
