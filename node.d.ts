@@ -2146,6 +2146,35 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_lights(this: $mol_ambient_context, next?: boolean): boolean;
+}
+
+declare namespace $ {
+    class $mol_icon_brightness_6 extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_lights_toggle extends $mol_check_icon {
+        Icon(): $mol_icon_brightness_6;
+        Lights_icon(): $mol_icon_brightness_6;
+        hint(): string;
+        checked(val?: any, force?: $mol_mem_force): any;
+        lights(val?: any, force?: $mol_mem_force): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_lights_toggle extends $.$mol_lights_toggle {
+        lights(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_external extends $mol_icon {
         path(): string;
     }
@@ -2158,10 +2187,6 @@ declare namespace $ {
         };
         theme(): string;
     }
-}
-
-declare namespace $ {
-    function $mol_lights(this: $mol_ambient_context, next?: boolean): boolean;
 }
 
 declare namespace $.$$ {
@@ -2269,6 +2294,7 @@ declare namespace $ {
         speech_toggle_hint(): string;
         Speech_text(): $mol_view;
         speech_text(): string;
+        Lights(): $$.$mol_lights_toggle;
         Open_listener(): $$.$mol_link;
         open_listener_hint(): string;
         Open_listener_icon(): $mol_icon_external;
