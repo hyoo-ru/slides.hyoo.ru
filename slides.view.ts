@@ -161,7 +161,7 @@ namespace $.$$ {
 				
 				for( let i = 0 ; i < pages.length ; ++i ) {
 
-					if( !this.page_title(i).toLowerCase().match( matcher ) ) continue
+					if( !pages[i]!.toLowerCase().match( matcher ) ) continue
 					
 					this.slide( i )
 					return
