@@ -8147,7 +8147,7 @@ var $;
                 const pages = this.content_pages();
                 while (matcher.length > 2) {
                     for (let i = 0; i < pages.length; ++i) {
-                        if (!this.page_title(i).toLowerCase().match(matcher))
+                        if (!pages[i].toLowerCase().match(matcher))
                             continue;
                         this.slide(i);
                         return;
