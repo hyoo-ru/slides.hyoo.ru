@@ -72,15 +72,15 @@
 }
 
 [hyoo_slides_page_listener_content_quote] {
-	margin: 1rem;
+	margin: 0;
+	padding: 0;
 	box-shadow: none;
 	background: transparent;
 	color: inherit;
-	flex: 1 1 40rem;
 }
 
 [hyoo_slides_page_listener_content] [mol_text_image] {
-	max-height: calc( 100vh - 4rem - 4em );
+	max-height: calc( 100vh - 4rem - 6em );
 	width: 100vw;
 	height: 100vh;
 }
