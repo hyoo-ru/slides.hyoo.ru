@@ -2818,11 +2818,13 @@ var $;
         attr() {
             return ({
                 "src": this.uri(),
-                "allow": "",
-                "allowfullscreen": this.fullscreen(),
+                "allow": this.allow(),
             });
         }
         uri() {
+            return "";
+        }
+        allow() {
             return "";
         }
         fullscreen() {
@@ -2881,12 +2883,13 @@ var $;
             }
             allow() {
                 return [
+                    ...this.fullscreen() ? ['fullscreen'] : [],
                     ...this.accelerometer() ? ['accelerometer'] : [],
                     ...this.autoplay() ? ['autoplay'] : [],
                     ...this.encription() ? ['encrypted-media'] : [],
                     ...this.gyroscope() ? ['gyroscope'] : [],
                     ...this.pip() ? ['picture-in-picture'] : [],
-                ];
+                ].join(';');
             }
         }
         __decorate([
