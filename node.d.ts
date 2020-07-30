@@ -562,7 +562,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_func_name(func: Function): string;
+    class $mol_memo extends $mol_wrapper {
+        static wrap<This extends object, Value>(task: (this: This, next?: Value) => Value): (this: This, next?: Value | undefined) => Value | undefined;
+    }
+}
+
+declare namespace $ {
+    function $mol_func_name(this: $mol_ambient_context, func: Function): string;
     function $mol_func_name_from<Target extends Function>(target: Target, source: Function): Target;
 }
 
@@ -1050,26 +1056,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_log(path: any, ...values: any[]): void;
-}
-
-declare namespace $ {
-    function $mol_log_context(next?: (() => void) | null): (() => void) | null;
-}
-
-declare namespace $ {
-    function $mol_log_debug(next?: () => void): () => void;
-}
-
-declare namespace $ {
-    var $mol_log_filter: (next?: string | null) => string | null;
-}
-
-declare namespace $ {
-    function $mol_log_group<Task extends Function, This>(name: string, task: Task): Task;
-}
-
-declare namespace $ {
     function $mol_dom_render_events(el: Element, events: {
         [key: string]: (event: Event) => any;
     }): void;
@@ -1340,12 +1326,6 @@ declare namespace $ {
     }
 }
 
-declare namespace $ {
-    class $mol_memo extends $mol_wrapper {
-        static wrap<This extends object, Value>(task: (this: This, next?: Value) => Value): (this: This, next?: Value | undefined) => Value | undefined;
-    }
-}
-
 declare namespace $.$$ {
 }
 
@@ -1502,7 +1482,6 @@ declare namespace $ {
     class $mol_svg extends $mol_view {
         dom_name(): string;
         dom_name_space(): string;
-        text_width(text?: any, force?: $mol_mem_force): any;
         font_size(): number;
         font_family(): string;
     }
@@ -1514,20 +1493,11 @@ declare namespace $ {
     }
 }
 
-declare namespace $ {
-    function $mol_font_canvas(next?: CanvasRenderingContext2D): CanvasRenderingContext2D;
-}
-
-declare namespace $ {
-    function $mol_font_measure(size: number, face: string, text: string): number;
-}
-
 declare namespace $.$$ {
     class $mol_svg extends $.$mol_svg {
         computed_style(): CSSStyleDeclaration;
         font_size(): number;
         font_family(): any;
-        text_width(text: string): number;
     }
 }
 
