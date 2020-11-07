@@ -6633,6 +6633,7 @@ var $;
             obj.sub = () => [
                 this.uri_page()
             ];
+            obj.minimal_height = () => 24;
             return obj;
         }
         progress() {
