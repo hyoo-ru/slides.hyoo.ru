@@ -23,5 +23,6 @@ $hyoo_slides_page $mol_book
 				<= Link $mol_link
 					uri <= uri_page \
 					sub / <= uri_page \
+					minimal_height 24
 				<= Progress $mol_portion
 					portion <= progress 0
