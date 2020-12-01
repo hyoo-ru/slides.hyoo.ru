@@ -383,10 +383,9 @@ $mol_page $mol_view
 	sub /
 		<= Head $mol_view
 			sub <= head /
-				<= Title $mol_button
+				<= Title $mol_view
 					sub /
 						<= title
-					event_click?val <=> event_top?val null
 				<= Tools $mol_view
 					sub <= tools /$mol_view_content
 		<= Body $mol_scroll
@@ -422,7 +421,6 @@ $hyoo_slides_page $mol_book
 		<= Listener $mol_page
 			tools <= tools /
 			minimal_width <= listener_width 600
-			event_top?event <=> event_front_up?event
 			title <= title
 			body /
 				<= Listener_content $mol_text
