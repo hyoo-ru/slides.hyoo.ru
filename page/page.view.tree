@@ -14,7 +14,6 @@ $hyoo_slides_page $mol_book
 		<= Listener $mol_page
 			tools <= tools /
 			minimal_width <= listener_width 600
-			event_top?event <=> event_front_up?event
 			title <= title
 			body /
 				<= Listener_content $mol_text
