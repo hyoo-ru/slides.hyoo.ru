@@ -1,5 +1,17 @@
-declare namespace $ { }
-export = $;
+declare let _$_: {
+    new (): {};
+} & typeof globalThis;
+declare class $ extends _$_ {
+}
+declare namespace $ {
+    export type $ = typeof $$;
+    export class $$ extends $ {
+    }
+    namespace $$ {
+        type $$ = $;
+    }
+    export {};
+}
 
 declare namespace $ {
     function $mol_fail(error: any): never;
@@ -17,11 +29,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    namespace $$ {
-        let $$: typeof $;
-    }
     const $mol_ambient_ref: unique symbol;
-    type $mol_ambient_context = (typeof globalThis) & (typeof $.$$) & (typeof $);
+    type $mol_ambient_context = $;
     function $mol_ambient(this: $mol_ambient_context | void, overrides: Partial<$mol_ambient_context>): $mol_ambient_context;
 }
 
@@ -51,8 +60,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_object2 {
-        static $: $mol_ambient_context;
-        [$mol_ambient_ref]: $mol_ambient_context;
+        static $: typeof $$;
+        [$mol_ambient_ref]: typeof $$;
         get $(): $mol_ambient_context;
         set $(next: $mol_ambient_context);
         constructor(init?: (obj: any) => void);
@@ -567,8 +576,8 @@ declare namespace $ {
         state_key(suffix?: string): string;
         dom_name(): string;
         dom_name_space(): string;
-        sub(): readonly (string | number | boolean | Node | $mol_view)[];
-        sub_visible(): readonly (string | number | boolean | Node | $mol_view)[];
+        sub(): readonly (string | number | boolean | $mol_view | Node)[];
+        sub_visible(): readonly (string | number | boolean | $mol_view | Node)[];
         minimal_width(): number;
         maximal_width(): number;
         minimal_height(): number;
@@ -1275,7 +1284,7 @@ declare namespace $ {
             tabindex: number;
             title: string;
         };
-        sub(): readonly (string | number | boolean | Node | $mol_view)[];
+        sub(): readonly (string | number | boolean | $mol_view | Node)[];
         Speck(): $mol_speck;
         event_activate(event?: any): any;
         event_key_press(event?: any): any;
@@ -1403,7 +1412,7 @@ declare namespace $.$$ {
         tab_index(): number;
         error(): string;
         hint_or_error(): string;
-        sub_visible(): (string | number | boolean | Node | $mol_view | $mol_speck)[];
+        sub_visible(): (string | number | boolean | $mol_view | Node | $mol_speck)[];
     }
 }
 
@@ -1580,10 +1589,10 @@ declare namespace $ {
     class $mol_dimmer extends $mol_paragraph {
         haystack(): string;
         needle(): string;
-        sub(): readonly (string | number | boolean | Node | $mol_view)[];
+        sub(): readonly (string | number | boolean | $mol_view | Node)[];
         Low(id: any): $$.$mol_paragraph;
         High(id: any): $$.$mol_paragraph;
-        parts(): readonly (string | number | boolean | Node | $mol_view)[];
+        parts(): readonly (string | number | boolean | $mol_view | Node)[];
         string(id: any): string;
     }
 }
@@ -1666,10 +1675,10 @@ declare namespace $ {
         Table(): $mol_grid_table;
         head_cells(): readonly $mol_view[];
         cells(id: any): readonly $mol_view[];
-        cell_content(id: any): readonly (string | number | boolean | Node | $mol_view)[];
-        cell_content_text(id: any): readonly (string | number | boolean | Node | $mol_view)[];
-        cell_content_number(id: any): readonly (string | number | boolean | Node | $mol_view)[];
-        col_head_content(id: any): readonly (string | number | boolean | Node | $mol_view)[];
+        cell_content(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        cell_content_text(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        cell_content_number(id: any): readonly (string | number | boolean | $mol_view | Node)[];
+        col_head_content(id: any): readonly (string | number | boolean | $mol_view | Node)[];
         cell_level(id: any): number;
         cell_expanded(id: any, val?: any): any;
         needle(): string;
@@ -1747,7 +1756,7 @@ declare namespace $ {
             download: string;
             mol_link_current: boolean;
         };
-        sub(): readonly (string | number | boolean | Node | $mol_view)[];
+        sub(): readonly (string | number | boolean | $mol_view | Node)[];
         arg(): {};
         event(): {
             click: (event?: any) => any;
@@ -2012,12 +2021,12 @@ declare namespace $ {
     class $mol_page extends $mol_view {
         sub(): readonly any[];
         Title(): $mol_view;
-        tools(): readonly (string | number | boolean | Node | $mol_view)[];
+        tools(): readonly (string | number | boolean | $mol_view | Node)[];
         Tools(): $mol_view;
         head(): readonly any[];
         Head(): $mol_view;
         body_scroll_top(val?: any): any;
-        body(): readonly (string | number | boolean | Node | $mol_view)[];
+        body(): readonly (string | number | boolean | $mol_view | Node)[];
         Body(): $$.$mol_scroll;
         foot(): readonly $mol_view[];
         Foot(): $mol_view;
@@ -2597,7 +2606,7 @@ declare namespace $ {
     function $mol_view_tree_prop_key(prop: $mol_tree): string;
     function $mol_view_tree_prop_next(prop: $mol_tree): string;
     function $mol_view_tree_prop_value(prop: $mol_tree): $mol_tree;
-    function $mol_view_tree_value_type(val: $mol_tree): "locale" | "string" | "object" | "number" | "null" | "list" | "bool" | "dict" | "get" | "bind" | "put";
+    function $mol_view_tree_value_type(val: $mol_tree): "locale" | "string" | "object" | "bool" | "null" | "dict" | "get" | "bind" | "put" | "list" | "number";
     function $mol_view_tree_compile(tree: $mol_tree): {
         script: string;
         locales: {
