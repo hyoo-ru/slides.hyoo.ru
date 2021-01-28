@@ -1116,8 +1116,8 @@ declare namespace $ {
         Page(index: any): $mol_book_page;
         Placeholder(): $mol_book_placeholder;
         pages_wrapped(): readonly $mol_view[];
-        Meter(): $$.$mol_meter;
         width(): number;
+        Meter(): $$.$mol_meter;
         event_front_up(val?: any): any;
         event_front_down(val?: any): any;
         Touch(): $$.$mol_touch;
@@ -2540,8 +2540,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_view_tree_test_binding_right extends $mol_view {
-        Test(): $mol_view_tree_test_binding_right_test;
         outer_width(v?: any): any;
+        Test(): $mol_view_tree_test_binding_right_test;
     }
     class $mol_view_tree_test_binding_right_test extends $mol_view {
         width(val?: any): any;
