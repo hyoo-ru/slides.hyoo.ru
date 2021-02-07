@@ -8,6 +8,7 @@ $hyoo_slides $mol_view
 	contents?val \
 	Menu $mol_page
 		title \Slides
+		tools <= menu_tools /
 		body /
 			<= Menu_items $mol_list
 				rows <= menu_items /$mol_view
