@@ -919,33 +919,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_frame extends $mol_view {
-        dom_name(): string;
-        attr(): {
-            src: string;
-            allow: string;
-        };
-        fullscreen(): boolean;
-        accelerometer(): boolean;
-        autoplay(): boolean;
-        encription(): boolean;
-        gyroscope(): boolean;
-        pip(): boolean;
-        uri(): string;
-        allow(): string;
-    }
 }
 
 declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_frame extends $.$mol_frame {
-        dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
-        window(): unknown;
-        render(): void;
-        allow(): string;
-    }
+    let $mol_gap: {
+        readonly block: $mol_style_func<"var", "--mol_gap_block">;
+        readonly text: $mol_style_func<"var", "--mol_gap_text">;
+    };
 }
 
 declare namespace $ {
@@ -1018,6 +998,128 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_page extends $mol_view {
+        sub(): readonly any[];
+        Title(): $mol_view;
+        tools(): readonly (string | number | boolean | $mol_view | Node)[];
+        Tools(): $mol_view;
+        head(): readonly any[];
+        Head(): $mol_view;
+        body_scroll_top(val?: any): any;
+        body(): readonly (string | number | boolean | $mol_view | Node)[];
+        Body(): $$.$mol_scroll;
+        foot(): readonly $mol_view[];
+        Foot(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $mol_page extends $.$mol_page {
+        body_scroll_top(next?: number): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_link extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            href: string;
+            title: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+        };
+        sub(): readonly (string | number | boolean | $mol_view | Node)[];
+        arg(): {};
+        event(): {
+            click: (event?: any) => any;
+        };
+        uri(): string;
+        hint(): string;
+        target(): string;
+        file_name(): string;
+        current(): boolean;
+        event_click(event?: any): any;
+        click(event?: any): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static href(next?: string, force?: $mol_mem_force): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): {
+            [key: string]: string;
+        };
+        static dict_cut(except: string[]): {
+            [key: string]: string;
+        };
+        static value(key: string, next?: string | null): string | null;
+        static link(next: {
+            [key: string]: string;
+        }): string;
+        static make_link(next: {
+            [key: string]: string | null;
+        }): string;
+        static encode(str: string): string;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: {
+            [key: string]: string;
+        }): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_link extends $.$mol_link {
+        uri(): string;
+        current(): boolean;
+        event_click(event?: Event): void;
+        file_name(): string;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_frame extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            src: string;
+            allow: string;
+        };
+        fullscreen(): boolean;
+        accelerometer(): boolean;
+        autoplay(): boolean;
+        encription(): boolean;
+        gyroscope(): boolean;
+        pip(): boolean;
+        uri(): string;
+        allow(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_frame extends $.$mol_frame {
+        dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
+        window(): unknown;
+        render(): void;
+        allow(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_book2 extends $mol_scroll {
         sub(): readonly $mol_view[];
         minimal_width(): number;
@@ -1080,16 +1182,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    let $mol_gap: {
-        readonly block: $mol_style_func<"var", "--mol_gap_block">;
-        readonly text: $mol_style_func<"var", "--mol_gap_text">;
-    };
 }
 
 declare namespace $ {
@@ -1592,73 +1684,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_link extends $mol_view {
-        dom_name(): string;
-        attr(): {
-            href: string;
-            title: string;
-            target: string;
-            download: string;
-            mol_link_current: boolean;
-        };
-        sub(): readonly (string | number | boolean | $mol_view | Node)[];
-        arg(): {};
-        event(): {
-            click: (event?: any) => any;
-        };
-        uri(): string;
-        hint(): string;
-        target(): string;
-        file_name(): string;
-        current(): boolean;
-        event_click(event?: any): any;
-        click(event?: any): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static href(next?: string, force?: $mol_mem_force): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): {
-            [key: string]: string;
-        };
-        static dict_cut(except: string[]): {
-            [key: string]: string;
-        };
-        static value(key: string, next?: string | null): string | null;
-        static link(next: {
-            [key: string]: string;
-        }): string;
-        static make_link(next: {
-            [key: string]: string | null;
-        }): string;
-        static encode(str: string): string;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: {
-            [key: string]: string;
-        }): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_link extends $.$mol_link {
-        uri(): string;
-        current(): boolean;
-        event_click(event?: Event): void;
-        file_name(): string;
-        minimal_height(): number;
-    }
-}
-
-declare namespace $ {
     class $mol_image extends $mol_view {
         dom_name(): string;
         field(): {
@@ -1864,31 +1889,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_page extends $mol_view {
-        sub(): readonly any[];
-        Title(): $mol_view;
-        tools(): readonly (string | number | boolean | $mol_view | Node)[];
-        Tools(): $mol_view;
-        head(): readonly any[];
-        Head(): $mol_view;
-        body_scroll_top(val?: any): any;
-        body(): readonly (string | number | boolean | $mol_view | Node)[];
-        Body(): $$.$mol_scroll;
-        foot(): readonly $mol_view[];
-        Foot(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $mol_page extends $.$mol_page {
-        body_scroll_top(next?: number): number;
-    }
-}
-
-declare namespace $ {
     class $mol_portion_indicator extends $mol_view {
         style(): {
             width: string;
@@ -2090,6 +2090,12 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_external extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     function $mol_lights(this: $, next?: boolean): boolean;
 }
 
@@ -2119,7 +2125,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_external extends $mol_icon {
+    class $mol_icon_cross extends $mol_icon {
         path(): string;
     }
 }
@@ -2284,7 +2290,6 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_slides extends $mol_view {
-        uri_slides_default(): string;
         attr(): {
             hyoo_slides_role: string;
         };
@@ -2292,10 +2297,27 @@ declare namespace $ {
             "touch-action": string;
         };
         contents(val?: any): any;
+        Menu(): $$.$mol_page;
+        Menu_item(id: any): $$.$mol_link;
+        menu_options(): {
+            "https://nin-jin.github.io/slides/slides/": string;
+            "https://nin-jin.github.io/slides/fibers/": string;
+            "https://nin-jin.github.io/slides/mol/": string;
+            "https://nin-jin.github.io/slides/orp/": string;
+            "https://nin-jin.github.io/slides/tree/": string;
+            "https://nin-jin.github.io/slides/virt/": string;
+            "https://nin-jin.github.io/slides/css-in-ts/": string;
+            "https://nin-jin.github.io/slides/testing/": string;
+            "https://nin-jin.github.io/slides/absurd/": string;
+        };
         Loader(): $$.$mol_frame;
         Page(index: any): $$.$hyoo_slides_page;
         plugins(): readonly any[];
         role(): string;
+        menu_items(): readonly $mol_view[];
+        Menu_items(): $$.$mol_list;
+        menu_item_title(id: any): string;
+        menu_item_uri(id: any): string;
         uri_slides(): string;
         tools(): readonly any[];
         page_title(index: any): string;
@@ -2310,10 +2332,12 @@ declare namespace $ {
         Speech_toggle(): $mol_check_icon;
         speech_text(): string;
         Speech_text(): $mol_view;
-        Lights(): $$.$mol_lights_toggle;
         open_listener_hint(): string;
         Open_listener_icon(): $mol_icon_external;
         Open_listener(): $$.$mol_link;
+        Lights(): $$.$mol_lights_toggle;
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
         speaker_tools(): readonly any[];
         Theme(): $$.$mol_theme_auto;
         slide_keys(): readonly any[];
@@ -2377,8 +2401,11 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $hyoo_slides extends $.$hyoo_slides {
-        sub(): ($mol_frame | $hyoo_slides_page)[];
+        sub(): $mol_page[] | ($mol_frame | $hyoo_slides_page)[];
         uri_base(): string;
+        menu_items(): $mol_link[];
+        menu_item_uri(uri: string): string;
+        menu_item_title(uri: string): any;
         contents(): string;
         content_pages(): string[];
         page_tokens(index: number): readonly {
