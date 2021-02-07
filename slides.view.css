@@ -19,10 +19,6 @@
 	display: none;
 }
 
-[hyoo_slides_role="listener"] [hyoo_slides_page_listener]:before {
-	display: none;
-}
-
 [hyoo_slides_speech_toggle] {
 	align-items: center;
 }

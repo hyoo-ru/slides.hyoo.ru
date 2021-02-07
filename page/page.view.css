@@ -10,7 +10,7 @@
 }
 
 [hyoo_slides_page_speaker] {
-	flex: 1 1 40rem;
+	flex: 1 0 30rem;
 	max-width: 80vw;
 	min-width: 20vw;
 }
@@ -20,7 +20,7 @@
 }
 
 [hyoo_slides_page_listener] {
-	flex: 1 1 66%;
+	flex: 1 0 100vh;
 }
 
 [hyoo_slides_page_speaker_body] {
