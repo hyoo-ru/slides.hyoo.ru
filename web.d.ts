@@ -2314,6 +2314,7 @@ declare namespace $ {
         Page(index: any): $$.$hyoo_slides_page;
         plugins(): readonly any[];
         role(): string;
+        menu_tools(): readonly any[];
         menu_items(): readonly $mol_view[];
         Menu_items(): $$.$mol_list;
         menu_item_title(id: any): string;

@@ -7441,6 +7441,7 @@ var $;
         Menu() {
             const obj = new this.$.$mol_page();
             obj.title = () => "Slides";
+            obj.tools = () => this.menu_tools();
             obj.body = () => [
                 this.Menu_items()
             ];
@@ -7506,6 +7507,9 @@ var $;
         }
         role() {
             return "";
+        }
+        menu_tools() {
+            return [];
         }
         menu_items() {
             return [];
