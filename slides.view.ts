@@ -3,6 +3,10 @@ namespace $.$$ {
 	export class $hyoo_slides extends $.$hyoo_slides {
 		
 		sub() {
+			
+			if( !this.uri_slides() ) {
+				return [ this.Menu() ]
+			}
 
 			return [
 				this.Loader() ,
@@ -21,7 +25,22 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
+		menu_items() {
+			return Object.keys( this.menu_options() ).map( uri => this.Menu_item( uri ) )
+		}
+		
+		menu_item_uri( uri: string ) {
+			return uri
+		}
+		
+		menu_item_title( uri: string ) {
+			return this.menu_options()[ uri ]
+		}
+		
+		@ $mol_mem
 		contents() {
+			
+			if( !this.uri_slides() ) return ''
 
 			const remote = this.Loader().window() as Window
 					
@@ -130,7 +149,7 @@ namespace $.$$ {
 		}
 		
 		uri_slides() {
-			return $mol_state_arg.value( this.state_key( 'slides' ) ) || this.uri_slides_default()
+			return $mol_state_arg.value( this.state_key( 'slides' ) ) ?? ''
 		}
 		
 		event_next( next? : Event ) {

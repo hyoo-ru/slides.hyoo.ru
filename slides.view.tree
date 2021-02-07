@@ -1,5 +1,4 @@
 $hyoo_slides $mol_view
-	uri_slides_default \https://nin-jin.github.io/slides/slides/
 	attr *
 		^
 		hyoo_slides_role <= role \
@@ -7,8 +6,26 @@ $hyoo_slides $mol_view
 		^
 		touch-action \none
 	contents?val \
+	Menu $mol_page
+		title \Slides
+		body /
+			<= Menu_items $mol_list
+				rows <= menu_items /$mol_view
+	Menu_item!id $mol_link
+		title <= menu_item_title!id \
+		arg * slides <= menu_item_uri!id \
+	menu_options *
+		https://nin-jin.github.io/slides/slides/ \Презентация приложения для проведения презентаций
+		https://nin-jin.github.io/slides/fibers/ \Квантовая механика вычисления на JS
+		https://nin-jin.github.io/slides/mol/ \$mol - лучшее средство от геморроя
+		https://nin-jin.github.io/slides/orp/ \Объектное Реактивное Программирование
+		https://nin-jin.github.io/slides/tree/ \Tree - единый AST чтобы править всеми
+		https://nin-jin.github.io/slides/virt/ \Автоматическая виртуализация рендеринга произвольной вёрстки
+		https://nin-jin.github.io/slides/css-in-ts/ \Продвинутый CSS-in-TS
+		https://nin-jin.github.io/slides/testing/ \Фрактальное тестирование
+		https://nin-jin.github.io/slides/absurd/ \Проблема останова лжеца Гёделя и брадобрея Кантора
 	Loader $mol_frame
-		uri <= uri_slides <= uri_slides_default \https://nin-jin.github.io/slides/slides/
+		uri <= uri_slides \
 	Page!index $hyoo_slides_page
 		tools <= tools /
 		title <= page_title!index \
@@ -24,7 +41,6 @@ $hyoo_slides $mol_view
 				checked?val <=> speech_enabled?val false
 				hint <= speech_toggle_hint @ \Speech contol
 			<= Speech_text $mol_view sub / <= speech_text \
-			<= Lights $mol_lights_toggle
 			<= Open_listener $mol_link
 				target \_blank
 				hint <= open_listener_hint @ \Open slides window
@@ -33,6 +49,12 @@ $hyoo_slides $mol_view
 					slide null
 				sub /
 					<= Open_listener_icon $mol_icon_external
+			<= Lights $mol_lights_toggle
+			<= Close $mol_link
+				arg *
+					slides null
+				sub /
+					<= Close_icon $mol_icon_cross
 	plugins /
 		<= Theme $mol_theme_auto
 		<= Nav $mol_nav
