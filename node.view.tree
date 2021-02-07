@@ -10,112 +10,6 @@ $mol_frame $mol_view
 	gyroscope true
 	pip true
 
-$mol_meter $mol_plugin
-	zoom 1
-	-
-	width?val 0
-	height?val 0
-	-
-	left?val 0
-	right?val 0
-	bottom?val 0
-	top?val 0
-
-$mol_touch $mol_plugin
-	start_zoom?val 0
-	start_distance?val 0
-	zoom?val 1
-	-
-	start_pan?val /
-		0
-		0
-	pan?val /
-		0
-		0
-	pos?val /
-		NaN
-		NaN
-	-
-	start_pos?val null
-	swipe_precision 16
-	-
-	swipe_right?val null
-	swipe_bottom?val null
-	swipe_left?val null
-	swipe_top?val null
-	-
-	swipe_from_right?val null
-	swipe_from_bottom?val null
-	swipe_from_left?val null
-	swipe_from_top?val null
-	-
-	swipe_to_right?val null
-	swipe_to_bottom?val null
-	swipe_to_left?val null
-	swipe_to_top?val null
-	-
-	style *
-		^
-		touch-action \none
-		overscroll-behavior \none
-	-
-	event *
-		^
-		touchstart?event <=> event_start?event null
-		touchmove?event <=> event_move?event null
-		touchend?event <=> event_end?event null
-		mousedown?event <=> event_start?event null
-		mousemove?event <=> event_move?event null
-		mouseup?event <=> event_end?event null
-		mouseleave?event <=> event_leave?event null
-		wheel?event <=> event_wheel?event null
-
-$mol_ghost $mol_view
-	Sub $mol_view
-
-$mol_book $mol_view
-	sub <= pages_wrapped /$mol_view
-	minimal_width 0
-	pages /$mol_view
-	plugins /$mol_plugin
-		<= Meter $mol_meter
-			width => width
-		<= Touch $mol_touch
-			swipe_from_left?val <=> event_front_up?val null
-			swipe_to_left?val <=> event_front_down?val null
-	Page!index $mol_book_page
-		Sub <= page!index null
-		visible <= page_visible!index true
-	Placeholder $mol_book_placeholder
-		title <= title
-
-$mol_book_placeholder $mol_view
-	minimal_width 400
-	attr *
-		^
-		tabindex null
-
-$mol_book_page $mol_ghost
-	attr_static *
-		^
-		tabindex 0
-		mol_book_page_visible true
-	attr *
-		^
-		mol_book_page_focused <= focused
-		mol_book_page_visible <= visible true
-
-$mol_list $mol_view
-	render_visible_only true
-	render_over 0
-	sub <= rows /$mol_view
-	Empty $mol_view
-	Gap_before $mol_view style * paddingTop <= gap_before 0
-	Gap_after $mol_view style * paddingTop <= gap_after 0
-	view_window /
-		0
-		0
-
 $mol_scroll $mol_view
 	minimal_height 0
 	_event_scroll_timer?val null
@@ -127,6 +21,22 @@ $mol_scroll $mol_view
 	event *
 		^
 		scroll?event <=> event_scroll?event null
+
+$mol_book2 $mol_scroll
+	sub <= pages /$mol_view
+	minimal_width 0
+	Placeholder $mol_view
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
 
 $mol_float $mol_view
 	style *
@@ -408,7 +318,7 @@ $mol_portion $mol_view
 		<= indicator $mol_portion_indicator
 			width_style <= indicator_width_style \0
 
-$hyoo_slides_page $mol_book
+$hyoo_slides_page $mol_book2
 	role \
 	contents?val \
 	slide?val 0
@@ -472,6 +382,55 @@ $mol_nav $mol_plugin
 	event *
 		^
 		keydown?event <=> event_key?event null
+
+$mol_touch $mol_plugin
+	start_zoom?val 0
+	start_distance?val 0
+	zoom?val 1
+	-
+	start_pan?val /
+		0
+		0
+	pan?val /
+		0
+		0
+	pos?val /
+		NaN
+		NaN
+	-
+	start_pos?val null
+	swipe_precision 16
+	-
+	swipe_right?val null
+	swipe_bottom?val null
+	swipe_left?val null
+	swipe_top?val null
+	-
+	swipe_from_right?val null
+	swipe_from_bottom?val null
+	swipe_from_left?val null
+	swipe_from_top?val null
+	-
+	swipe_to_right?val null
+	swipe_to_bottom?val null
+	swipe_to_left?val null
+	swipe_to_top?val null
+	-
+	style *
+		^
+		touch-action \none
+		overscroll-behavior \none
+	-
+	event *
+		^
+		touchstart?event <=> event_start?event null
+		touchmove?event <=> event_move?event null
+		touchend?event <=> event_end?event null
+		mousedown?event <=> event_start?event null
+		mousemove?event <=> event_move?event null
+		mouseup?event <=> event_end?event null
+		mouseleave?event <=> event_leave?event null
+		wheel?event <=> event_wheel?event null
 
 $hyoo_slides $mol_view
 	uri_slides_default \https://nin-jin.github.io/slides/slides/
