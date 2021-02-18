@@ -3682,13 +3682,18 @@ var $;
         pip() {
             return true;
         }
-        uri() {
+        uri(val) {
+            if (val !== undefined)
+                return val;
             return "";
         }
         allow() {
             return "";
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mol_frame.prototype, "uri", null);
     $.$mol_frame = $mol_frame;
 })($ || ($ = {}));
 //frame.view.tree.js.map
@@ -3713,16 +3718,34 @@ var $;
         class $mol_frame extends $.$mol_frame {
             window() {
                 const node = this.dom_node();
-                this.uri();
+                this.uri_resource();
                 return $.$mol_fiber_sync(() => new Promise((done, fail) => {
-                    node.onload = () => done(node.contentWindow);
+                    node.onload = () => {
+                        done(node.contentWindow);
+                    };
                     node.onerror = (event) => {
                         fail(typeof event === 'string' ? new Error(event) : event.error || event);
                     };
                 }))();
             }
+            uri_resource() {
+                return this.uri().replace(/#.*/, '');
+            }
+            uri_listener() {
+                const node = this.dom_node();
+                return new $.$mol_dom_listener($.$mol_dom_context, 'message', $.$mol_fiber_root((event) => {
+                    if (event.source !== node.contentWindow)
+                        return;
+                    if (!Array.isArray(event.data))
+                        return;
+                    if (event.data[0] !== 'hashchange')
+                        return;
+                    this.uri(event.data[1]);
+                }));
+            }
             render() {
                 const node = super.render();
+                this.uri_listener();
                 this.window();
                 return node;
             }
@@ -3740,6 +3763,12 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mol_frame.prototype, "window", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_frame.prototype, "uri_resource", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_frame.prototype, "uri_listener", null);
         $$.$mol_frame = $mol_frame;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
