@@ -351,6 +351,22 @@ $mol_icon_microphone $mol_icon path \M12,2C13.66,2 15,3.34 15,5V11C15,12.66 13.6
 
 $mol_check_icon $mol_check
 
+$mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
+
+$mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
+
+$mol_paginator $mol_view
+	sub /
+		<= Backward $mol_button_minor
+			hint <= backward_hint @ \Назад
+			click?event <=> backward?event null
+			sub / <= Backward_icon $mol_icon_chevron_left
+		<= Value $mol_view sub / <= value?val 0
+		<= Forward $mol_button_minor
+			hint <= forward_hint @ \Вперёд
+			click?event <=> forward?event null
+			sub / <= Forward_icon $mol_icon_chevron_right
+
 $mol_icon_external $mol_icon path \M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z
 
 $mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
@@ -479,6 +495,7 @@ $hyoo_slides $mol_view
 				checked?val <=> speech_enabled?val false
 				hint <= speech_toggle_hint @ \Speech contol
 			<= Speech_text $mol_view sub / <= speech_text \
+			<= Paginator $mol_paginator value?val <=> slide?val
 			<= Open_listener $mol_link
 				target \_blank
 				hint <= open_listener_hint @ \Open slides window

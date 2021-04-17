@@ -69,7 +69,7 @@ declare namespace $ {
         static [Symbol.toPrimitive](): any;
         static toString(): any;
         destructor(): void;
-        [Symbol.toPrimitive](): any;
+        [Symbol.toPrimitive](hint: string): any;
         toString(): any;
         toJSON(): any;
     }
@@ -628,6 +628,7 @@ declare namespace $ {
         dom_node(next?: Element): Element;
         dom_tree(next?: Element): Element;
         dom_node_actual(): Element;
+        auto(): void;
         render(): void;
         static view_classes(): (typeof $mol_view)[];
         view_names_owned(): string[];
@@ -1674,7 +1675,7 @@ declare namespace $.$$ {
         col_head_content(colId: string): readonly string[];
         rows(): readonly $mol_view[];
         cells(row_id: string[]): readonly $mol_view[];
-        col_type(col_id: string): "text" | "number" | "branch";
+        col_type(col_id: string): "number" | "text" | "branch";
         Cell(id: {
             row: string[];
             col: string;
@@ -2082,6 +2083,44 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_chevron_left extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_chevron_right extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_paginator extends $mol_view {
+        sub(): readonly any[];
+        backward_hint(): string;
+        backward(event?: any): any;
+        Backward_icon(): $mol_icon_chevron_left;
+        Backward(): $mol_button_minor;
+        value(val?: any): any;
+        Value(): $mol_view;
+        forward_hint(): string;
+        forward(event?: any): any;
+        Forward_icon(): $mol_icon_chevron_right;
+        Forward(): $mol_button_minor;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_paginator extends $.$mol_paginator {
+        backward(event: Event): void;
+        forward(event: Event): void;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_external extends $mol_icon {
         path(): string;
     }
@@ -2325,6 +2364,7 @@ declare namespace $ {
         Speech_toggle(): $mol_check_icon;
         speech_text(): string;
         Speech_text(): $mol_view;
+        Paginator(): $$.$mol_paginator;
         open_listener_hint(): string;
         Open_listener_icon(): $mol_icon_external;
         Open_listener(): $$.$mol_link;
@@ -2520,7 +2560,7 @@ declare namespace $ {
     function $mol_view_tree_prop_key(prop: $mol_tree): string;
     function $mol_view_tree_prop_next(prop: $mol_tree): string;
     function $mol_view_tree_prop_value(prop: $mol_tree): $mol_tree;
-    function $mol_view_tree_value_type(val: $mol_tree): "locale" | "string" | "object" | "number" | "null" | "list" | "bool" | "dict" | "get" | "bind" | "put";
+    function $mol_view_tree_value_type(val: $mol_tree): "number" | "locale" | "string" | "object" | "null" | "list" | "bool" | "dict" | "get" | "bind" | "put";
     function $mol_view_tree_compile(tree: $mol_tree): {
         script: string;
         locales: {
@@ -2528,3 +2568,5 @@ declare namespace $ {
         };
     };
 }
+
+export = $;

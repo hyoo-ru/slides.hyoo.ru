@@ -205,8 +205,8 @@ var $;
             return this.name;
         }
         destructor() { }
-        [Symbol.toPrimitive]() {
-            return this.toString();
+        [Symbol.toPrimitive](hint) {
+            return hint === 'number' ? this.valueOf() : this.toString();
         }
         toString() {
             return this[Symbol.toStringTag] || this.constructor.name + '()';
@@ -2507,6 +2507,7 @@ var $;
                     console.error(error);
                 }
             }
+            this.auto();
             return node;
         }
         dom_node_actual() {
@@ -2520,6 +2521,7 @@ var $;
             $.$mol_dom_render_fields(node, fields);
             return node;
         }
+        auto() { }
         render() {
             const node = this.dom_node_actual();
             const sub = this.sub_visible();
@@ -6722,6 +6724,155 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_chevron_left extends $.$mol_icon {
+        path() {
+            return "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
+        }
+    }
+    $.$mol_icon_chevron_left = $mol_icon_chevron_left;
+})($ || ($ = {}));
+//left.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_chevron_right extends $.$mol_icon {
+        path() {
+            return "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z";
+        }
+    }
+    $.$mol_icon_chevron_right = $mol_icon_chevron_right;
+})($ || ($ = {}));
+//right.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_paginator extends $.$mol_view {
+        sub() {
+            return [
+                this.Backward(),
+                this.Value(),
+                this.Forward()
+            ];
+        }
+        backward_hint() {
+            return this.$.$mol_locale.text('$mol_paginator_backward_hint');
+        }
+        backward(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        Backward_icon() {
+            const obj = new this.$.$mol_icon_chevron_left();
+            return obj;
+        }
+        Backward() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.backward_hint();
+            obj.click = (event) => this.backward(event);
+            obj.sub = () => [
+                this.Backward_icon()
+            ];
+            return obj;
+        }
+        value(val) {
+            if (val !== undefined)
+                return val;
+            return 0;
+        }
+        Value() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.value()
+            ];
+            return obj;
+        }
+        forward_hint() {
+            return this.$.$mol_locale.text('$mol_paginator_forward_hint');
+        }
+        forward(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        Forward_icon() {
+            const obj = new this.$.$mol_icon_chevron_right();
+            return obj;
+        }
+        Forward() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.forward_hint();
+            obj.click = (event) => this.forward(event);
+            obj.sub = () => [
+                this.Forward_icon()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "backward", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "Backward_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "Backward", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "Value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "forward", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "Forward_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_paginator.prototype, "Forward", null);
+    $.$mol_paginator = $mol_paginator;
+})($ || ($ = {}));
+//paginator.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/paginator/paginator.view.css", "[mol_paginator_value] {\n\tpadding: .5rem 0;\n}\n");
+})($ || ($ = {}));
+//paginator.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_paginator extends $.$mol_paginator {
+            backward(event) {
+                if (event.defaultPrevented)
+                    return;
+                event.preventDefault();
+                this.value(this.value() - 1);
+            }
+            forward(event) {
+                if (event.defaultPrevented)
+                    return;
+                event.preventDefault();
+                this.value(this.value() + 1);
+            }
+        }
+        $$.$mol_paginator = $mol_paginator;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//paginator.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_external extends $.$mol_icon {
         path() {
             return "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
@@ -7825,6 +7976,11 @@ var $;
             ];
             return obj;
         }
+        Paginator() {
+            const obj = new this.$.$mol_paginator();
+            obj.value = (val) => this.slide(val);
+            return obj;
+        }
         open_listener_hint() {
             return this.$.$mol_locale.text('$hyoo_slides_open_listener_hint');
         }
@@ -7867,6 +8023,7 @@ var $;
             return [
                 this.Speech_toggle(),
                 this.Speech_text(),
+                this.Paginator(),
                 this.Open_listener(),
                 this.Lights(),
                 this.Close()
@@ -8161,6 +8318,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $hyoo_slides.prototype, "Speech_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $hyoo_slides.prototype, "Paginator", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_slides.prototype, "Open_listener_icon", null);
