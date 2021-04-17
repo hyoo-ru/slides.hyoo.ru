@@ -42,6 +42,7 @@ $hyoo_slides $mol_view
 				checked?val <=> speech_enabled?val false
 				hint <= speech_toggle_hint @ \Speech contol
 			<= Speech_text $mol_view sub / <= speech_text \
+			<= Paginator $mol_paginator value?val <=> slide?val
 			<= Open_listener $mol_link
 				target \_blank
 				hint <= open_listener_hint @ \Open slides window
