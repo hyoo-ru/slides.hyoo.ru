@@ -1125,6 +1125,7 @@ declare namespace $ {
         dom_name(): string;
         attr(): {
             src: any;
+            srcdoc: any;
             allow: string;
         };
         fullscreen(): boolean;
@@ -1134,6 +1135,7 @@ declare namespace $ {
         gyroscope(): boolean;
         pip(): boolean;
         uri(val?: any): any;
+        html(): any;
         allow(): string;
     }
 }
@@ -1148,7 +1150,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_frame extends $.$mol_frame {
         dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
-        window(): unknown;
+        window(): Window;
         uri_resource(): any;
         _uri_sync: $mol_fiber | undefined;
         uri_listener(): $mol_dom_listener;
@@ -2557,79 +2559,6 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_exec(this: $, dir: string, command: string, ...args: string[]): any;
-}
-
-declare namespace $ {
-    class $mol_view_tree_test_attributes_super extends $mol_view {
-        some(): {
-            a: number;
-            b: number;
-        };
-    }
-    class $mol_view_tree_test_attributes extends $mol_view_tree_test_attributes_super {
-        some(): {
-            a: number;
-            b: number;
-        };
-    }
-}
-
-declare namespace $ {
-    class $mol_view_tree_test_binding extends $mol_view {
-        value(val?: any): any;
-        enabled(): boolean;
-        task_title_new(val?: any): any;
-        head_complete_enabled(): boolean;
-    }
-}
-
-declare namespace $ {
-    class $mol_view_tree_test_binding_right extends $mol_view {
-        outer_width(v?: any): any;
-        Test(): $mol_view_tree_test_binding_right_test;
-    }
-    class $mol_view_tree_test_binding_right_test extends $mol_view {
-        width(val?: any): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_view_tree_test_simple extends $mol_view {
-        some(): number;
-        bool(): boolean;
-        str(): string;
-        arr(): readonly any[];
-        arr_string(): readonly string[];
-    }
-}
-
-declare namespace $ {
-    class $mol_view_tree_test_attributes_subcomponent extends $mol_view {
-        Page(index: any): $mol_view_tree_test_attributes_subcomponent_page;
-        page(index: any): any;
-    }
-    class $mol_view_tree_test_attributes_subcomponent_page extends $mol_view {
-        Sub(): any;
-    }
-}
-
-declare namespace $ {
-    function $mol_view_tree_trim_remarks(def: $mol_tree): $mol_tree;
-    function $mol_view_tree_classes(defs: $mol_tree): $mol_tree;
-    function $mol_view_tree_class_name(val: $mol_tree): string;
-    function $mol_view_tree_super_name(val: $mol_tree): string;
-    function $mol_view_tree_class_props(def: $mol_tree): $mol_tree;
-    function $mol_view_tree_prop_name(prop: $mol_tree): string;
-    function $mol_view_tree_prop_key(prop: $mol_tree): string;
-    function $mol_view_tree_prop_next(prop: $mol_tree): string;
-    function $mol_view_tree_prop_value(prop: $mol_tree): $mol_tree;
-    function $mol_view_tree_value_type(val: $mol_tree): "number" | "locale" | "string" | "object" | "null" | "list" | "bool" | "dict" | "get" | "bind" | "put";
-    function $mol_view_tree_compile(tree: $mol_tree): {
-        script: string;
-        locales: {
-            [key: string]: string;
-        };
-    };
 }
 
 export = $;
