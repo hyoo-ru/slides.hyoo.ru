@@ -968,15 +968,15 @@ declare namespace $ {
         minimal_height(): number;
         _event_scroll_timer(val?: any): any;
         field(): {
-            scrollTop: any;
-            scrollLeft: any;
+            scrollTop: number;
+            scrollLeft: number;
             tabIndex: number;
         };
         event(): {
             scroll: (event?: any) => any;
         };
-        scroll_top(val?: any): any;
-        scroll_left(val?: any): any;
+        scroll_top(val?: any): number;
+        scroll_left(val?: any): number;
         tabindex(): number;
         event_scroll(event?: any): any;
     }
@@ -1040,7 +1040,7 @@ declare namespace $ {
         Tools(): $mol_view;
         head(): readonly any[];
         Head(): $mol_view;
-        body_scroll_top(val?: any): any;
+        body_scroll_top(val?: any): number;
         body(): readonly $mol_view_content[];
         Body(): $$.$mol_scroll;
         foot(): readonly $mol_view[];
@@ -1124,7 +1124,7 @@ declare namespace $ {
     class $mol_frame extends $mol_view {
         dom_name(): string;
         attr(): {
-            src: any;
+            src: string;
             srcdoc: any;
             allow: string;
         };
@@ -1134,7 +1134,7 @@ declare namespace $ {
         encription(): boolean;
         gyroscope(): boolean;
         pip(): boolean;
-        uri(val?: any): any;
+        uri(val?: any): string;
         html(): any;
         allow(): string;
     }
@@ -1151,7 +1151,7 @@ declare namespace $.$$ {
     class $mol_frame extends $.$mol_frame {
         dom_node: (next?: HTMLIFrameElement) => HTMLIFrameElement;
         window(): Window;
-        uri_resource(): any;
+        uri_resource(): string;
         _uri_sync: $mol_fiber | undefined;
         uri_listener(): $mol_dom_listener;
         render(): void;
@@ -1174,7 +1174,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_book2 extends $.$mol_book2 {
         title(): string;
-        sub(): $mol_view[];
+        sub(): readonly $mol_view[];
     }
 }
 
@@ -1407,15 +1407,15 @@ declare namespace $ {
 declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
-            mol_check_checked: any;
-            "aria-checked": any;
+            mol_check_checked: boolean;
+            "aria-checked": boolean;
             role: string;
             disabled: boolean;
             tabindex: number;
             title: string;
         };
         sub(): readonly $mol_view_content[];
-        checked(val?: any): any;
+        checked(val?: any): boolean;
         Icon(): any;
         title(): string;
         Title(): $mol_view;
@@ -1519,10 +1519,10 @@ declare namespace $ {
         style(): {
             paddingLeft: string;
         };
-        checked(val?: any): any;
+        checked(val?: any): boolean;
         enabled(): boolean;
         level_style(): string;
-        expanded(val?: any): any;
+        expanded(val?: any): boolean;
         expandable(): boolean;
     }
 }
@@ -1705,7 +1705,7 @@ declare namespace $ {
         cell_content_number(id: any): readonly $mol_view_content[];
         col_head_content(id: any): readonly $mol_view_content[];
         cell_level(id: any): number;
-        cell_expanded(id: any, val?: any): any;
+        cell_expanded(id: any, val?: any): boolean;
         needle(): string;
         cell_value(id: any): string;
         Cell_dimmer(id: any): $$.$mol_dimmer;
@@ -1767,7 +1767,7 @@ declare namespace $.$$ {
         row_expanded_default(row_id: string[]): boolean;
         cell_expanded(id: {
             row: string[];
-        }, next?: boolean): boolean | null;
+        }, next?: boolean): boolean;
     }
 }
 
@@ -1843,46 +1843,46 @@ declare namespace $ {
     class $mol_text_header extends $mol_paragraph {
         dom_name(): string;
         attr(): {
-            mol_text_header_level: any;
+            mol_text_header_level: number;
         };
         sub(): readonly any[];
-        level(val?: any): any;
+        level(val?: any): number;
         content(): readonly any[];
     }
     class $mol_text_span extends $mol_paragraph {
         dom_name(): string;
         attr(): {
-            mol_text_type: any;
+            mol_text_type: string;
         };
-        sub(): any;
-        type(val?: any): any;
-        content(val?: any): any;
+        sub(): readonly any[];
+        type(val?: any): string;
+        content(val?: any): readonly any[];
     }
     class $mol_text_link extends $mol_link_iconed {
         attr(): {
-            mol_text_type: any;
+            mol_text_type: string;
             href: string;
             title: string;
             target: string;
             download: string;
             mol_link_current: boolean;
         };
-        uri(): any;
-        content(val?: any): any;
-        type(val?: any): any;
-        link(val?: any): any;
+        uri(): string;
+        content(val?: any): readonly any[];
+        type(val?: any): string;
+        link(val?: any): string;
     }
     class $mol_text_image extends $mol_view {
         dom_name(): string;
         attr(): {
             allowfullscreen: boolean;
-            mol_text_type: any;
-            data: any;
+            mol_text_type: string;
+            data: string;
         };
         sub(): readonly any[];
-        type(val?: any): any;
-        link(val?: any): any;
-        title(val?: any): any;
+        type(val?: any): string;
+        link(val?: any): string;
+        title(val?: any): string;
     }
 }
 
@@ -2003,8 +2003,8 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_slides_page extends $mol_book2 {
         role(): string;
-        contents(val?: any): any;
-        slide(val?: any): any;
+        contents(val?: any): string;
+        slide(val?: any): number;
         Placeholder(): any;
         pages(): readonly any[];
         speaker_tools(): readonly any[];
@@ -2166,7 +2166,7 @@ declare namespace $ {
         backward(event?: any): any;
         Backward_icon(): $mol_icon_chevron_left;
         Backward(): $mol_button_minor;
-        value(val?: any): any;
+        value(val?: any): number;
         Value(): $mol_view;
         forward_hint(): string;
         forward(event?: any): any;
@@ -2205,9 +2205,9 @@ declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
         hint(): string;
-        checked(val?: any): any;
+        checked(val?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
-        lights(val?: any): any;
+        lights(val?: any): boolean;
     }
 }
 
@@ -2256,12 +2256,12 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_nav extends $mol_plugin {
-        cycle(val?: any): any;
+        cycle(val?: any): boolean;
         mod_ctrl(): boolean;
         mod_shift(): boolean;
         mod_alt(): boolean;
-        keys_x(val?: any): any;
-        keys_y(val?: any): any;
+        keys_x(val?: any): readonly any[];
+        keys_y(val?: any): readonly any[];
         current_x(val?: any): any;
         current_y(val?: any): any;
         event_up(event?: any): any;
@@ -2282,19 +2282,19 @@ declare namespace $.$$ {
         event_down(event?: KeyboardEvent): undefined;
         event_left(event?: KeyboardEvent): undefined;
         event_right(event?: KeyboardEvent): undefined;
-        index_y(): any;
-        index_x(): any;
+        index_y(): number | null;
+        index_x(): number | null;
     }
 }
 
 declare namespace $ {
     class $mol_touch extends $mol_plugin {
-        start_zoom(val?: any): any;
-        start_distance(val?: any): any;
-        zoom(val?: any): any;
-        start_pan(val?: any): any;
-        pan(val?: any): any;
-        pos(val?: any): any;
+        start_zoom(val?: any): number;
+        start_distance(val?: any): number;
+        zoom(val?: any): number;
+        start_pan(val?: any): readonly any[];
+        pan(val?: any): readonly any[];
+        pos(val?: any): readonly any[];
         start_pos(val?: any): any;
         swipe_precision(): number;
         swipe_right(val?: any): any;
@@ -2392,7 +2392,7 @@ declare namespace $ {
         style(): {
             "touch-action": string;
         };
-        contents(val?: any): any;
+        contents(val?: any): string;
         Menu(): $$.$mol_page;
         Menu_item(id: any): $$.$mol_link;
         menu_options(): {
@@ -2418,13 +2418,13 @@ declare namespace $ {
         uri_slides(): string;
         tools(): readonly any[];
         page_title(index: any): string;
-        page_slide(index: any, val?: any): any;
+        page_slide(index: any, val?: any): number;
         uri_base(): string;
         listener_content(index: any): readonly any[];
         speaker_content(index: any): readonly any[];
         progress(index: any): number;
         Speech_toggle_icon(): $mol_icon_microphone;
-        speech_enabled(val?: any): any;
+        speech_enabled(val?: any): boolean;
         speech_toggle_hint(): string;
         Speech_toggle(): $mol_check_icon;
         speech_text(): string;
@@ -2439,7 +2439,7 @@ declare namespace $ {
         speaker_tools(): readonly any[];
         Theme(): $$.$mol_theme_auto;
         slide_keys(): readonly any[];
-        slide(val?: any): any;
+        slide(val?: any): number;
         Nav(): $$.$mol_nav;
         event_next(event?: any): any;
         event_prev(event?: any): any;
