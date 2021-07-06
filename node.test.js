@@ -2425,7 +2425,9 @@ var $;
                     return null;
                 return (child instanceof $mol_view)
                     ? child.dom_node()
-                    : String(child);
+                    : child instanceof Node
+                        ? child
+                        : String(child);
             });
             $.$mol_dom_render_children(node, nodes);
             for (const el of sub)
@@ -4579,7 +4581,7 @@ var $;
             return 24;
         }
         letter_width() {
-            return 8;
+            return 7;
         }
         width_limit() {
             return Infinity;

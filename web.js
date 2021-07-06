@@ -2138,7 +2138,9 @@ var $;
                     return null;
                 return (child instanceof $mol_view)
                     ? child.dom_node()
-                    : String(child);
+                    : child instanceof Node
+                        ? child
+                        : String(child);
             });
             $.$mol_dom_render_children(node, nodes);
             for (const el of sub)
@@ -3056,7 +3058,7 @@ var $;
                 const val = next[key];
                 chunks.push([key].concat(val ? [val] : []).map(this.encode).join('='));
             }
-            return new URL('#!' + chunks.join('/'), $.$mol_dom_context.location.href).toString();
+            return new URL('#' + this.prolog + chunks.join(this.separator), $.$mol_dom_context.location.href).toString();
         }
         static encode(str) {
             return encodeURIComponent(str).replace(/\(/g, '%28').replace(/\)/g, '%29');
@@ -3076,6 +3078,8 @@ var $;
             return this.constructor.link(dict);
         }
     }
+    $mol_state_arg.prolog = '!';
+    $mol_state_arg.separator = '/';
     __decorate([
         $.$mol_mem
     ], $mol_state_arg, "href", null);
@@ -4353,7 +4357,7 @@ var $;
             return 24;
         }
         letter_width() {
-            return 8;
+            return 7;
         }
         width_limit() {
             return Infinity;
