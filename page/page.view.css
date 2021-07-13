@@ -31,6 +31,7 @@
 [hyoo_slides_page_listener_body] {
 	display: flex;
 	flex-direction: column;
+	padding: 0;
 }
 
 [hyoo_slides_page_speaker_content] {
