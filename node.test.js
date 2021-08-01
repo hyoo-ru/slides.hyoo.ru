@@ -7273,6 +7273,104 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_vector extends Array {
+        constructor(...values) { super(...values); }
+        map(convert, self) {
+            return super.map(convert, self);
+        }
+        merged(patches, combine) {
+            return this.map((value, index) => combine(value, patches[index]));
+        }
+        limited(limits) {
+            return this.merged(limits, (value, [min, max]) => (value < min) ? min : (value > max) ? max : value);
+        }
+        added0(diff) {
+            return this.map(value => value + diff);
+        }
+        added1(diff) {
+            return this.merged(diff, (a, b) => a + b);
+        }
+        multed0(mult) {
+            return this.map(value => value * mult);
+        }
+        multed1(mults) {
+            return this.merged(mults, (a, b) => a * b);
+        }
+        powered0(mult) {
+            return this.map(value => value ** mult);
+        }
+        expanded1(point) {
+            return this.merged(point, (range, value) => range.expanded0(value));
+        }
+        expanded2(point) {
+            return this.merged(point, (range1, range2) => {
+                let next = range1;
+                const Range = range1.constructor;
+                if (range1[0] > range2[0])
+                    next = new Range(range2[0], next.max);
+                if (range1[1] < range2[1])
+                    next = new Range(next.min, range2[1]);
+                return next;
+            });
+        }
+        center() {
+            const Result = this[0].constructor;
+            return new Result(...this[0].map((_, i) => this.reduce((sum, point) => sum + point[i], 0) / this.length));
+        }
+        distance() {
+            let distance = 0;
+            for (let i = 1; i < this.length; ++i) {
+                distance += this[i - 1].reduce((sum, min, j) => sum + (min - this[i][j]) ** 2, 0) ** (1 / this[i].length);
+            }
+            return distance;
+        }
+        get x() { return this[0]; }
+        get y() { return this[1]; }
+        get z() { return this[2]; }
+    }
+    $.$mol_vector = $mol_vector;
+    class $mol_vector_1d extends $mol_vector {
+    }
+    $.$mol_vector_1d = $mol_vector_1d;
+    class $mol_vector_2d extends $mol_vector {
+    }
+    $.$mol_vector_2d = $mol_vector_2d;
+    class $mol_vector_3d extends $mol_vector {
+    }
+    $.$mol_vector_3d = $mol_vector_3d;
+    class $mol_vector_range extends $mol_vector {
+        get min() { return this[0]; }
+        get max() { return this[1]; }
+        get inversed() {
+            return new this.constructor(this.max, this.min);
+        }
+        expanded0(value) {
+            const Range = this.constructor;
+            let range = this;
+            if (value > range.max)
+                range = new Range(range.min, value);
+            if (value < range.min)
+                range = new Range(value, range.max);
+            return range;
+        }
+    }
+    $.$mol_vector_range = $mol_vector_range;
+    $.$mol_vector_range_full = new $mol_vector_range(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY);
+    class $mol_vector_matrix extends $mol_vector {
+        added2(diff) {
+            return this.merged(diff, (a, b) => a.map((a2, index) => a2 + b[index]));
+        }
+        multed2(diff) {
+            return this.merged(diff, (a, b) => a.map((a2, index) => a2 * b[index]));
+        }
+    }
+    $.$mol_vector_matrix = $mol_vector_matrix;
+})($ || ($ = {}));
+//vector.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_touch extends $.$mol_plugin {
         start_zoom(val) {
             if (val !== undefined)
@@ -7300,10 +7398,8 @@ var $;
         pan(val) {
             if (val !== undefined)
                 return val;
-            return [
-                0,
-                0
-            ];
+            const obj = new this.$.$mol_vector_2d(0, 0);
+            return obj;
         }
         pos(val) {
             if (val !== undefined)
@@ -7381,6 +7477,12 @@ var $;
                 return val;
             return null;
         }
+        drawn(val) {
+            if (val !== undefined)
+                return val;
+            const obj = new this.$.$mol_vector_2d([], []);
+            return obj;
+        }
         style() {
             return {
                 ...super.style(),
@@ -7394,11 +7496,12 @@ var $;
                 touchstart: (event) => this.event_start(event),
                 touchmove: (event) => this.event_move(event),
                 touchend: (event) => this.event_end(event),
-                mousedown: (event) => this.event_start(event),
-                mousemove: (event) => this.event_move(event),
-                mouseup: (event) => this.event_end(event),
-                mouseleave: (event) => this.event_leave(event),
-                wheel: (event) => this.event_wheel(event)
+                pointerdown: (event) => this.event_start(event),
+                pointermove: (event) => this.event_move(event),
+                pointerup: (event) => this.event_end(event),
+                pointerleave: (event) => this.event_leave(event),
+                wheel: (event) => this.event_wheel(event),
+                contextmenu: (event) => this.event_menu(event)
             };
         }
         event_start(event) {
@@ -7422,6 +7525,11 @@ var $;
             return null;
         }
         event_wheel(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_menu(event) {
             if (event !== undefined)
                 return event;
             return null;
@@ -7486,6 +7594,9 @@ var $;
     ], $mol_touch.prototype, "swipe_to_top", null);
     __decorate([
         $.$mol_mem
+    ], $mol_touch.prototype, "drawn", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_touch.prototype, "event_start", null);
     __decorate([
         $.$mol_mem
@@ -7499,6 +7610,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "event_wheel", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_touch.prototype, "event_menu", null);
     $.$mol_touch = $mol_touch;
 })($ || ($ = {}));
 //touch.view.tree.js.map
@@ -7509,71 +7623,103 @@ var $;
     var $$;
     (function ($$) {
         class $mol_touch extends $.$mol_touch {
-            rect() {
-                return this.dom_node().getBoundingClientRect();
+            constructor() {
+                super(...arguments);
+                this._menu_mute = false;
+            }
+            auto() {
+                this.view_rect();
+            }
+            event_coords(event) {
+                const { left, top } = this.view_rect();
+                function point(point) {
+                    return new $.$mol_vector_2d(Math.round(point.pageX - left), Math.round(point.pageY - top));
+                }
+                if ('touches' in event) {
+                    return new $.$mol_vector(...[...event.touches].map(point));
+                }
+                return new $.$mol_vector(point(event));
+            }
+            action_type(event) {
+                if (event instanceof TouchEvent) {
+                    if (event.touches.length === 2)
+                        return 'zoom';
+                    if (event.touches.length === 1)
+                        return 'draw';
+                }
+                if (event instanceof PointerEvent) {
+                    if (event.pointerType === 'touch')
+                        return null;
+                    if (event.ctrlKey)
+                        return 'zoom';
+                    if (event.buttons === 2)
+                        return 'pan';
+                    if (event.buttons === 1)
+                        return 'draw';
+                }
+                if (event instanceof WheelEvent) {
+                    if (event.ctrlKey)
+                        return 'zoom';
+                    return 'pan';
+                }
+                return null;
             }
             event_start(event) {
                 if (event.defaultPrevented)
                     return;
+                if (event instanceof PointerEvent) {
+                    this.dom_node().setPointerCapture(event.pointerId);
+                }
                 this.start_pan(this.pan());
-                let pos;
-                if (event instanceof MouseEvent) {
-                    if (event.buttons === 1) {
-                        pos = [event.pageX, event.pageY];
-                        this.start_pos(pos);
-                    }
+                const action_type = this.action_type(event);
+                if (!action_type)
+                    return;
+                if (action_type === 'draw') {
+                    return this.draw_start(event);
                 }
-                else if (event instanceof TouchEvent) {
-                    if (event.touches.length === 1) {
-                        pos = [event.touches[0].pageX, event.touches[0].pageY];
-                        this.start_pos(pos);
-                    }
-                    if (event.touches.length === 2) {
-                        const distance = ((event.touches[1].pageX - event.touches[0].pageX) ** 2 + (event.touches[1].pageY - event.touches[0].pageY) ** 2) ** .5;
-                        this.start_distance(distance);
-                        this.start_zoom(this.zoom());
-                    }
-                }
+                const coords = this.event_coords(event);
+                this.start_pos(coords.center());
+                this.start_distance(coords.distance());
+                this.start_zoom(this.zoom());
             }
             event_leave(event) {
                 if (event.defaultPrevented)
                     return;
-                if (event instanceof MouseEvent)
+                if (event instanceof PointerEvent)
                     this.pos(super.pos());
             }
             event_move(event) {
                 if (event.defaultPrevented)
                     return;
+                const rect = this.view_rect();
+                if (!rect)
+                    return;
                 const start_pan = this.start_pan();
                 let pos;
                 let cursor_pos;
-                if (event instanceof MouseEvent) {
-                    cursor_pos = [event.pageX, event.pageY];
-                    if (event.buttons === 1)
-                        pos = cursor_pos;
-                    else
-                        this.start_pos(null);
-                }
-                else if (event instanceof TouchEvent) {
-                    cursor_pos = [event.touches[0].pageX, event.touches[0].pageY];
-                    if (event.touches.length === 1)
-                        pos = cursor_pos;
-                    else
-                        this.start_pos(null);
+                cursor_pos = this.event_coords(event).center();
+                pos = cursor_pos;
+                const action_type = this.action_type(event);
+                if (!action_type)
+                    return;
+                if (action_type === 'draw') {
+                    return this.draw_continue(event);
                 }
                 if (cursor_pos) {
-                    const { left, top } = this.rect();
                     this.pos([
-                        Math.max(0, Math.round(cursor_pos[0] - left)),
-                        Math.max(0, Math.round(cursor_pos[1] - top)),
+                        Math.max(0, cursor_pos[0]),
+                        Math.max(0, cursor_pos[1]),
                     ]);
                 }
+                const start_pos = this.start_pos();
                 if (pos) {
-                    const start_pos = this.start_pos();
                     if (!start_pos)
                         return;
+                    const distance = new $.$mol_vector_2d(start_pos, pos).distance();
+                    if (distance >= 4)
+                        this._menu_mute = true;
                     if (this.pan !== $mol_touch.prototype.pan) {
-                        this.pan([start_pan[0] + pos[0] - start_pos[0], start_pan[1] + pos[1] - start_pos[1]]);
+                        this.pan(new $.$mol_vector_2d(start_pan[0] + pos[0] - start_pos[0], start_pan[1] + pos[1] - start_pos[1]));
                         event.preventDefault();
                     }
                     if (typeof TouchEvent === 'undefined')
@@ -7621,48 +7767,60 @@ var $;
                 if (event.touches.length === 2) {
                     if (this.zoom === $mol_touch.prototype.zoom)
                         return;
-                    const pos0 = [event.touches[0].pageX, event.touches[0].pageY];
-                    const pos1 = [event.touches[1].pageX, event.touches[1].pageY];
-                    const distance = ((pos1[0] - pos0[0]) ** 2 + (pos1[1] - pos0[1]) ** 2) ** .5;
-                    const center = [pos1[0] / 2 + pos0[0] / 2, pos1[1] / 2 + pos0[1] / 2];
+                    const coords = this.event_coords(event);
+                    const distance = coords.distance();
+                    const start_distance = this.start_distance();
+                    const center = coords.center();
                     const start_zoom = this.start_zoom();
-                    const mult = distance / this.start_distance();
+                    let mult = Math.abs(distance - start_distance) < 32 ? 1 : distance / start_distance;
                     this.zoom(start_zoom * mult);
-                    const pan = [(start_pan[0] - center[0]) * mult + center[0], (start_pan[1] - center[1]) * mult + center[1]];
+                    const pan = new $.$mol_vector_2d((start_pan[0] - center[0] + pos[0] - start_pos[0]) * mult + center[0], (start_pan[1] - center[1] + pos[1] - start_pos[1]) * mult + center[1]);
                     this.pan(pan);
                     event.preventDefault();
                 }
             }
+            event_end(event) {
+                if (!this.start_pos()) {
+                    this.draw_end(event);
+                    return;
+                }
+                if (event instanceof PointerEvent) {
+                    this.dom_node().releasePointerCapture(event.pointerId);
+                }
+                this.start_pos(null);
+                new $.$mol_after_timeout(0, () => this._menu_mute = false);
+            }
             swipe_left(event) {
-                if (this.rect().right - this.start_pos()[0] < this.swipe_precision() * 2)
+                if (this.view_rect().right - this.start_pos()[0] < this.swipe_precision() * 2)
                     this.swipe_from_right(event);
                 else
                     this.swipe_to_left(event);
                 this.event_end(event);
             }
             swipe_right(event) {
-                if (this.start_pos()[0] - this.rect().left < this.swipe_precision() * 2)
+                if (this.start_pos()[0] - this.view_rect().left < this.swipe_precision() * 2)
                     this.swipe_from_left(event);
                 else
                     this.swipe_to_right(event);
                 this.event_end(event);
             }
             swipe_top(event) {
-                if (this.rect().bottom - this.start_pos()[1] < this.swipe_precision() * 2)
+                if (this.view_rect().bottom - this.start_pos()[1] < this.swipe_precision() * 2)
                     this.swipe_from_bottom(event);
                 else
                     this.swipe_to_top(event);
                 this.event_end(event);
             }
             swipe_bottom(event) {
-                if (this.start_pos()[1] - this.rect().top < this.swipe_precision() * 2)
+                if (this.start_pos()[1] - this.view_rect().top < this.swipe_precision() * 2)
                     this.swipe_from_top(event);
                 else
                     this.swipe_to_bottom(event);
                 this.event_end(event);
             }
-            event_end(event) {
-                this.start_pos(null);
+            event_menu(event) {
+                if (this._menu_mute)
+                    event.preventDefault();
             }
             event_wheel(event) {
                 if (this.pan === $mol_touch.prototype.pan && this.zoom === $mol_touch.prototype.zoom)
@@ -7670,14 +7828,40 @@ var $;
                 if (this.pan !== $mol_touch.prototype.pan) {
                     event.preventDefault();
                 }
-                const zoom_prev = this.zoom() || 0.001;
-                const zoom_next = zoom_prev * (1 - .1 * Math.sign(event.deltaY));
-                const mult = zoom_next / zoom_prev;
-                this.zoom(zoom_next);
-                const pan_prev = this.pan();
-                const center = [event.offsetX, event.offsetY];
-                const pan_next = [(pan_prev[0] - center[0]) * mult + center[0], (pan_prev[1] - center[1]) * mult + center[1]];
-                this.pan(pan_next);
+                const action_type = this.action_type(event);
+                if (action_type === 'zoom') {
+                    const zoom_prev = this.zoom() || 0.001;
+                    const zoom_next = zoom_prev * (1 - .1 * Math.sign(event.deltaY));
+                    const mult = zoom_next / zoom_prev;
+                    this.zoom(zoom_next);
+                    const pan_prev = this.pan();
+                    const center = this.event_coords(event).center();
+                    const pan_next = pan_prev.multed0(mult).added1(center.multed0(1 - mult));
+                    this.pan(pan_next);
+                }
+                if (action_type === 'pan') {
+                    const pan_prev = this.pan();
+                    const pan_next = new $.$mol_vector_2d(pan_prev.x - event.deltaX, pan_prev.y - event.deltaY);
+                    this.pan(pan_next);
+                }
+            }
+            draw_point(event) {
+                const point = this.event_coords(event).center();
+                const zoom = this.zoom();
+                const pan = this.pan();
+                return new $.$mol_vector_2d((point.x - pan.x) / zoom, (point.y - pan.y) / zoom);
+            }
+            draw_start(event) {
+                const point = this.draw_point(event);
+                this.drawn(new $.$mol_vector_2d([point.x], [point.y]));
+            }
+            draw_continue(event) {
+                const drawn = this.drawn();
+                const point = this.draw_point(event);
+                this.drawn(new $.$mol_vector_2d([...drawn.x, point.x], [...drawn.y, point.y]));
+            }
+            draw_end(event) {
+                this.drawn(new $.$mol_vector_2d([], []));
             }
         }
         $$.$mol_touch = $mol_touch;
@@ -11431,6 +11615,96 @@ var $;
     });
 })($ || ($ = {}));
 //array.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Vector limiting'() {
+            let point = new $.$mol_vector_3d(7, 10, 13);
+            const res = point.limited([[1, 5], [15, 20], [5, 10]]);
+            $.$mol_assert_equal(res.x, 5);
+            $.$mol_assert_equal(res.y, 15);
+            $.$mol_assert_equal(res.z, 10);
+        },
+        'Vector adding scalar'() {
+            let point = new $.$mol_vector_3d(1, 2, 3);
+            let res = point.added0(5);
+            $.$mol_assert_equal(res.x, 6);
+            $.$mol_assert_equal(res.y, 7);
+            $.$mol_assert_equal(res.z, 8);
+        },
+        'Vector adding vector'() {
+            let point = new $.$mol_vector_3d(1, 2, 3);
+            let res = point.added1([5, 10, 15]);
+            $.$mol_assert_equal(res.x, 6);
+            $.$mol_assert_equal(res.y, 12);
+            $.$mol_assert_equal(res.z, 18);
+        },
+        'Vector multiplying scalar'() {
+            let point = new $.$mol_vector_3d(2, 3, 4);
+            let res = point.multed0(-1);
+            $.$mol_assert_equal(res.x, -2);
+            $.$mol_assert_equal(res.y, -3);
+            $.$mol_assert_equal(res.z, -4);
+        },
+        'Vector multiplying vector'() {
+            let point = new $.$mol_vector_3d(2, 3, 4);
+            let res = point.multed1([5, 2, -2]);
+            $.$mol_assert_equal(res.x, 10);
+            $.$mol_assert_equal(res.y, 6);
+            $.$mol_assert_equal(res.z, -8);
+        },
+        'Matrix adding matrix'() {
+            let matrix = new $.$mol_vector_matrix(...[[1, 2], [3, 4], [5, 6]]);
+            let res = matrix.added2([[10, 20], [30, 40], [50, 60]]);
+            $.$mol_assert_equal(res[0][0], 11);
+            $.$mol_assert_equal(res[0][1], 22);
+            $.$mol_assert_equal(res[1][0], 33);
+            $.$mol_assert_equal(res[1][1], 44);
+            $.$mol_assert_equal(res[2][0], 55);
+            $.$mol_assert_equal(res[2][1], 66);
+        },
+        'Matrix multiplying matrix'() {
+            let matrix = new $.$mol_vector_matrix(...[[2, 3], [4, 5], [6, 7]]);
+            let res = matrix.multed2([[2, 3], [4, 5], [6, 7]]);
+            $.$mol_assert_equal(res[0][0], 4);
+            $.$mol_assert_equal(res[0][1], 9);
+            $.$mol_assert_equal(res[1][0], 16);
+            $.$mol_assert_equal(res[1][1], 25);
+            $.$mol_assert_equal(res[2][0], 36);
+            $.$mol_assert_equal(res[2][1], 49);
+        },
+        'Range expanding'() {
+            let range = $.$mol_vector_range_full.inversed;
+            const expanded = range.expanded0(10).expanded0(5);
+            $.$mol_assert_like([...expanded], [5, 10]);
+        },
+        'Vector of range expanding by vector'() {
+            let dimensions = new $.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+            const expanded = dimensions.expanded1([1, 7]).expanded1([3, 5]);
+            $.$mol_assert_like([...expanded.x], [1, 3]);
+            $.$mol_assert_like([...expanded.y], [5, 7]);
+        },
+        'Vector of range expanding by vector of range'() {
+            let dimensions = new $.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+            const expanded = dimensions
+                .expanded2([[1, 3], [7, 9]])
+                .expanded2([[2, 4], [6, 8]]);
+            $.$mol_assert_like([...expanded.x], [1, 4]);
+            $.$mol_assert_like([...expanded.y], [6, 9]);
+        },
+        'Vector of infinity range expanding by vector of range'() {
+            let dimensions = new $.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+            const next = new $.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+            const expanded = next
+                .expanded2(dimensions);
+            $.$mol_assert_like([...expanded.x], [Infinity, -Infinity]);
+            $.$mol_assert_like([...expanded.y], [Infinity, -Infinity]);
+        },
+    });
+})($ || ($ = {}));
+//vector.test.js.map
 ;
 "use strict";
 var $;
