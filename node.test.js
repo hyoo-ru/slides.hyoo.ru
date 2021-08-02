@@ -7675,7 +7675,8 @@ var $;
                 if (!action_type)
                     return;
                 if (action_type === 'draw') {
-                    return this.draw_start(event);
+                    this.draw_start(event);
+                    return;
                 }
                 const coords = this.event_coords(event);
                 this.start_pos(coords.center());
@@ -7703,7 +7704,8 @@ var $;
                 if (!action_type)
                     return;
                 if (action_type === 'draw') {
-                    return this.draw_continue(event);
+                    this.draw_continue(event);
+                    return;
                 }
                 if (cursor_pos) {
                     this.pos([
