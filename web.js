@@ -7504,9 +7504,6 @@ var $;
             event_start(event) {
                 if (event.defaultPrevented)
                     return;
-                if (event instanceof PointerEvent) {
-                    this.dom_node().setPointerCapture(event.pointerId);
-                }
                 this.start_pan(this.pan());
                 const action_type = this.action_type(event);
                 if (!action_type)
@@ -7555,8 +7552,12 @@ var $;
                     if (!start_pos)
                         return;
                     const distance = new $.$mol_vector_2d(start_pos, pos).distance();
-                    if (distance >= 4)
+                    if (distance >= 4) {
                         this._menu_mute = true;
+                        if (event instanceof PointerEvent) {
+                            this.dom_node().setPointerCapture(event.pointerId);
+                        }
+                    }
                     if (this.pan !== $mol_touch.prototype.pan) {
                         this.pan(new $.$mol_vector_2d(start_pan[0] + pos[0] - start_pos[0], start_pan[1] + pos[1] - start_pos[1]));
                         event.preventDefault();
