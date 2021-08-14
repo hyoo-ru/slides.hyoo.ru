@@ -43,7 +43,7 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
-$mol_frame $mol_view
+$mol_frame $mol_scroll
 	dom_name \iframe
 	attr *
 		src <= uri?val \

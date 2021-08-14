@@ -3232,7 +3232,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_frame extends $.$mol_view {
+    class $mol_frame extends $.$mol_scroll {
         dom_name() {
             return "iframe";
         }
@@ -7597,7 +7597,7 @@ var $;
     $.$mol_vector_3d = $mol_vector_3d;
     class $mol_vector_range extends $mol_vector {
         get [0]() { return super[0]; }
-        get [1]() { return super[0]; }
+        get [1]() { return super[1]; }
         get min() { return this[0]; }
         get max() { return this[1]; }
         get inversed() {
