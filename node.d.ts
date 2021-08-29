@@ -1146,8 +1146,8 @@ declare namespace $ {
         static end: $mol_regexp<{}>;
         static or: $mol_regexp<{}>;
         static line_end: $mol_regexp<{
-            readonly mac_end: string;
             readonly win_end: string;
+            readonly mac_end: string;
         }>;
     }
     export {};
@@ -2358,7 +2358,7 @@ declare namespace $ {
         static voices(): SpeechSynthesisVoice[];
         static say(text: string): null;
         static speaking(next?: boolean): boolean;
-        static hearer(): SpeechRecognition;
+        static hearer(): any;
         static hearing(next?: boolean): boolean;
         static event_result(event?: null | Event & {
             results: Array<{
