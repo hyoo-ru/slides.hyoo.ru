@@ -9,6 +9,8 @@ $hyoo_slides $mol_view
 	Menu $mol_page
 		title \Slides
 		tools <= menu_tools /
+			<= Source_link $mol_link_source
+				uri \https://github.com/hyoo-ru/slides.hyoo.ru
 		body /
 			<= Menu_items $mol_list
 				rows <= menu_items /$mol_view
