@@ -1,4 +1,5 @@
 {
 	"$hyoo_slides_open_listener_hint": "Открыть слайды в отдельном окне",
-	"$mol_lights_toggle_hint": "Переключатель света"
+	"$mol_lights_toggle_hint": "Переключатель света",
+	"$mol_link_source_hint": "Исходные коды"
 }

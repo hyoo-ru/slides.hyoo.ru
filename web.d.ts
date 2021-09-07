@@ -1933,12 +1933,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_microphone extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
     class $mol_state_local<Value> extends $mol_object {
         static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
         static native(): Storage | {
@@ -2064,6 +2058,26 @@ declare namespace $ {
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
         static text(key: string): string;
         static warn(key: string): null;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_github_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_link_source extends $mol_link {
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_github_circle;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_microphone extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -2430,6 +2444,7 @@ declare namespace $ {
         Page(index: any): $$.$hyoo_slides_page;
         plugins(): readonly any[];
         role(): string;
+        Source_link(): $mol_link_source;
         menu_tools(): readonly any[];
         menu_items(): readonly $mol_view[];
         Menu_items(): $$.$mol_list;
