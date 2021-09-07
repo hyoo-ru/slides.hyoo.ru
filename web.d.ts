@@ -2438,6 +2438,7 @@ declare namespace $ {
             "https://nin-jin.github.io/slides/virt/": string;
             "https://nin-jin.github.io/slides/css-in-ts/": string;
             "https://nin-jin.github.io/slides/testing/": string;
+            "https://nin-jin.github.io/slides/consensus/": string;
             "https://nin-jin.github.io/slides/absurd/": string;
         };
         Loader(): $$.$mol_frame;

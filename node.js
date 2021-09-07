@@ -8598,6 +8598,7 @@ var $;
                 "https://nin-jin.github.io/slides/virt/": "Автоматическая виртуализация рендеринга произвольной вёрстки",
                 "https://nin-jin.github.io/slides/css-in-ts/": "Продвинутый CSS-in-TS",
                 "https://nin-jin.github.io/slides/testing/": "Фрактальное тестирование",
+                "https://nin-jin.github.io/slides/consensus/": "Консистентно о Консенсусе",
                 "https://nin-jin.github.io/slides/absurd/": "Проблема останова лжеца Гёделя и брадобрея Кантора"
             };
         }
