@@ -2431,12 +2431,13 @@ declare namespace $ {
         Menu_item(id: any): $$.$mol_link;
         menu_options(): {
             "https://nin-jin.github.io/slides/slides/": string;
-            "https://nin-jin.github.io/slides/fibers/": string;
-            "https://nin-jin.github.io/slides/mol/": string;
             "https://nin-jin.github.io/slides/orp/": string;
             "https://nin-jin.github.io/slides/tree/": string;
+            "https://nin-jin.github.io/slides/sourcemap/": string;
             "https://nin-jin.github.io/slides/virt/": string;
             "https://nin-jin.github.io/slides/css-in-ts/": string;
+            "https://nin-jin.github.io/slides/mol/": string;
+            "https://nin-jin.github.io/slides/fibers/": string;
             "https://nin-jin.github.io/slides/testing/": string;
             "https://nin-jin.github.io/slides/consensus/": string;
             "https://nin-jin.github.io/slides/absurd/": string;
