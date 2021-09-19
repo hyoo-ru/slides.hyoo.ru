@@ -6607,12 +6607,16 @@ var $;
             obj.portion = () => this.progress();
             return obj;
         }
+        Listener_head() {
+            return this.Listener().Head();
+        }
         Listener() {
             const obj = new this.$.$mol_page();
             obj.tools = () => this.tools();
             obj.minimal_width = () => this.listener_width();
             obj.title = () => this.title();
-            obj.body = () => [
+            obj.sub = () => [
+                this.Listener_head(),
                 this.Listener_content(),
                 this.Link(),
                 this.Progress()

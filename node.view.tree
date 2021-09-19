@@ -387,7 +387,9 @@ $hyoo_slides_page $mol_book2
 			tools <= tools /
 			minimal_width <= listener_width 600
 			title <= title
-			body /
+			Head => Listener_head
+			sub /
+				<= Listener_head
 				<= Listener_content $mol_text
 					uri_base <= uri_base \
 					tokens <= listener_content /
