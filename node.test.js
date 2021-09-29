@@ -6579,6 +6579,7 @@ var $;
         }
         Listener_content() {
             const obj = new this.$.$mol_text();
+            obj.minimal_height = () => 0;
             obj.uri_base = () => this.uri_base();
             obj.tokens = () => this.listener_content();
             return obj;

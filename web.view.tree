@@ -391,6 +391,7 @@ $hyoo_slides_page $mol_book2
 			sub /
 				<= Listener_head
 				<= Listener_content $mol_text
+					minimal_height 0
 					uri_base <= uri_base \
 					tokens <= listener_content /
 				<= Link $mol_link
