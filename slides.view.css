@@ -10,6 +10,10 @@
 	max-width: 40rem;
 }
 
+[hyoo_slides_menu_items] {
+	padding: var(--mol_gap_block);
+}
+
 [hyoo_slides_loader] {
 	position: fixed;
 	left: 0;
