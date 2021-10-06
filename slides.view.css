@@ -3,7 +3,7 @@
 	flex-direction: column;
 }
 [hyoo_slides][hyoo_slides_role="listener"] {
-	font-size: 3vmin;
+/* 	font-size: 3vmin; */
 }
 
 [hyoo_slides_menu] {
