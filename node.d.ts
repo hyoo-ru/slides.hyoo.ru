@@ -2354,6 +2354,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    function $mol_range2<Item = number>(item?: (index: number) => Item, size?: () => number): Item[];
+    class $mol_range2_array<Item> extends Array<Item> {
+        concat(...tail: this[]): Item[];
+        filter<Context>(check: (val: Item, index: number, list: Item[]) => boolean, context?: Context): Item[];
+        forEach<Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => void, context?: Context): void;
+        map<Item_out, Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => Item_out, context?: Context): Item_out[];
+        reduce<Result>(merge: (result: Result, val: Item, index: number, list: Item[]) => Result, result?: Result): Result | undefined;
+        slice(from?: number, to?: number): Item[];
+        some<Context>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
+        every<Context = null>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
+    }
+}
+
+declare namespace $ {
     class $mol_defer extends $mol_object {
         run: () => void;
         constructor(run: () => void);
@@ -2377,24 +2391,10 @@ declare namespace $ {
         static speaking(next?: boolean): boolean;
         static hearer(): any;
         static hearing(next?: boolean): boolean;
-        static event_result(event?: null | Event & {
-            results: Array<{
-                transcript: string;
-            }[] & {
-                isFinal: boolean;
-            }>;
-        }): (Event & {
-            results: Array<{
-                transcript: string;
-            }[] & {
-                isFinal: boolean;
-            }>;
-        }) | null;
-        static recognitions(): ({
-            transcript: string;
-        }[] & {
-            isFinal: boolean;
-        })[];
+        static recognition_index(next?: number): number;
+        static recognition(index: number, next?: SpeechRecognitionResult): SpeechRecognitionResult | null;
+        static recognitions(): SpeechRecognitionResult[];
+        static recognition_last(): SpeechRecognitionResult | null;
         static commands(): string[];
         static text(): string;
         commands_skip(next?: number): number;
@@ -2503,20 +2503,6 @@ declare namespace $ {
         event_sing(val?: any): any;
         sing(): readonly any[];
         Sing(): $mol_speech;
-    }
-}
-
-declare namespace $ {
-    function $mol_range2<Item = number>(item?: (index: number) => Item, size?: () => number): Item[];
-    class $mol_range2_array<Item> extends Array<Item> {
-        concat(...tail: this[]): Item[];
-        filter<Context>(check: (val: Item, index: number, list: Item[]) => boolean, context?: Context): Item[];
-        forEach<Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => void, context?: Context): void;
-        map<Item_out, Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => Item_out, context?: Context): Item_out[];
-        reduce<Result>(merge: (result: Result, val: Item, index: number, list: Item[]) => Result, result?: Result): Result | undefined;
-        slice(from?: number, to?: number): Item[];
-        some<Context>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
-        every<Context = null>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
     }
 }
 

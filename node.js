@@ -8349,6 +8349,107 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_range2(item = index => index, size = () => Number.POSITIVE_INFINITY) {
+        return new Proxy(new $mol_range2_array(), {
+            get(target, field) {
+                if (typeof field === 'string') {
+                    if (field === 'length')
+                        return size();
+                    const index = Number(field);
+                    if (index === Math.trunc(index))
+                        return item(index);
+                }
+                return target[field];
+            },
+            set(target, field) {
+                return $.$mol_fail(new TypeError('Lazy range is read only'));
+            },
+            ownKeys(target) {
+                return [...Array(size())].map((v, i) => String(i)).concat('length');
+            },
+            getOwnPropertyDescriptor(target, field) {
+                if (field === "length")
+                    return {
+                        value: size(),
+                        writable: true,
+                        enumerable: false,
+                        configurable: false,
+                    };
+                const index = Number(field);
+                if (index === Math.trunc(index))
+                    return {
+                        get: () => this.get(target, field, this),
+                        enumerable: true,
+                        configurable: true,
+                    };
+                return Object.getOwnPropertyDescriptor(target, field);
+            }
+        });
+    }
+    $.$mol_range2 = $mol_range2;
+    class $mol_range2_array extends Array {
+        concat(...tail) {
+            if (tail.length === 0)
+                return this;
+            if (tail.length > 1) {
+                let list = this;
+                for (let item of tail)
+                    list = list.concat(item);
+                return list;
+            }
+            return $mol_range2(index => index < this.length ? this[index] : tail[0][index - this.length], () => this.length + tail[0].length);
+        }
+        filter(check, context) {
+            const filtered = new $mol_range2_array();
+            for (let index = 0; index < this.length; ++index) {
+                const item = this[index];
+                if (check.call(context, item, index, this))
+                    filtered.push(item);
+            }
+            return filtered;
+        }
+        forEach(proceed, context) {
+            for (let [key, value] of this.entries())
+                proceed.call(context, value, key, this);
+        }
+        map(proceed, context) {
+            return $mol_range2(index => proceed.call(context, this[index], index, this), () => this.length);
+        }
+        reduce(merge, result) {
+            let index = 0;
+            if (arguments.length === 1) {
+                result = this[index++];
+            }
+            for (; index < this.length; ++index) {
+                result = merge(result, this[index], index, this);
+            }
+            return result;
+        }
+        slice(from = 0, to = this.length) {
+            return $mol_range2(index => this[from + index], () => Math.min(to, this.length) - from);
+        }
+        some(check, context) {
+            for (let index = 0; index < this.length; ++index) {
+                if (check.call(context, this[index], index, this))
+                    return true;
+            }
+            return false;
+        }
+        every(check, context) {
+            for (let index = 0; index < this.length; ++index) {
+                if (!check.call(context, this[index], index, this))
+                    return false;
+            }
+            return true;
+        }
+    }
+    $.$mol_range2_array = $mol_range2_array;
+})($ || ($ = {}));
+//range2.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_defer extends $.$mol_object {
         run;
         constructor(run) {
@@ -8450,21 +8551,34 @@ var $;
             api.continuous = true;
             api.lang = $.$mol_locale.lang();
             api.onnomatch = $.$mol_fiber_root((event) => {
-                this.event_result(null);
+                console.log(event);
+                api.stop();
                 return null;
             });
             api.onresult = $.$mol_fiber_root((event) => {
-                this.event_result(event);
+                this.recognition_index(event.resultIndex);
+                const recognition = event.results[event.resultIndex];
+                this.recognition(event.resultIndex, recognition);
                 return null;
             });
             api.onerror = $.$mol_fiber_root((event) => {
+                if (event.error === 'no-speech')
+                    return null;
+                console.log(event);
                 console.error(new Error(event.error || event));
-                this.event_result(null);
+                api.stop();
                 return null;
             });
             api.onend = (event) => {
+                this.recognition_index(-1);
+                console.log(event);
                 if (this.hearing())
                     api.start();
+            };
+            api.onspeechend = (event) => {
+                this.recognition_index(-1);
+                console.log(event);
+                api.stop();
             };
             return api;
         }
@@ -8479,17 +8593,22 @@ var $;
             }
             return next;
         }
-        static event_result(event) {
-            return event || null;
+        static recognition_index(next = -1) {
+            return next;
+        }
+        static recognition(index, next) {
+            return next ?? null;
         }
         static recognitions() {
             if (!this.hearing())
                 return [];
-            const result = this.event_result();
-            if (!result)
+            const last_index = this.recognition_index();
+            if (last_index < 0)
                 return [];
-            const results = this.event_result()?.results ?? [];
-            return [].slice.call(results);
+            return $.$mol_range2(index => this.recognition(index), () => last_index + 1);
+        }
+        static recognition_last() {
+            return this.recognition(this.recognition_index()) ?? null;
         }
         static commands() {
             return this.recognitions().map(result => result[0].transcript.toLowerCase().trim().replace(/[,\.]/g, ''));
@@ -8520,7 +8639,6 @@ var $;
             return null;
         }
         event_catch(found) {
-            console.log(found);
             return false;
         }
         patterns() {
@@ -8567,10 +8685,16 @@ var $;
     ], $mol_speech, "hearing", null);
     __decorate([
         $.$mol_mem
-    ], $mol_speech, "event_result", null);
+    ], $mol_speech, "recognition_index", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_speech, "recognition", null);
     __decorate([
         $.$mol_mem
     ], $mol_speech, "recognitions", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_speech, "recognition_last", null);
     __decorate([
         $.$mol_mem
     ], $mol_speech, "commands", null);
@@ -9200,107 +9324,6 @@ var $;
     $.$hyoo_slides = $hyoo_slides;
 })($ || ($ = {}));
 //slides.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_range2(item = index => index, size = () => Number.POSITIVE_INFINITY) {
-        return new Proxy(new $mol_range2_array(), {
-            get(target, field) {
-                if (typeof field === 'string') {
-                    if (field === 'length')
-                        return size();
-                    const index = Number(field);
-                    if (index === Math.trunc(index))
-                        return item(index);
-                }
-                return target[field];
-            },
-            set(target, field) {
-                return $.$mol_fail(new TypeError('Lazy range is read only'));
-            },
-            ownKeys(target) {
-                return [...Array(size())].map((v, i) => String(i)).concat('length');
-            },
-            getOwnPropertyDescriptor(target, field) {
-                if (field === "length")
-                    return {
-                        value: size(),
-                        writable: true,
-                        enumerable: false,
-                        configurable: false,
-                    };
-                const index = Number(field);
-                if (index === Math.trunc(index))
-                    return {
-                        get: () => this.get(target, field, this),
-                        enumerable: true,
-                        configurable: true,
-                    };
-                return Object.getOwnPropertyDescriptor(target, field);
-            }
-        });
-    }
-    $.$mol_range2 = $mol_range2;
-    class $mol_range2_array extends Array {
-        concat(...tail) {
-            if (tail.length === 0)
-                return this;
-            if (tail.length > 1) {
-                let list = this;
-                for (let item of tail)
-                    list = list.concat(item);
-                return list;
-            }
-            return $mol_range2(index => index < this.length ? this[index] : tail[0][index - this.length], () => this.length + tail[0].length);
-        }
-        filter(check, context) {
-            const filtered = new $mol_range2_array();
-            for (let index = 0; index < this.length; ++index) {
-                const item = this[index];
-                if (check.call(context, item, index, this))
-                    filtered.push(item);
-            }
-            return filtered;
-        }
-        forEach(proceed, context) {
-            for (let [key, value] of this.entries())
-                proceed.call(context, value, key, this);
-        }
-        map(proceed, context) {
-            return $mol_range2(index => proceed.call(context, this[index], index, this), () => this.length);
-        }
-        reduce(merge, result) {
-            let index = 0;
-            if (arguments.length === 1) {
-                result = this[index++];
-            }
-            for (; index < this.length; ++index) {
-                result = merge(result, this[index], index, this);
-            }
-            return result;
-        }
-        slice(from = 0, to = this.length) {
-            return $mol_range2(index => this[from + index], () => Math.min(to, this.length) - from);
-        }
-        some(check, context) {
-            for (let index = 0; index < this.length; ++index) {
-                if (check.call(context, this[index], index, this))
-                    return true;
-            }
-            return false;
-        }
-        every(check, context) {
-            for (let index = 0; index < this.length; ++index) {
-                if (!check.call(context, this[index], index, this))
-                    return false;
-            }
-            return true;
-        }
-    }
-    $.$mol_range2_array = $mol_range2_array;
-})($ || ($ = {}));
-//range2.js.map
 ;
 "use strict";
 var $;
