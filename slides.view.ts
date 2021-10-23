@@ -229,7 +229,7 @@ namespace $.$$ {
 
 		speech_text() {
 			const commands = $mol_speech.commands()
-			return commands[ commands.length - 1 ] || ''
+			return commands.length && commands[ commands.length - 1 ] || ''
 		}
 
 		@ $mol_mem
