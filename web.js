@@ -8569,6 +8569,7 @@ var $;
         menu_options() {
             return {
                 "https://nin-jin.github.io/slides/slides/": "Презентация приложения для проведения презентаций",
+                "https://nin-jin.github.io/slides/reactivity/": "Разбираемся в сортах реактивности",
                 "https://nin-jin.github.io/slides/orp/": "Объектное Реактивное Программирование",
                 "https://nin-jin.github.io/slides/tree/": "Tree - единый AST чтобы править всеми",
                 "https://nin-jin.github.io/slides/sourcemap/": "Что не так с сорсмапами и как с ними не связываться?",
