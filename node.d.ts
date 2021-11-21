@@ -2257,6 +2257,7 @@ declare namespace $ {
         }): this;
         center<Item extends $mol_vector<number, number>>(this: $mol_vector<Item, Length>): Item;
         distance(this: $mol_vector<$mol_vector<number, number>, Length>): number;
+        transponed(this: $mol_vector<$mol_vector<number, number>, Length>): $mol_vector<$mol_vector<number, Length>, typeof this[0]['length']>;
         get x(): Value;
         get y(): Value;
         get z(): Value;

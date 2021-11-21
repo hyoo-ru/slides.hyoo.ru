@@ -7672,6 +7672,9 @@ var $;
             }
             return distance;
         }
+        transponed() {
+            return this[0].map((_, i) => this.map(row => row[i]));
+        }
         get x() { return this[0]; }
         get y() { return this[1]; }
         get z() { return this[2]; }
@@ -8163,7 +8166,7 @@ var $;
                 const action_type = this.event_eat(event);
                 if (action_type === 'zoom') {
                     const zoom_prev = this.zoom() || 0.001;
-                    const zoom_next = zoom_prev * (1 - .1 * Math.sign(event.deltaY));
+                    const zoom_next = zoom_prev * (1 - .001 * event.deltaY);
                     const mult = zoom_next / zoom_prev;
                     this.zoom(zoom_next);
                     const pan_prev = this.pan();
