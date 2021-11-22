@@ -778,6 +778,7 @@ declare namespace $ {
         readonly text: $mol_style_func<"var", "--mol_gap_text">;
         readonly round: $mol_style_func<"var", "--mol_gap_round">;
         readonly space: $mol_style_func<"var", "--mol_gap_space">;
+        readonly blur: $mol_style_func<"var", "--mol_gap_blur">;
     };
 }
 
@@ -2298,6 +2299,9 @@ declare namespace $ {
         start_zoom(val?: any): number;
         start_distance(val?: any): number;
         zoom(val?: any): number;
+        allow_draw(): boolean;
+        allow_pan(): boolean;
+        allow_zoom(): boolean;
         action_type(val?: any): string;
         action_point(val?: any): $mol_vector_2d<number>;
         start_pan(val?: any): readonly any[];
@@ -2328,13 +2332,11 @@ declare namespace $ {
             pointerup: (event?: any) => any;
             pointerleave: (event?: any) => any;
             wheel: (event?: any) => any;
-            contextmenu: (event?: any) => any;
         };
         event_start(event?: any): any;
         event_move(event?: any): any;
         event_end(event?: any): any;
         event_wheel(event?: any): any;
-        event_menu(event?: any): any;
     }
 }
 
@@ -2354,8 +2356,6 @@ declare namespace $.$$ {
         swipe_right(event: PointerEvent): void;
         swipe_top(event: PointerEvent): void;
         swipe_bottom(event: PointerEvent): void;
-        _menu_mute: boolean;
-        event_menu(event: PointerEvent): void;
         event_wheel(event: WheelEvent): void;
     }
 }
