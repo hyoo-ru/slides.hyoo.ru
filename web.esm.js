@@ -32,6 +32,74 @@ $node[ "../mam" ] = $node[ "../mam.js" ] = module.exports }.call( {} , {} )
 "use strict";
 var $;
 (function ($) {
+    $.$mol_report_bugsnag = '';
+    globalThis.onerror = function (msg, url, line, col, err) {
+        const el = document.activeElement;
+        const report = {
+            apiKey: $.$mol_report_bugsnag,
+            payloadVersion: 5,
+            notifier: {
+                name: '$mol_report_bugsnag',
+                version: '1',
+                url: '$mol_report_bugsnag',
+            },
+            events: [{
+                    device: {
+                        locale: navigator.language,
+                        userAgent: navigator.userAgent,
+                        time: new Date().toISOString(),
+                    },
+                    context: el && el.id,
+                    exceptions: [{
+                            message: err && err.message || err || msg,
+                            errorClass: err && err.constructor.name,
+                            stacktrace: [{
+                                    columnNumber: col,
+                                    file: url,
+                                    lineNumber: line,
+                                    method: '',
+                                }],
+                        }],
+                    metaData: {
+                        stack: err && err.stack,
+                    },
+                    request: {
+                        url: document.location.href,
+                        referer: document.referrer,
+                    },
+                }],
+        };
+        if (location.hostname === 'localhost') {
+            console.debug('Error report', report);
+        }
+        else {
+            fetch('https://notify.bugsnag.com/', {
+                method: 'post',
+                body: JSON.stringify(report),
+            });
+        }
+    };
+    globalThis.onunhandledrejection = function (event) {
+        globalThis.onerror('Unhandled Rejection', '', 0, 0, event.reason);
+    };
+    const error = console.error;
+    console.error = function (...args) {
+        error.apply(console, args);
+        globalThis.onerror('Logged Error', '', 0, 0, arguments[0]);
+    };
+})($ || ($ = {}));
+//bugsnag.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_report_bugsnag = '18acf016ed2a2a4cc4445daa9dd2dd3c';
+})($ || ($ = {}));
+//hyoo.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_fail(error) {
         throw error;
     }
@@ -2504,7 +2572,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/gap/gap.css", ":root {\n\t--mol_gap_block: .75rem;\n\t--mol_gap_text: .5rem .75rem;\n\t--mol_gap_round: .25rem;\n\t--mol_gap_space: .35rem;\n\t--mol_gap_blur: .5rem;\n}\n");
+    $.$mol_style_attach("mol/gap/gap.css", ":root {\n\t--mol_gap_block: .75rem;\n\t--mol_gap_text: .5rem .75rem;\n\t--mol_gap_round: .25rem;\n\t--mol_gap_space: .25rem;\n\t--mol_gap_blur: .5rem;\n}\n");
 })($ || ($ = {}));
 //gap.css.js.map
 ;
@@ -4865,7 +4933,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tgap: var(--mol_gap_space);\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\tborder-radius: var(--mol_gap_round);\n}\n[mol_button]:focus {\n\toutline: none;\n}\n");
+    $.$mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\tborder-radius: var(--mol_gap_round);\n}\n[mol_button]:focus {\n\toutline: none;\n}\n");
 })($ || ($ = {}));
 //button.view.css.js.map
 ;
@@ -4941,7 +5009,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_button_typed][disabled] {\n\tcolor: var(--mol_theme_text);\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tcursor: pointer;\n\tbackground-color: var(--mol_theme_hover);\n}\n");
+    $.$mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n}\n\n[mol_button_typed][disabled] {\n\tcolor: var(--mol_theme_text);\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tcursor: pointer;\n\tbackground-color: var(--mol_theme_hover);\n}\n");
 })($ || ($ = {}));
 //typed.view.css.js.map
 ;
@@ -5739,7 +5807,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: center;\n\tcolor: var(--mol_theme_control);\n\tdisplay: inline;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1em;\n\twidth: 1em;\n\tdisplay: inline-block;\n\tmargin: .125rem 0;\n\tvertical-align: text-bottom;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: invert(1) hue-rotate(180deg);\n}\n");
+    $.$mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: center;\n\tcolor: var(--mol_theme_control);\n\tdisplay: inline-flex;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1em;\n\twidth: 1em;\n\tdisplay: inline-block;\n\tmargin: .125rem 0;\n\tvertical-align: text-bottom;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: invert(1) hue-rotate(180deg);\n}\n");
 })($ || ($ = {}));
 //iconed.view.css.js.map
 ;
@@ -7887,7 +7955,17 @@ var $;
                 return val;
             return null;
         }
+        draw_start(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
         draw(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        draw_end(event) {
             if (event !== undefined)
                 return event;
             return null;
@@ -7905,7 +7983,7 @@ var $;
                 pointerdown: (event) => this.event_start(event),
                 pointermove: (event) => this.event_move(event),
                 pointerup: (event) => this.event_end(event),
-                pointerleave: (event) => this.event_end(event),
+                pointerleave: (event) => this.event_leave(event),
                 wheel: (event) => this.event_wheel(event)
             };
         }
@@ -7920,6 +7998,11 @@ var $;
             return null;
         }
         event_end(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_leave(event) {
             if (event !== undefined)
                 return event;
             return null;
@@ -7995,7 +8078,13 @@ var $;
     ], $mol_touch.prototype, "swipe_to_top", null);
     __decorate([
         $.$mol_mem
+    ], $mol_touch.prototype, "draw_start", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_touch.prototype, "draw", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_touch.prototype, "draw_end", null);
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "event_start", null);
@@ -8005,6 +8094,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "event_end", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_touch.prototype, "event_leave", null);
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "event_wheel", null);
@@ -8028,7 +8120,7 @@ var $;
                 const events = this.pointer_events();
                 const touches = events.filter(e => e.pointerType === 'touch');
                 const pens = events.filter(e => e.pointerType === 'pen');
-                const mouses = events.filter(e => e.pointerType === 'mouse');
+                const mouses = events.filter(e => !e.pointerType || e.pointerType === 'mouse');
                 const choosen = touches.length ? touches : pens.length ? pens : mouses;
                 return new $.$mol_vector(...choosen.map(event => this.event_coords(event)));
             }
@@ -8050,11 +8142,17 @@ var $;
             }
             event_eat(event) {
                 if (event instanceof PointerEvent) {
-                    const events = this.pointer_events().filter(e => e.pointerId !== event.pointerId);
-                    if (event.type !== 'pointerleave')
+                    const events = this.pointer_events()
+                        .filter(e => e instanceof PointerEvent)
+                        .filter(e => e.pointerId !== event.pointerId);
+                    if (event.type !== 'pointerup' && event.type !== 'pointerleave')
                         events.push(event);
                     this.pointer_events(events);
-                    if (this.allow_zoom() && events.filter(e => e.pointerType === 'touch').length === 2) {
+                    const touch_count = events.filter(e => e.pointerType === 'touch').length;
+                    if (this.allow_zoom() && touch_count === 2) {
+                        return this.action_type('zoom');
+                    }
+                    if (this.action_type() === 'zoom' && touch_count === 1) {
                         return this.action_type('zoom');
                     }
                     let button;
@@ -8074,6 +8172,7 @@ var $;
                     return this.action_type('');
                 }
                 if (event instanceof WheelEvent) {
+                    this.pointer_events([event]);
                     if (event.ctrlKey)
                         return this.action_type('zoom');
                     return this.action_type('pan');
@@ -8087,10 +8186,12 @@ var $;
                 const action_type = this.event_eat(event);
                 if (!action_type)
                     return;
-                if (action_type === 'draw')
-                    return;
                 const coords = this.pointer_coords();
                 this.start_pos(coords.center());
+                if (action_type === 'draw') {
+                    this.draw_start(event);
+                    return;
+                }
                 this.start_distance(coords.distance());
                 this.start_zoom(this.zoom());
             }
@@ -8102,14 +8203,17 @@ var $;
                     return;
                 const start_pan = this.start_pan();
                 const action_type = this.event_eat(event);
+                const start_pos = this.start_pos();
                 let pos = this.pointer_center();
                 if (!action_type)
                     return;
                 if (action_type === 'draw') {
-                    this.draw(event);
+                    const distance = new $.$mol_vector(start_pos, pos).distance();
+                    if (distance >= 4) {
+                        this.draw(event);
+                    }
                     return;
                 }
-                const start_pos = this.start_pos();
                 if (!start_pos)
                     return;
                 if (action_type === 'pan') {
@@ -8158,12 +8262,15 @@ var $;
                 }
             }
             event_end(event) {
+                const action = this.action_type();
+                if (action === 'draw') {
+                    this.draw_end(event);
+                }
+                this.event_leave(event);
+            }
+            event_leave(event) {
                 this.event_eat(event);
                 this.dom_node().releasePointerCapture(event.pointerId);
-                if (!this.start_pos()) {
-                    this.draw(event);
-                    return;
-                }
                 this.start_pos(null);
             }
             swipe_left(event) {
