@@ -38,15 +38,18 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
-		contents() {
-			
+		contents() {			
 			if( !this.uri_slides() ) return ''
+			return $mol_wire_sync( this ).call( 'content' ) as string
+		}
+		
+		call( ... message: any[] ) {
+			
+			const remote = this.Loader().window()
+			
+			return new Promise( done => {
 
-			const remote = this.Loader().window() as Window
-					
-			return $mol_fiber_sync( ()=> new Promise< string >( done => {
-
-				remote.postMessage( [ 'content' ] , '*' )
+				remote.postMessage( message , '*' )
 			
 				$mol_dom_context.onmessage = ( event : MessageEvent )=> {
 					
@@ -57,8 +60,8 @@ namespace $.$$ {
 
 				}
 	
-			} ) )()
-
+			} )
+			
 		}
 		
 		@ $mol_mem
