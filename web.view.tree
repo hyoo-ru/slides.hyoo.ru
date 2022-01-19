@@ -43,9 +43,21 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
-$mol_frame $mol_scroll
+$mol_embed_native $mol_scroll
+	dom_name \object
+	window null
+	attr *
+		^
+		data <= uri?val \
+		type <= mime \
+	sub /
+		<= title?val \
+
+$mol_frame $mol_embed_native
 	dom_name \iframe
 	attr *
+		data null
+		type null
 		src <= uri?val \
 		srcdoc <= html null
 		allow <= allow \
