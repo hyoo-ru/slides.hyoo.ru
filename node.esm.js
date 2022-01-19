@@ -9435,46 +9435,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_fiber_defer(calculate) {
-        const host = {};
-        const fiber = new $mol_wire_fiber(host, calculate, calculate.name);
-        fiber.plan();
-        return fiber;
-    }
-    $.$mol_fiber_defer = $mol_fiber_defer;
-    function $mol_fiber_root(calculate) {
-        const wrapper = function (...args) {
-            const fiber = new $mol_wire_fiber(this, calculate, this + '.' + calculate.name, ...args);
-            return fiber.sync();
-        };
-        wrapper[Symbol.toStringTag] = calculate.name;
-        return wrapper;
-    }
-    $.$mol_fiber_root = $mol_fiber_root;
-    function $mol_fiber_sync(request) {
-        throw new Error('Use $mol_wire_sync instead');
-    }
-    $.$mol_fiber_sync = $mol_fiber_sync;
-    async function $mol_fiber_warp() {
-        $mol_wire_fiber.sync();
-    }
-    $.$mol_fiber_warp = $mol_fiber_warp;
-    class $mol_fiber_solid extends $mol_wrapper {
-        static func(task) {
-            return task;
-        }
-    }
-    $.$mol_fiber_solid = $mol_fiber_solid;
-    class $mol_fiber {
-        static method = $mol_action;
-    }
-    $.$mol_fiber = $mol_fiber;
-})($ || ($ = {}));
-//mol/fiber/fiber.ts
-;
-"use strict";
-var $;
-(function ($) {
     $mol_style_attach("hyoo/slides/slides.view.css", "[hyoo_slides] {\n\t-webkit-print-color-adjust: exact;\n\tflex-direction: column;\n}\n[hyoo_slides][hyoo_slides_role=\"listener\"] {\n/* \tfont-size: 3vmin; */\n}\n\n[hyoo_slides_menu] {\n\tmax-width: 40rem;\n}\n\n[hyoo_slides_menu_items] {\n\tpadding: var(--mol_gap_block);\n}\n\n[hyoo_slides_loader] {\n\tposition: fixed;\n\tleft: 0;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\twidth: 100%;\n\theight: 100%;\n}\n[hyoo_slides_loader]:not([mol_view_error]) {\n\tdisplay: none;\n}\n\n[hyoo_slides_speech_toggle] {\n\talign-items: center;\n}\n\n[hyoo_slides_speech_text] {\n\tline-height: 1;\n\tdisplay: flex;\n\talign-items: flex-end;\n\talign-self: center;\n\tflex: 1 1 auto;\n\tmax-height: 2rem;\n}\n");
 })($ || ($ = {}));
 //hyoo/slides/-css/slides.view.css.ts
@@ -9511,16 +9471,19 @@ var $;
             contents() {
                 if (!this.uri_slides())
                     return '';
+                return $mol_wire_sync(this).call('content');
+            }
+            call(...message) {
                 const remote = this.Loader().window();
-                return $mol_fiber_sync(() => new Promise(done => {
-                    remote.postMessage(['content'], '*');
+                return new Promise(done => {
+                    remote.postMessage(message, '*');
                     $mol_dom_context.onmessage = (event) => {
                         if (event.data[0] !== 'done')
                             return;
                         $mol_dom_context.onmessage = null;
                         done(event.data[1]);
                     };
-                }))();
+                });
             }
             content_pages() {
                 return this.contents().split(/^(?=#)/mg);
