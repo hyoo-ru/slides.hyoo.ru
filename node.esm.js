@@ -3087,7 +3087,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/embed/native/native.view.css", "[mol_embed_native] {\n\tmax-width: 100%;\n\tmax-height: 50vh;\n\tobject-fit: cover;\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tbackground: var(--mol_theme_shade);\n\tobject-position: top left;\n\tborder-radius: var(--mol_gap_round);\n\taspect-ratio: 4/3;\n}\n");
+    $mol_style_attach("mol/embed/native/native.view.css", "[mol_embed_native] {\n\tmax-width: 100%;\n\tmax-height: 50vh;\n\tobject-fit: cover;\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tobject-position: top left;\n\tborder-radius: var(--mol_gap_round);\n\taspect-ratio: 4/3;\n}\n");
 })($ || ($ = {}));
 //mol/embed/native/-css/native.view.css.ts
 ;
@@ -3098,19 +3098,18 @@ var $;
     (function ($$) {
         class $mol_embed_native extends $.$mol_embed_native {
             window() {
+                this.uri();
                 return $mol_wire_sync(this).load(this.dom_node(), this.uri_resource());
             }
             load(frame, uri) {
                 return new Promise((done, fail) => {
-                    new $mol_after_timeout(3_000, () => {
+                    frame.onload = () => {
                         try {
                             if (frame.contentWindow.location.href === 'about:blank') {
-                                done(frame.contentWindow);
+                                return;
                             }
                         }
                         catch { }
-                    });
-                    frame.onload = () => {
                         done(frame.contentWindow);
                     };
                     frame.onerror = (event) => {
