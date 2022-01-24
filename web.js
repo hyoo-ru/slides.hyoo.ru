@@ -2657,6 +2657,9 @@ var $;
 var $;
 (function ($) {
     class $mol_page extends $mol_view {
+        dom_name() {
+            return "article";
+        }
         sub() {
             return [
                 this.Head(),
@@ -2689,6 +2692,7 @@ var $;
         Head() {
             const obj = new this.$.$mol_view();
             obj.minimal_height = () => 64;
+            obj.dom_name = () => "header";
             obj.sub = () => this.head();
             return obj;
         }
@@ -2711,6 +2715,7 @@ var $;
         }
         Foot() {
             const obj = new this.$.$mol_view();
+            obj.dom_name = () => "footer";
             obj.sub = () => this.foot();
             return obj;
         }
@@ -3732,6 +3737,9 @@ var $;
 var $;
 (function ($) {
     class $mol_paragraph extends $mol_view {
+        dom_name() {
+            return "p";
+        }
         line_height() {
             return 24;
         }
@@ -3750,6 +3758,13 @@ var $;
     $.$mol_paragraph = $mol_paragraph;
 })($ || ($ = {}));
 //mol/paragraph/-view.tree/paragraph.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/paragraph/paragraph.view.css", "[mol_paragraph] {\n\tmargin: 0;\n}\n");
+})($ || ($ = {}));
+//mol/paragraph/-css/paragraph.view.css.ts
 ;
 "use strict";
 var $;
