@@ -258,8 +258,8 @@
     "$mol_defer"
   ],
   "dependencies": {
-    "jsdom": "*",
     "colorette": "*",
+    "jsdom": "*",
     "chokidar": "*"
   }
 }
