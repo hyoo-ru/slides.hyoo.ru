@@ -8,6 +8,7 @@
 
 [hyoo_slides_menu] {
 	max-width: 40rem;
+	flex: auto;
 }
 
 [hyoo_slides_menu_items] {
