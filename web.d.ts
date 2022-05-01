@@ -989,20 +989,20 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_promise<Result = void>(): Promise<unknown> & {
+    function $mol_promise<Result = void>(): Promise<Result> & {
         done: (res: Result | PromiseLike<Result>) => void;
         fail: (error?: any) => void;
     };
 }
 
 declare namespace $ {
-    function $mol_wait_timeout_async(this: $, timeout: number): Promise<unknown> & {
+    function $mol_wait_timeout_async(this: $, timeout: number): Promise<void> & {
         done: (res: void | PromiseLike<void>) => void;
         fail: (error?: any) => void;
     } & {
         destructor: () => void;
     };
-    function $mol_wait_timeout(this: $, timeout: number): unknown;
+    function $mol_wait_timeout(this: $, timeout: number): void;
 }
 
 declare namespace $ {
@@ -1818,7 +1818,7 @@ declare namespace $ {
         Table(id: any): $$.$mol_grid;
         Table_row(id: any): $mol_grid_row;
         Table_cell(id: any): $mol_grid_cell;
-        Table_cell_head(id: any): $mol_float;
+        Table_cell_head(id: any): $mol_grid_cell;
         quote_text(id: any): string;
         block_content(id: any): readonly any[];
         block_type(id: any): string;
@@ -1907,7 +1907,7 @@ declare namespace $.$$ {
         block_type(index: number): string;
         cell_contents(indexBlock: number): string[][];
         table_rows(blockId: number): $mol_grid_row[];
-        table_head_cells(blockId: number): $mol_float[];
+        table_head_cells(blockId: number): $mol_grid_cell[];
         table_cells(id: {
             block: number;
             row: number;
