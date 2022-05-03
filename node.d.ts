@@ -1709,7 +1709,7 @@ declare namespace $ {
     class $mol_grid extends $mol_view {
         row_height(): number;
         row_ids(): readonly string[][];
-        row_id(index: any): any;
+        row_id(id: any): any;
         col_ids(): readonly any[];
         records(): {};
         record(id: any): any;
@@ -2522,7 +2522,7 @@ declare namespace $ {
             "https://nin-jin.github.io/slides/absurd/": string;
         };
         Loader(): $$.$mol_frame;
-        Page(index: any): $$.$hyoo_slides_page;
+        Page(id: any): $$.$hyoo_slides_page;
         plugins(): readonly any[];
         role(): string;
         Source_link(): $mol_link_source;
@@ -2533,12 +2533,12 @@ declare namespace $ {
         menu_item_uri(id: any): string;
         uri_slides(): string;
         tools(): readonly any[];
-        page_title(index: any): string;
-        page_slide(index: any, val?: any): number;
+        page_title(id: any): string;
+        page_slide(id: any, val?: any): number;
         uri_base(): string;
-        listener_content(index: any): readonly any[];
-        speaker_content(index: any): readonly any[];
-        progress(index: any): number;
+        listener_content(id: any): readonly any[];
+        speaker_content(id: any): readonly any[];
+        progress(id: any): number;
         Speech_toggle_icon(): $mol_icon_microphone;
         speech_enabled(val?: any): boolean;
         speech_toggle_hint(): string;
