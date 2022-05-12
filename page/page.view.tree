@@ -10,7 +10,7 @@ $hyoo_slides_page $mol_book2
 			body /
 				<= Speaker_content $mol_text
 					uri_base <= uri_base \
-					tokens <= speaker_content /
+					flow_tokens <= speaker_content /
 		<= Listener $mol_page
 			tools <= tools /
 			minimal_width <= listener_width 600
@@ -19,9 +19,10 @@ $hyoo_slides_page $mol_book2
 			sub /
 				<= Listener_head
 				<= Listener_content $mol_text
+					code_sidebar_showed false
 					minimal_height 0
 					uri_base <= uri_base \
-					tokens <= listener_content /
+					flow_tokens <= listener_content /
 				<= Link $mol_link
 					uri <= uri_page \
 					sub / <= uri_page \
