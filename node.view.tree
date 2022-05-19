@@ -73,6 +73,14 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+		loading <= loading \eager
+
 $mol_embed_native $mol_scroll
 	dom_name \object
 	window null
@@ -81,9 +89,12 @@ $mol_embed_native $mol_scroll
 		data <= uri?val \
 		type <= mime \
 	sub /
-		<= Fallback $mol_link
+		<= Fallback_link $mol_link
 			uri <= uri
-			title <= title?val \
+			sub /
+				<= Fallback_image $mol_image
+					uri <= uri
+					title <= title?val \
 
 $mol_frame $mol_embed_native
 	dom_name \iframe
@@ -290,14 +301,6 @@ $mol_grid_cell $mol_view
 
 $mol_grid_number $mol_grid_cell
 
-$mol_image $mol_view
-	dom_name \img
-	field *
-		^
-		src <= uri \
-		alt <= title
-		loading <= loading \eager
-
 $mol_link_iconed $mol_link
 	sub /
 		<= Icon $mol_image
@@ -348,15 +351,13 @@ $mol_text $mol_list
 		text <= line_text* \
 	Link* $mol_link_iconed
 		uri <= link_uri* \
-		target <= link_target* \_blank
 		content <= line_content* /
 	Link_http* $mol_link_iconed
 		uri <= link_uri* \
-		target <= link_target* \_blank
 		content / <= String*
 	Image* $mol_embed_native
 		uri <= link_uri* \
-		sub <= line_content* /
+		title <= line_text* \
 
 $mol_text_span $mol_paragraph
 	dom_name \span
