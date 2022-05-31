@@ -153,6 +153,7 @@
     "$mol_icon_microphone",
     "$mol_check_icon",
     "$mol_paginator",
+    "$mol_bar",
     "$mol_icon_chevron_left",
     "$mol_icon_chevron_right",
     "$mol_icon_external",

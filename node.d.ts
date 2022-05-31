@@ -1396,6 +1396,7 @@ declare namespace $ {
         'text-link-http': RegExp;
     }>;
     const $mol_syntax2_md_code: $mol_syntax2<{
+        'code-indent': RegExp;
         'code-docs': RegExp;
         'code-comment-block': RegExp;
         'code-link': RegExp;
@@ -2147,6 +2148,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_icon_chevron_left extends $mol_icon {
         path(): string;
     }
@@ -2159,7 +2168,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_paginator extends $mol_view {
+    class $mol_paginator extends $mol_bar {
         sub(): readonly any[];
         backward_hint(): string;
         backward(event?: any): any;
@@ -2321,8 +2330,11 @@ declare namespace $ {
         distance(this: $mol_vector<$mol_vector<number, number>, Length>): number;
         transponed(this: $mol_vector<$mol_vector<number, number>, Length>): $mol_vector<$mol_vector<number, Length>, typeof this[0]['length']>;
         get x(): Value;
+        set x(next: Value);
         get y(): Value;
+        set y(next: Value);
         get z(): Value;
+        set z(next: Value);
     }
     class $mol_vector_1d<Value> extends $mol_vector<Value, 1> {
     }
@@ -2331,10 +2343,13 @@ declare namespace $ {
     class $mol_vector_3d<Value> extends $mol_vector<Value, 3> {
     }
     class $mol_vector_range<Value> extends $mol_vector<Value, 2> {
-        get [0](): Value;
-        get [1](): Value;
+        0: Value;
+        1: Value;
+        constructor(min: Value, max: Value);
         get min(): Value;
+        set min(next: Value);
         get max(): Value;
+        set max(next: Value);
         get inversed(): $mol_vector_range<Value>;
         expanded0(value: Value): $mol_vector_range<Value>;
     }

@@ -4859,6 +4859,7 @@ var $;
         'text-link-http': /\b(https?:\/\/[^\s,.;:!?")]+(?:[,.;:!?")][^\s,.;:!?")]+)+)/,
     });
     $.$mol_syntax2_md_code = new $mol_syntax2({
+        'code-indent': /\t+/,
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
         'code-link': /(?:\w+:\/\/|#)\S+?(?=\s|\\\\|""|$)/,
@@ -7301,6 +7302,22 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_bar extends $mol_view {
+    }
+    $.$mol_bar = $mol_bar;
+})($ || ($ = {}));
+//mol/bar/-view.tree/bar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\t/* box-shadow: inset 0 0 0 1px var(--mol_theme_line); */\n\tborder-radius: var(--mol_gap_round);\n}\n");
+})($ || ($ = {}));
+//mol/bar/-css/bar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_chevron_left extends $mol_icon {
         path() {
             return "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
@@ -7325,7 +7342,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_paginator extends $mol_view {
+    class $mol_paginator extends $mol_bar {
         sub() {
             return [
                 this.Backward(),
@@ -7419,7 +7436,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/paginator/paginator.view.css", "[mol_paginator_value] {\n\tpadding: .5rem 0;\n}\n");
+    $mol_style_attach("mol/paginator/paginator.view.css", "[mol_paginator] {\n\talign-items: flex-start;\n}\n\n[mol_paginator_value] {\n\tpadding: .5rem 0;\n}\n");
 })($ || ($ = {}));
 //mol/paginator/-css/paginator.view.css.ts
 ;
@@ -7907,8 +7924,11 @@ var $;
             return this[0].map((_, i) => this.map(row => row[i]));
         }
         get x() { return this[0]; }
+        set x(next) { this[0] = next; }
         get y() { return this[1]; }
+        set y(next) { this[1] = next; }
         get z() { return this[2]; }
+        set z(next) { this[2] = next; }
     }
     $.$mol_vector = $mol_vector;
     class $mol_vector_1d extends $mol_vector {
@@ -7921,10 +7941,17 @@ var $;
     }
     $.$mol_vector_3d = $mol_vector_3d;
     class $mol_vector_range extends $mol_vector {
-        get [0]() { return super[0]; }
-        get [1]() { return super[1]; }
+        0;
+        1;
+        constructor(min, max) {
+            super(min, max);
+            this[0] = min;
+            this[1] = max;
+        }
         get min() { return this[0]; }
+        set min(next) { this[0] = next; }
         get max() { return this[1]; }
+        set max(next) { this[1] = next; }
         get inversed() {
             return new this.constructor(this.max, this.min);
         }
