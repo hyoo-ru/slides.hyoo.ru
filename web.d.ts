@@ -471,6 +471,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wire_probe<Value>(task: () => Value, next?: Value): Value | undefined;
+}
+
+declare namespace $ {
     function $mol_wire_watch(): void;
 }
 
@@ -549,7 +553,7 @@ declare namespace $ {
             right: number;
             top: number;
             bottom: number;
-        };
+        } | null;
         dom_id(): any;
         dom_node(next?: Element): Element;
         dom_final(): Element | undefined;
@@ -1080,10 +1084,6 @@ declare namespace $ {
         Placeholder(): $mol_view;
         pages(): readonly $mol_view[];
     }
-}
-
-declare namespace $ {
-    function $mol_wire_probe<Value>(task: () => Value, next?: Value): Value | undefined;
 }
 
 declare namespace $ {
