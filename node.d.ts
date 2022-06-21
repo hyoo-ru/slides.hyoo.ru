@@ -289,6 +289,19 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+    let $mol_gap: {
+        readonly block: $mol_style_func<"var", "--mol_gap_block">;
+        readonly text: $mol_style_func<"var", "--mol_gap_text">;
+        readonly round: $mol_style_func<"var", "--mol_gap_round">;
+        readonly space: $mol_style_func<"var", "--mol_gap_space">;
+        readonly blur: $mol_style_func<"var", "--mol_gap_blur">;
+    };
+}
+
+declare namespace $ {
     namespace $$ { }
     const $mol_object_field: unique symbol;
     class $mol_object extends $mol_object2 {
@@ -846,19 +859,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-    let $mol_gap: {
-        readonly block: $mol_style_func<"var", "--mol_gap_block">;
-        readonly text: $mol_style_func<"var", "--mol_gap_text">;
-        readonly round: $mol_style_func<"var", "--mol_gap_round">;
-        readonly space: $mol_style_func<"var", "--mol_gap_space">;
-        readonly blur: $mol_style_func<"var", "--mol_gap_blur">;
-    };
-}
-
-declare namespace $ {
     class $mol_scroll extends $mol_view {
         scroll_top(val?: any): number;
         scroll_left(val?: any): number;
@@ -1057,22 +1057,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_image extends $mol_view {
-        dom_name(): string;
-        field(): {
-            src: string;
-            alt: string;
-            loading: string;
-        };
-        uri(): string;
-        loading(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_embed_native extends $mol_scroll {
         uri(val?: any): string;
         dom_name(): string;
@@ -1082,13 +1066,9 @@ declare namespace $ {
             type: string;
         };
         sub(): readonly any[];
-        uri_object(): string;
         mime(): string;
-        uri_link(): string;
-        uri_image(): string;
-        title(val?: any): string;
-        Fallback_image(): $mol_image;
-        Fallback_link(): $$.$mol_link;
+        title(): string;
+        Fallback(): $$.$mol_link;
     }
 }
 
@@ -1124,8 +1104,6 @@ declare namespace $.$$ {
         uri_listener(): $mol_dom_listener;
         uri_change(event?: MessageEvent<[string, string]>): void;
         auto(): (Window | $mol_dom_listener)[];
-        rich(): boolean;
-        uri_object(): string;
     }
 }
 
@@ -2023,6 +2001,24 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_image extends $mol_view {
+        dom_name(): string;
+        field(): {
+            src: string;
+            alt: string;
+            loading: string;
+        };
+        minimal_width(): number;
+        minimal_height(): number;
+        uri(): string;
+        loading(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_link_iconed extends $mol_link {
         sub(): readonly any[];
         content(): readonly any[];
@@ -2046,6 +2042,48 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_ghost extends $mol_view {
+        Sub(): $mol_view;
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_render_events(el: Element, events: {
+        [key: string]: (event: Event) => any;
+    }): void;
+    function $mol_dom_render_events_async(el: Element, events: {
+        [key: string]: (event: Event) => any;
+    }): void;
+}
+
+declare namespace $.$$ {
+    class $mol_ghost extends $.$mol_ghost {
+        dom_node(next?: Element): Element;
+        dom_node_actual(): Element;
+        dom_tree(): Element;
+        title(): string;
+        minimal_width(): number;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_embed_any extends $mol_ghost {
+        Image(): $mol_image;
+        Object(): $$.$mol_embed_native;
+        title(): string;
+        uri(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_embed_any extends $.$mol_embed_any {
+        type(): "image" | "object";
+        Sub(): $mol_embed_native | $mol_image;
+    }
+}
+
+declare namespace $ {
     class $mol_text extends $mol_list {
         uri_base(): string;
         text(): string;
@@ -2065,8 +2103,7 @@ declare namespace $ {
         Code_line(id: any): $$.$mol_text_code_row;
         Link(id: any): $$.$mol_link_iconed;
         Link_http(id: any): $$.$mol_link_iconed;
-        Image_fallback(id: any): $mol_image;
-        Image(id: any): $$.$mol_embed_native;
+        Embed(id: any): $$.$mol_embed_any;
         auto_scroll(): any;
         block_content(id: any): readonly any[];
         uri_resolve(id: any): any;
@@ -2136,7 +2173,7 @@ declare namespace $.$$ {
         uri_base(): string;
         uri_resolve(uri: string): string | null;
         block_text(index: number): string;
-        block_content(index: number): ($mol_embed_native | $mol_dimmer | $mol_text_code_row | $mol_link_iconed | $mol_text_span)[];
+        block_content(index: number): ($mol_dimmer | $mol_text_code_row | $mol_link_iconed | $mol_embed_any | $mol_text_span)[];
         line_tokens(path: readonly number[]): readonly {
             name: string;
             found: string;
@@ -2149,9 +2186,8 @@ declare namespace $.$$ {
         };
         line_type(path: readonly number[]): string;
         line_text(path: readonly number[]): string;
-        line_content(path: readonly number[]): ($mol_embed_native | $mol_dimmer | $mol_text_code_row | $mol_link_iconed | $mol_text_span)[];
+        line_content(path: readonly number[]): ($mol_dimmer | $mol_text_code_row | $mol_link_iconed | $mol_embed_any | $mol_text_span)[];
         link_uri(path: readonly number[]): string;
-        image_title(path: readonly number[]): string;
         auto_scroll(): void;
     }
 }
