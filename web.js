@@ -6605,7 +6605,7 @@ var $;
             return "";
         }
         Frame() {
-            const obj = new this.$.$mol_embed_native();
+            const obj = new this.$.$mol_frame();
             obj.title = () => this.title();
             obj.uri = () => this.video_embed();
             return obj;

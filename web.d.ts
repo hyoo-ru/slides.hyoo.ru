@@ -2014,7 +2014,7 @@ declare namespace $ {
         title(): string;
         Image(): $mol_image;
         video_embed(): string;
-        Frame(): $$.$mol_embed_native;
+        Frame(): $$.$mol_frame;
     }
 }
 
@@ -2067,7 +2067,7 @@ declare namespace $.$$ {
         video_embed(): string;
         video_id(): string;
         video_preview(): string;
-        sub(): ($mol_embed_native | $mol_image)[];
+        sub(): ($mol_frame | $mol_image)[];
     }
 }
 
