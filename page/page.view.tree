@@ -16,6 +16,7 @@ $hyoo_slides_page $mol_book2
 			minimal_width <= listener_width 600
 			title <= title
 			Head => Listener_head
+			Tools null
 			sub /
 				<= Listener_head
 				<= Listener_content $mol_text
