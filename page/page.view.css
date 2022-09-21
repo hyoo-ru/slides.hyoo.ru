@@ -54,7 +54,7 @@
 	flex-direction: row;
 }
 [hyoo_slides_page_listener_content] > * {
-	flex-shrink: 0;
+	flex-shrink: 1;
 }
 
 [hyoo_slides_page_slide_number] {
