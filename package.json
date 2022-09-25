@@ -107,6 +107,7 @@
     "$mol_frame",
     "$mol_embed_native",
     "$mol_embed",
+    "$mol_wire_solid",
     "$mol_wire_sync",
     "$mol_wait_timeout",
     "$mol_wait",
@@ -187,7 +188,6 @@
     "$mol_vector",
     "$mol_speech",
     "$mol_action",
-    "$mol_wire_solid",
     "$mol_range2",
     "$mol_defer"
   ],
