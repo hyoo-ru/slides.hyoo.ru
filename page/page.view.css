@@ -21,6 +21,7 @@
 
 [hyoo_slides_page_listener] {
 	flex: 1 1 100vh;
+	background-color: var(--mol_theme_back);
 }
 
 [hyoo_slides_page_speaker_body] {
