@@ -2,8 +2,14 @@
 	-webkit-print-color-adjust: exact;
 	flex-direction: column;
 }
-[hyoo_slides][hyoo_slides_role="listener"] {
-/* 	font-size: 3vmin; */
+[hyoo_slides][hyoo_slides_role="listener"] [hyoo_slides_page_listener_content] {
+	font-size: 1.5em;
+}
+
+[hyoo_slides][hyoo_slides_role="listener"] [mol_text_link_http_icon],
+[hyoo_slides][hyoo_slides_role="listener"] [mol_text_link_icon] {
+	width: 1.5rem;
+	height: 1.5rem;
 }
 
 [hyoo_slides_menu] {
