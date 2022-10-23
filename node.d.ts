@@ -2833,7 +2833,6 @@ declare namespace $.$$ {
             found: string;
             chunks: string[];
         }[];
-        slide_local(uri: string, next?: number): number;
         slide(next?: number): number;
         page_slide(index: number, next?: number): number;
         slide_keys(): number[];

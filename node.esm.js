@@ -10358,9 +10358,6 @@ var $;
                     return false;
                 });
             }
-            slide_local(uri, next) {
-                return $mol_state_local.value(this.state_key(`slide_local(${JSON.stringify(uri)})`), next) || 0;
-            }
             slide(next) {
                 if (next !== undefined) {
                     const count = this.content_pages().length;
@@ -10369,9 +10366,9 @@ var $;
                     if (next < 0)
                         next = 0;
                 }
-                let str = (next === undefined) ? undefined : String(next);
-                str = $mol_state_arg.value(this.state_key('slide'), str) || undefined;
-                return this.slide_local(this.uri_slides(), str === undefined ? undefined : Number(str)) || 0;
+                const local = $mol_state_local.value(`slide(${JSON.stringify(this.uri_slides())})`, next);
+                const arg = $mol_state_arg.value('slide', next?.valueOf && String(next));
+                return (local ?? Number(arg)) || 0;
             }
             page_slide(index, next) {
                 if (next !== undefined)
