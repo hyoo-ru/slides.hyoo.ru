@@ -114,10 +114,6 @@ namespace $.$$ {
 			} )
 		}
 		
-		slide_local( uri : string , next? : number ) {
-			return $mol_state_local.value( this.state_key( `slide_local(${ JSON.stringify( uri ) })` ) , next ) || 0
-		}
-		
 		@ $mol_mem
 		slide( next? : number ) {
 			
@@ -130,11 +126,10 @@ namespace $.$$ {
 
 			}
 			
-			let str = ( next === undefined ) ? undefined : String( next )
+			const local = $mol_state_local.value( `slide(${ JSON.stringify( this.uri_slides() ) })`, next )
+			const arg = $mol_state_arg.value( 'slide', next?.valueOf && String( next ) )
 			
-			str = $mol_state_arg.value( this.state_key( 'slide' ) , str ) || undefined
-
-			return this.slide_local( this.uri_slides() , str === undefined ? undefined : Number( str ) ) || 0
+			return ( local ?? Number( arg ) ) || 0
 		}
 
 		page_slide( index : number , next? : number ) {
