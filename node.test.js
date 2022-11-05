@@ -10274,7 +10274,7 @@ var $;
     (function ($$) {
         class $hyoo_slides extends $.$hyoo_slides {
             sub() {
-                if (!this.uri_slides()) {
+                if (!this.contents()) {
                     return [this.Menu()];
                 }
                 return [
