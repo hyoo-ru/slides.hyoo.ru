@@ -4,7 +4,7 @@ namespace $.$$ {
 		
 		sub() {
 			
-			if( !this.uri_slides() ) {
+			if( !this.contents() ) {
 				return [ this.Menu() ]
 			}
 
