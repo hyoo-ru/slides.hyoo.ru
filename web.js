@@ -9948,7 +9948,7 @@ var $;
     (function ($$) {
         class $hyoo_slides extends $.$hyoo_slides {
             sub() {
-                if (!this.contents()) {
+                if (!this.uri_slides()) {
                     return [this.Menu()];
                 }
                 return [
