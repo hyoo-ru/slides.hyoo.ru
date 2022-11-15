@@ -38,29 +38,28 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
-		contents() {			
+		contents( next = '' ) {
 			if( !this.uri_slides() ) return ''
-			return $mol_wire_sync( this ).call( 'content' ) as string
+			this.Loader().window()
+			return next
 		}
 		
-		call( ... message: any[] ) {
-			
-			const remote = this.Loader().window()
-			
-			return new Promise( done => {
+		@ $mol_mem
+		message_listener() {
 
-				remote.postMessage( message , '*' )
-			
-				$mol_dom_context.onmessage = ( event : MessageEvent )=> {
+			return new $mol_dom_listener(
+				$mol_dom_context,
+				'message',
+				$mol_wire_async( ( event: MessageEvent< any > )=> {
 					
-					if( event.data[ 0 ] !== 'done' ) return
-					$mol_dom_context.onmessage = null
+					const data = event.data
+					if( !Array.isArray( data ) ) return
+					if( data[0] !== 'done' ) return
 					
-					done( event.data[ 1 ] )
-
-				}
-	
-			} )
+					this.contents( data[1] )
+					
+				} )
+			)
 			
 		}
 		

@@ -6,6 +6,8 @@ $hyoo_slides $mol_view
 		^
 		touch-action \none
 	contents?val \
+	auto /
+		<= message_listener null
 	Menu $mol_page
 		title \Slides
 		tools <= menu_tools /
