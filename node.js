@@ -9686,6 +9686,11 @@ var $;
                 return val;
             return "";
         }
+        auto() {
+            return [
+                this.message_listener()
+            ];
+        }
         Menu() {
             const obj = new this.$.$mol_page();
             obj.title = () => "Slides";
@@ -9758,6 +9763,9 @@ var $;
         }
         role() {
             return "";
+        }
+        message_listener() {
+            return null;
         }
         Source_link() {
             const obj = new this.$.$mol_link_source();
@@ -10322,22 +10330,21 @@ var $;
             menu_item_title(uri) {
                 return this.menu_options()[uri];
             }
-            contents() {
+            contents(next = '') {
                 if (!this.uri_slides())
                     return '';
-                return $mol_wire_sync(this).call('content');
+                this.Loader().window();
+                return next;
             }
-            call(...message) {
-                const remote = this.Loader().window();
-                return new Promise(done => {
-                    remote.postMessage(message, '*');
-                    $mol_dom_context.onmessage = (event) => {
-                        if (event.data[0] !== 'done')
-                            return;
-                        $mol_dom_context.onmessage = null;
-                        done(event.data[1]);
-                    };
-                });
+            message_listener() {
+                return new $mol_dom_listener($mol_dom_context, 'message', $mol_wire_async((event) => {
+                    const data = event.data;
+                    if (!Array.isArray(data))
+                        return;
+                    if (data[0] !== 'done')
+                        return;
+                    this.contents(data[1]);
+                }));
             }
             content_pages() {
                 return this.contents().split(/^(?=#)/mg);
@@ -10498,6 +10505,9 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_slides.prototype, "contents", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_slides.prototype, "message_listener", null);
         __decorate([
             $mol_mem
         ], $hyoo_slides.prototype, "content_pages", null);
