@@ -31,7 +31,7 @@
 	height: 100%;
 }
 [hyoo_slides_loader]:not([mol_view_error]) {
-	display: none;
+	visibility: hidden;
 }
 
 [hyoo_slides_speech_toggle] {
