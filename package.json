@@ -106,6 +106,7 @@
     "$mol_state",
     "$mol_svg_path",
     "$mol_state_arg",
+    "$mol_action",
     "$mol_frame",
     "$mol_embed_native",
     "$mol_embed",
@@ -188,7 +189,6 @@
     "$mol_touch",
     "$mol_vector",
     "$mol_speech",
-    "$mol_action",
     "$mol_range2",
     "$mol_defer"
   ],
