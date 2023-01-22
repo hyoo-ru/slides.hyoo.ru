@@ -1025,6 +1025,7 @@ declare namespace $ {
         sub(): readonly $mol_view[];
         minimal_width(): number;
         Placeholder(): $mol_view;
+        Gap(id: any): $mol_view;
         pages(): readonly $mol_view[];
     }
 }
