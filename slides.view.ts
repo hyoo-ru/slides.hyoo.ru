@@ -65,7 +65,7 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		content_pages() {
-			return this.contents().split( /^(?=#)/mg ) as string[]
+			return this.contents().split( /^(?=[#=])/mg ) as string[]
 		}
 		
 		@ $mol_mem_key
