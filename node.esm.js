@@ -10441,9 +10441,9 @@ var $;
                         return false;
                     if (token.name !== 'block')
                         return false;
-                    if (token.found[0].indexOf('![') >= 0)
+                    if (token.found.indexOf('![') >= 0)
                         return false;
-                    if (token.found[0].indexOf('""') >= 0)
+                    if (token.found.indexOf('""') >= 0)
                         return false;
                     return true;
                 });
@@ -10454,9 +10454,9 @@ var $;
                         return false;
                     if (token.name !== 'block')
                         return true;
-                    if (token.found[0].indexOf('![') >= 0)
+                    if (token.found.indexOf('![') >= 0)
                         return true;
-                    if (token.found[0].indexOf('""') >= 0)
+                    if (token.found.indexOf('""') >= 0)
                         return true;
                     return false;
                 });
