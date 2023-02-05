@@ -98,8 +98,8 @@ namespace $.$$ {
 			return this.page_tokens( index ).filter( token => {
 				if( token.name === 'header' ) return false
 				if( token.name !== 'block' ) return false
-				if( '!['.indexOf( token.found[0] ) >= 0 ) return false
-				if( '""'.indexOf( token.found[0] ) >= 0 ) return false
+				if( token.found[0].indexOf( '![' ) >= 0 ) return false
+				if( token.found[0].indexOf( '""' ) >= 0 ) return false
 				return true
 			} )
 		}
@@ -109,8 +109,8 @@ namespace $.$$ {
 			return this.page_tokens( index ).filter( token => {
 				if( token.name === 'header' ) return false
 				if( token.name !== 'block' ) return true
-				if( '!['.indexOf( token.found[0] ) >= 0 ) return true
-				if( '""'.indexOf( token.found[0] ) >= 0 ) return true
+				if( token.found[0].indexOf( '![' ) >= 0 ) return true
+				if( token.found[0].indexOf( '""' ) >= 0 ) return true
 				return false
 			} )
 		}
