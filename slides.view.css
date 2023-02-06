@@ -6,12 +6,6 @@
 	font-size: 1.5em;
 }
 
-[hyoo_slides][hyoo_slides_role="listener"] [mol_text_link_http_icon],
-[hyoo_slides][hyoo_slides_role="listener"] [mol_text_link_icon] {
-	width: 1.5rem;
-	height: 1.5rem;
-}
-
 [hyoo_slides_menu] {
 	max-width: 40rem;
 	flex: auto;
