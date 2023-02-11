@@ -26,7 +26,7 @@ module.exports = $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_offline(uri = 'web.js') { }
+    function $mol_offline() { }
     $.$mol_offline = $mol_offline;
 })($ || ($ = {}));
 //mol/offline/offline.node.ts
@@ -4880,8 +4880,8 @@ var $;
         'list': /^((?:(?: ?([*+-])|(?:\d+[\.\)])+) +(?:[^]*?)$(?:\r?\n?)(?:  (?:[^]*?)$(?:\r?\n?))*)+)((?:\r?\n)*)/,
         'code': /^(```\s*)([\w.-]*)[\r\n]+([^]*?)^(```)$([\n\r]*)/,
         'code-indent': /^((?:(?:  |\t)(?:[^]*?)$([\n\r]*))+)/,
-        'table': /((?:^\|.+?$\r?\n)+)([\n\r]*)/,
-        'grid': /((?:^ *! .+?$\r?\n)+)([\n\r]*)/,
+        'table': /((?:^\|.+?$\r?\n?)+)([\n\r]*)/,
+        'grid': /((?:^ *! .*?$\r?\n?)+)([\n\r]*)/,
         'cut': /^--+$((?:\r?\n)*)/,
         'block': /^(.*?)$((?:\r?\n)*)/,
     });
@@ -7754,7 +7754,7 @@ var $;
                 return this.cell_content(id.block)[id.row][id.cell];
             }
             grid_content(indexBlock) {
-                return [...this.flow_tokens()[indexBlock].chunks[0].match(/(?:^! .*?$\r?\n)+(?:^ +! .*?$\r?\n)*/gm)]
+                return [...this.flow_tokens()[indexBlock].chunks[0].match(/(?:^! .*?$\r?\n?)+(?:^ +! .*?$\r?\n?)*/gm)]
                     .map((row, rowId) => {
                     const cells = [];
                     for (const line of row.trim().split(/\r?\n/)) {
