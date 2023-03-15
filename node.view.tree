@@ -82,6 +82,7 @@ $mol_frame $mol_embed_native
 	pip true
 
 $mol_book2 $mol_scroll
+	menu_title \
 	sub <= pages /$mol_view
 	minimal_width 0
 	Placeholder $mol_view
