@@ -5,7 +5,6 @@ $hyoo_slides_page $mol_book2
 	Placeholder null
 	pages /
 		<= Speaker $mol_page
-			minimal_width 300
 			head <= speaker_tools /
 			body /
 				<= Speaker_content $mol_text
@@ -13,7 +12,6 @@ $hyoo_slides_page $mol_book2
 					flow_tokens <= speaker_content /
 		<= Listener $mol_page
 			tools <= tools /
-			minimal_width <= listener_width 600
 			title <= title
 			Head => Listener_head
 			Tools null
