@@ -3163,6 +3163,12 @@ var $;
                     transform: 'translateZ(0)',
                 },
             },
+            '::before': {
+                display: 'none',
+            },
+            '::after': {
+                display: 'none',
+            },
             '::-webkit-scrollbar': {
                 width: rem(.25),
                 height: rem(.25),
@@ -8233,7 +8239,6 @@ var $;
         }
         Speaker() {
             const obj = new this.$.$mol_page();
-            obj.minimal_width = () => 300;
             obj.head = () => this.speaker_tools();
             obj.body = () => [
                 this.Speaker_content()
@@ -8242,9 +8247,6 @@ var $;
         }
         tools() {
             return [];
-        }
-        listener_width() {
-            return 600;
         }
         listener_content() {
             return [];
@@ -8283,7 +8285,6 @@ var $;
         Listener() {
             const obj = new this.$.$mol_page();
             obj.tools = () => this.tools();
-            obj.minimal_width = () => this.listener_width();
             obj.title = () => this.title();
             obj.Tools = () => null;
             obj.sub = () => [

@@ -2375,7 +2375,6 @@ declare namespace $ {
         Speaker_content(): $$.$mol_text;
         Speaker(): $mol_page;
         tools(): readonly any[];
-        listener_width(): number;
         listener_content(): readonly any[];
         Listener_content(): $$.$mol_text;
         uri_page(): string;
