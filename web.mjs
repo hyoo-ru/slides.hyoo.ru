@@ -10741,4 +10741,5 @@ var $;
 })($ || ($ = {}));
 //hyoo/slides/-css/slides.view.css.ts
 
+export default $
 //# sourceMappingURL=web.js.map
