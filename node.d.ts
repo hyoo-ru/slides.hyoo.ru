@@ -925,8 +925,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_scroll extends $mol_view {
-        scroll_top(val?: any): number;
-        scroll_left(val?: any): number;
+        scroll_top(next?: any): number;
+        scroll_left(next?: any): number;
         field(): Record<string, any>;
         event(): Record<string, any>;
         tabindex(): number;
@@ -1026,7 +1026,7 @@ declare namespace $ {
         head(): readonly any[];
         Head(): $mol_view;
         body(): readonly $mol_view_content[];
-        body_scroll_top(val?: any): number;
+        body_scroll_top(next?: any): number;
         Body(): $$.$mol_scroll;
         foot(): readonly $mol_view[];
         Foot(): $mol_view;
@@ -1104,7 +1104,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_embed_native extends $mol_scroll {
-        uri(val?: any): string;
+        uri(next?: any): string;
         dom_name(): string;
         window(): any;
         attr(): Record<string, any>;
@@ -1165,7 +1165,7 @@ declare namespace $ {
         pip(): boolean;
         clipboard_read(): boolean;
         clipboard_write(): boolean;
-        uri(val?: any): string;
+        uri(next?: any): string;
         html(): any;
         allow(): string;
     }
@@ -2098,10 +2098,10 @@ declare namespace $ {
         Icon(): $mol_icon_chevron;
         level(): number;
         style(): Record<string, any>;
-        checked(val?: any): boolean;
+        checked(next?: any): boolean;
         enabled(): boolean;
         level_style(): string;
-        expanded(val?: any): boolean;
+        expanded(next?: any): boolean;
         expandable(): boolean;
     }
 }
@@ -2146,7 +2146,7 @@ declare namespace $ {
         cell_content_number(id: any): readonly $mol_view_content[];
         col_head_content(id: any): readonly $mol_view_content[];
         cell_level(id: any): number;
-        cell_expanded(id: any, val?: any): boolean;
+        cell_expanded(id: any, next?: any): boolean;
         needle(): string;
         cell_value(id: any): string;
         Cell_dimmer(id: any): $$.$mol_dimmer;
@@ -2612,7 +2612,7 @@ declare namespace $ {
         backward(event?: any): any;
         Backward_icon(): $mol_icon_chevron_left;
         Backward(): $mol_button_minor;
-        value(val?: any): number;
+        value(next?: any): number;
         Value(): $mol_view;
         forward_hint(): string;
         forward(event?: any): any;
@@ -2651,9 +2651,9 @@ declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
         hint(): string;
-        checked(val?: any): boolean;
+        checked(next?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
-        lights(val?: any): boolean;
+        lights(next?: any): boolean;
     }
 }
 
@@ -2697,14 +2697,14 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_nav extends $mol_plugin {
-        cycle(val?: any): boolean;
+        cycle(next?: any): boolean;
         mod_ctrl(): boolean;
         mod_shift(): boolean;
         mod_alt(): boolean;
-        keys_x(val?: any): readonly any[];
-        keys_y(val?: any): readonly any[];
-        current_x(val?: any): any;
-        current_y(val?: any): any;
+        keys_x(next?: any): readonly any[];
+        keys_y(next?: any): readonly any[];
+        current_x(next?: any): any;
+        current_y(next?: any): any;
         event_up(event?: any): any;
         event_down(event?: any): any;
         event_left(event?: any): any;
@@ -2800,31 +2800,31 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_touch extends $mol_plugin {
-        start_zoom(val?: any): number;
-        start_distance(val?: any): number;
-        zoom(val?: any): number;
+        start_zoom(next?: any): number;
+        start_distance(next?: any): number;
+        zoom(next?: any): number;
         allow_draw(): boolean;
         allow_pan(): boolean;
         allow_zoom(): boolean;
-        action_type(val?: any): string;
-        action_point(val?: any): $mol_vector_2d<number>;
-        start_pan(val?: any): readonly any[];
-        pan(val?: any): $mol_vector_2d<number>;
+        action_type(next?: any): string;
+        action_point(next?: any): $mol_vector_2d<number>;
+        start_pan(next?: any): readonly any[];
+        pan(next?: any): $mol_vector_2d<number>;
         pointer_center(): $mol_vector_2d<number>;
-        start_pos(val?: any): any;
+        start_pos(next?: any): any;
         swipe_precision(): number;
-        swipe_right(val?: any): any;
-        swipe_bottom(val?: any): any;
-        swipe_left(val?: any): any;
-        swipe_top(val?: any): any;
-        swipe_from_right(val?: any): any;
-        swipe_from_bottom(val?: any): any;
-        swipe_from_left(val?: any): any;
-        swipe_from_top(val?: any): any;
-        swipe_to_right(val?: any): any;
-        swipe_to_bottom(val?: any): any;
-        swipe_to_left(val?: any): any;
-        swipe_to_top(val?: any): any;
+        swipe_right(next?: any): any;
+        swipe_bottom(next?: any): any;
+        swipe_left(next?: any): any;
+        swipe_top(next?: any): any;
+        swipe_from_right(next?: any): any;
+        swipe_from_bottom(next?: any): any;
+        swipe_from_left(next?: any): any;
+        swipe_from_top(next?: any): any;
+        swipe_to_right(next?: any): any;
+        swipe_to_bottom(next?: any): any;
+        swipe_to_left(next?: any): any;
+        swipe_to_top(next?: any): any;
         draw_start(event?: any): any;
         draw(event?: any): any;
         draw_end(event?: any): any;

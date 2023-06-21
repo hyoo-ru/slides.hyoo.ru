@@ -1,6 +1,6 @@
 $mol_scroll $mol_view
-	scroll_top?val 0
-	scroll_left?val 0
+	scroll_top? 0
+	scroll_left? 0
 	field *
 		^
 		tabIndex <= tabindex -1
@@ -26,7 +26,7 @@ $mol_page $mol_view
 				<= Tools $mol_view
 					sub <= tools /$mol_view_content
 		<= Body $mol_scroll
-			scroll_top?val => body_scroll_top?val
+			scroll_top? => body_scroll_top?
 			sub <= body /$mol_view_content
 		<= Foot $mol_view
 			dom_name \footer
@@ -50,7 +50,7 @@ $mol_link $mol_view
 		click?event <=> click?event <=> event_click?event null
 
 $mol_embed_native $mol_scroll
-	uri?val \
+	uri? \
 	dom_name \object
 	window null
 	attr *
@@ -71,7 +71,7 @@ $mol_frame $mol_embed_native
 		^
 		data null
 		type null
-		src <= uri?val \about:config
+		src <= uri? \about:config
 		srcdoc <= html null
 		allow <= allow \
 		- allowfullscreen <=
@@ -286,7 +286,7 @@ $mol_check_expand $mol_check
 	style *
 		^
 		paddingLeft <= level_style \0px
-	checked?val <=> expanded?val false
+	checked? <=> expanded? false
 	enabled <= expandable false
 
 $mol_grid $mol_view
@@ -323,7 +323,7 @@ $mol_grid $mol_view
 	Cell_branch* $mol_check_expand
 		level <= cell_level* 0
 		label <= cell_content* /$mol_view_content
-		expanded?val <=> cell_expanded*?val false
+		expanded? <=> cell_expanded*? false
 	Cell_content* /
 		<= Cell_dimmer* $mol_dimmer
 			needle <= needle \
@@ -568,7 +568,7 @@ $mol_paginator $mol_bar
 			hint <= backward_hint @ \Backward
 			click?event <=> backward?event null
 			sub / <= Backward_icon $mol_icon_chevron_left
-		<= Value $mol_view sub / <= value?val 0
+		<= Value $mol_view sub / <= value? 0
 		<= Forward $mol_button_minor
 			hint <= forward_hint @ \Forward
 			click?event <=> forward?event null
@@ -581,7 +581,7 @@ $mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 1
 $mol_lights_toggle $mol_check_icon
 	Icon <= Lights_icon $mol_icon_brightness_6
 	hint @ \Toggle lights
-	checked?val <=> lights?val false
+	checked? <=> lights? false
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
@@ -589,17 +589,17 @@ $mol_theme_auto $mol_plugin
 	attr * mol_theme <= theme \
 
 $mol_nav $mol_plugin
-	cycle?val false
+	cycle? false
 	-
 	mod_ctrl false
 	mod_shift false
 	mod_alt false
 	-
-	keys_x?val /
-	keys_y?val /
+	keys_x? /
+	keys_y? /
 	-
-	current_x?val null
-	current_y?val null
+	current_x? null
+	current_y? null
 	-
 	event_up?event null
 	event_down?event null
@@ -610,44 +610,44 @@ $mol_nav $mol_plugin
 		keydown?event <=> event_key?event null
 
 $mol_touch $mol_plugin
-	start_zoom?val 0
-	start_distance?val 0
-	zoom?val 1
+	start_zoom? 0
+	start_distance? 0
+	zoom? 1
 	allow_draw true
 	allow_pan true
 	allow_zoom true
-	action_type?val \
-	action_point?val $mol_vector_2d /
+	action_type? \
+	action_point? $mol_vector_2d /
 		NaN
 		NaN
 	-
-	start_pan?val /
+	start_pan? /
 		0
 		0
-	pan?val $mol_vector_2d /
+	pan? $mol_vector_2d /
 		0
 		0
 	pointer_center $mol_vector_2d /
 		NaN
 		NaN
 	-
-	start_pos?val null
+	start_pos? null
 	swipe_precision 16
 	-
-	swipe_right?val null
-	swipe_bottom?val null
-	swipe_left?val null
-	swipe_top?val null
+	swipe_right? null
+	swipe_bottom? null
+	swipe_left? null
+	swipe_top? null
 	-
-	swipe_from_right?val null
-	swipe_from_bottom?val null
-	swipe_from_left?val null
-	swipe_from_top?val null
+	swipe_from_right? null
+	swipe_from_bottom? null
+	swipe_from_left? null
+	swipe_from_top? null
 	-
-	swipe_to_right?val null
-	swipe_to_bottom?val null
-	swipe_to_left?val null
-	swipe_to_top?val null
+	swipe_to_right? null
+	swipe_to_bottom? null
+	swipe_to_left? null
+	swipe_to_top? null
 	-
 	draw_start?event null
 	draw?event null
