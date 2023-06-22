@@ -53,6 +53,7 @@ namespace $.$$ {
 				$mol_wire_async( ( event: MessageEvent< any > )=> {
 					
 					const data = event.data
+					if( event.source !== this.Loader().window() ) return
 					if( !Array.isArray( data ) ) return
 					if( data[0] !== 'done' ) return
 					
