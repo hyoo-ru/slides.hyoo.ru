@@ -11085,6 +11085,8 @@ var $;
             message_listener() {
                 return new $mol_dom_listener($mol_dom_context, 'message', $mol_wire_async((event) => {
                     const data = event.data;
+                    if (event.source !== this.Loader().window())
+                        return;
                     if (!Array.isArray(data))
                         return;
                     if (data[0] !== 'done')
