@@ -1181,7 +1181,7 @@ var $;
             const field = task.name + '()';
             let dict = Object.getOwnPropertyDescriptor(host ?? task, field)?.value;
             const prefix = host?.[Symbol.toStringTag] ?? (host instanceof Function ? $$.$mol_func_name(host) : host);
-            const id = `${prefix}.${task.name}(${$mol_key(key)})`;
+            const id = `${prefix}.${task.name}(${$mol_key(key).replace(/^"|"$/g, "'")})`;
             if (dict) {
                 const existen = dict.get(id);
                 if (existen)
@@ -1402,9 +1402,9 @@ var $node = new Proxy({ require }, {
         while (!fs.existsSync(path.join(dir, suffix))) {
             const parent = path.resolve(dir, '..');
             if (parent === dir) {
-                $$.$mol_exec('.', 'npm', 'install', '--omit=dev', '--no-save', name);
+                $$.$mol_exec('.', 'npm', 'install', '--omit=dev', name);
                 try {
-                    $$.$mol_exec('.', 'npm', 'install', '--omit=dev', '--no-save', '@types/' + name);
+                    $$.$mol_exec('.', 'npm', 'install', '--omit=dev', '@types/' + name);
                 }
                 catch { }
                 break;
@@ -10132,13 +10132,17 @@ var $;
                     if (field === 'length')
                         return size();
                     const index = Number(field);
+                    if (index < 0)
+                        return undefined;
+                    if (index >= size())
+                        return undefined;
                     if (index === Math.trunc(index))
                         return item(index);
                 }
                 return target[field];
             },
             set(target, field) {
-                return $mol_fail(new TypeError('Lazy range is read only'));
+                return $mol_fail(new TypeError(`Lazy range is read only (trying to set field ${JSON.stringify(field)})`));
             },
             ownKeys(target) {
                 return [...Array(size())].map((v, i) => String(i)).concat('length');
@@ -10201,7 +10205,7 @@ var $;
             }
             return result;
         }
-        reverse() {
+        toReversed() {
             return $mol_range2(index => this[this.length - 1 - index], () => this.length);
         }
         slice(from = 0, to = this.length) {
@@ -10220,6 +10224,12 @@ var $;
                     return false;
             }
             return true;
+        }
+        reverse() {
+            return $mol_fail(new TypeError(`Mutable reverse is forbidden. Use toReversed instead.`));
+        }
+        sort() {
+            return $mol_fail(new TypeError(`Mutable sort is forbidden. Use toSorted instead.`));
         }
     }
     $.$mol_range2_array = $mol_range2_array;
