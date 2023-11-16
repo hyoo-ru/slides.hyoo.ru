@@ -38,7 +38,6 @@
 [hyoo_slides_page_speaker_content] {
 	flex: 1 0 auto;
 	max-width: none;
-	padding: var(--mol_gap_block);
 }
 
 [hyoo_slides_page_listener_content] {
