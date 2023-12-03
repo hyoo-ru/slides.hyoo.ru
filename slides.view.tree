@@ -5,7 +5,7 @@ $hyoo_slides $mol_view
 	style *
 		^
 		touch-action \none
-	contents?val \
+	contents? \
 	auto /
 		<= message_listener null
 	Menu $mol_page
@@ -16,10 +16,10 @@ $hyoo_slides $mol_view
 		body /
 			<= Menu_items $mol_list
 				rows <= menu_items /$mol_view
-	Menu_item!id $mol_link
-		title <= menu_item_title!id \
-		arg * slides <= menu_item_uri!id \
-	menu_options *
+	Menu_item* $mol_link
+		title <= menu_item_title* \
+		arg * slides <= menu_item_uri* \
+	menu_options *string
 		https://nin-jin.github.io/slides/slides/ \Презентация приложения для проведения презентаций
 		https://nin-jin.github.io/slides/reactivity/ \Разбираемся в сортах реактивности
 		https://nin-jin.github.io/slides/orp/ \Объектное Реактивное Программирование
@@ -34,22 +34,22 @@ $hyoo_slides $mol_view
 		https://nin-jin.github.io/slides/absurd/ \Проблема останова лжеца Гёделя и брадобрея Кантора
 	Loader $mol_frame
 		uri <= uri_slides \
-	Page!index $hyoo_slides_page
+	Page* $hyoo_slides_page
 		tools <= tools /
-		title <= page_title!index \
-		slide?val <=> page_slide!index?val 0
+		title <= page_title* \
+		slide? <=> page_slide*? 0
 		uri_base <= uri_base \
 		role <= role \
-		listener_content <= listener_content!index /
-		speaker_content <= speaker_content!index /
-		progress <= progress!index 0
+		listener_content <= listener_content* /
+		speaker_content <= speaker_content* /
+		progress <= progress* 0
 		speaker_tools <= speaker_tools /
 			<= Speech_toggle $mol_check_icon
 				Icon <= Speech_toggle_icon $mol_icon_microphone
-				checked?val <=> speech_enabled?val false
+				checked? <=> speech_enabled? false
 				hint <= speech_toggle_hint @ \Speech contol
 			<= Speech_text $mol_view sub / <= speech_text \
-			<= Paginator $mol_paginator value?val <=> slide?val
+			<= Paginator $mol_paginator value? <=> slide?
 			<= Open_listener $mol_link
 				target \_blank
 				hint <= open_listener_hint @ \Open slides window
@@ -69,13 +69,13 @@ $hyoo_slides $mol_view
 		<= Nav $mol_nav
 			keys_y <= slide_keys /
 			keys_x <= slide_keys /
-			current_y?val <=> slide?val 0
-			current_x?val <=> slide?val 0
+			current_y? <=> slide? 0
+			current_x? <=> slide? 0
 		<= Touch $mol_touch
 			swipe_to_left?event <=> event_next?event null
 			swipe_to_right?event <=> event_prev?event null
 		<= Speech_next $mol_speech
-			event_catch?val <=> event_next?val null
+			event_catch? <=> event_next? null
 			patterns <= speech_next /
 				\next
 				\forward
@@ -91,18 +91,18 @@ $hyoo_slides $mol_view
 				\перевод
 				\следующий слайд
 		<= Speech_next_auto $mol_speech
-			event_catch?val <=> event_next?val null
+			event_catch? <=> event_next? null
 			suffix \
 			patterns <= speech_next_auto /
 		<= Speech_slide $mol_speech
-			event_catch?val <=> event_slide?val null
+			event_catch? <=> event_slide? null
 			patterns <= speech_slide /
 				\number (\d+)
 				\(\d+) slide
 				\номер (\d+)
 				\(\d+) слайд
 		<= Speech_prev $mol_speech
-			event_catch?val <=> event_prev?val null
+			event_catch? <=> event_prev? null
 			patterns <= speech_prev /
 				\back
 				\назад
@@ -110,7 +110,7 @@ $hyoo_slides $mol_view
 				\надо
 				\предыдущий слайд
 		<= Speech_start $mol_speech
-			event_catch?val <=> event_start?val null
+			event_catch? <=> event_start? null
 			patterns <= speech_start /
 				\to beginning
 				\first slide
@@ -119,14 +119,14 @@ $hyoo_slides $mol_view
 				\первый слайд
 				\первый слой
 		<= Speech_end $mol_speech
-			event_catch?val <=> event_end?val null
+			event_catch? <=> event_end? null
 			patterns <= speech_end /
 				\to ending
 				\last slide
 				\конец
 				\последний слайд
 		<= Speech_about $mol_speech
-			event_catch?val <=> event_about?val null
+			event_catch? <=> event_about? null
 			patterns <= speech_about /
 				\about( \S+?)+
 				\search( \S+?)+
@@ -134,25 +134,25 @@ $hyoo_slides $mol_view
 				\найти( \S+?)+
 				\найди( \S+?)+
 		<= Speech_repeat $mol_speech
-			event_catch?val <=> event_repeat?val null
+			event_catch? <=> event_repeat? null
 			patterns <= speech_repeat /
 				\repeat
 				\повтори
 				\повторите
 		<= Speech_on $mol_speech
-			event_catch?val <=> event_speech_on?val null
+			event_catch? <=> event_speech_on? null
 			patterns <= speech_on /
 				\continue
 				\продолжай
 		<= Speech_off $mol_speech
-			event_catch?val <=> event_speech_off?val null
+			event_catch? <=> event_speech_off? null
 			patterns <= speech_off /
 				\shut up
 				\hush
 				\замолчи
 				\помолчи
 		<= Lights_toggle $mol_speech
-			event_catch?val <=> event_lights_toggle?val null
+			event_catch? <=> event_lights_toggle? null
 			patterns <= lights_toggle /
 				\lights off
 				\lights on
@@ -161,7 +161,7 @@ $hyoo_slides $mol_view
 				\след
 				\цвет
 		<= Sing $mol_speech
-			event_catch?val <=> event_sing?val null
+			event_catch? <=> event_sing? null
 			patterns <= sing /
 				\sing( \S+?)*
 				\спой( \S+?)*
