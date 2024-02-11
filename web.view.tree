@@ -403,20 +403,6 @@ $mol_embed_any $mol_view
 		title <= title \
 		uri <= uri \
 
-$mol_text_list $mol_text
-	auto_scroll null
-	attr *
-		^
-		mol_text_list_type <= type \
-	Paragraph* $mol_text_list_item
-		index <= item_index*
-		sub <= block_content*
-
-$mol_text_list_item $mol_paragraph
-	attr *
-		^
-		mol_text_list_item_index <= index 0
-
 $mol_text $mol_list
 	uri_base \
 	text \
@@ -520,6 +506,20 @@ $mol_portion $mol_view
 	sub /
 		<= indicator $mol_portion_indicator
 			width_style <= indicator_width_style \0
+
+$mol_text_list $mol_text
+	auto_scroll null
+	attr *
+		^
+		mol_text_list_type <= type \
+	Paragraph* $mol_text_list_item
+		index <= item_index*
+		sub <= block_content*
+
+$mol_text_list_item $mol_paragraph
+	attr *
+		^
+		mol_text_list_item_index <= index 0
 
 $hyoo_slides_page $mol_book2
 	role \
