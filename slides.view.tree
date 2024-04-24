@@ -63,7 +63,7 @@ $hyoo_slides $mol_view
 				arg *
 					slides null
 				sub /
-					<= Close_icon $mol_icon_cross
+					<= Close_icon $mol_icon_close
 	plugins /
 		<= Theme $mol_theme_auto
 		<= Nav $mol_nav
