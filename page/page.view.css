@@ -59,7 +59,7 @@
 [hyoo_slides_page_listener_content] [mol_text] {
 	max-width: none;
 }
-[hyoo_slides_page_listener_content_embed_image] {
+[hyoo_slides_page_listener_content] [mol_text_embed_image] {
 	max-height: 85vh;
 }
 
