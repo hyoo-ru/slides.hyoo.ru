@@ -161,6 +161,7 @@
     "$mol_icon_external",
     "$mol_lights_toggle",
     "$mol_lights",
+    "$mol_media",
     "$mol_icon_brightness_6",
     "$mol_icon_brightness",
     "$mol_icon_close",
