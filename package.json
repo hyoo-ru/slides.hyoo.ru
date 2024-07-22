@@ -213,6 +213,7 @@
     "$mol_embed_any",
     "$mol_embed_youtube",
     "$mol_icon_youtube",
+    "$mol_expander",
     "$mol_portion",
     "$mol_offline_install",
     "$mol_offline"
