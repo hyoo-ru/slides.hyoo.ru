@@ -2394,7 +2394,7 @@ declare namespace $.$$ {
         pages_deep(): $mol_view[];
         title(): string;
         menu_title(): string;
-        sub(): readonly $mol_view[];
+        sub(): $mol_view[];
         bring(): void;
     }
 }
@@ -3181,6 +3181,7 @@ declare namespace $.$$ {
         cell_expanded(id: {
             row: string[];
         }, next?: boolean): boolean;
+        sub(): readonly any[];
     }
 }
 
