@@ -274,13 +274,11 @@ $mol_page $mol_view
 			sub <= foot /$mol_view
 
 $mol_embed_native $mol_scroll
-	uri? \
-	dom_name \object
+	dom_name \iframe
 	window null
 	attr *
 		^
-		data <= uri
-		type <= mime \
+		src <= uri? \about:config
 	sub /
 		<= Fallback $mol_link
 			uri <= uri
@@ -290,13 +288,9 @@ $mol_embed_native $mol_scroll
 		hashchange? <=> uri_change? null
 
 $mol_frame $mol_embed_native
-	dom_name \iframe
 	attr *
 		^
-		data null
-		type null
 		allow <= allow \
-		src <= uri? \about:config
 		srcdoc <= html null
 	fullscreen true
 	accelerometer true
