@@ -83,11 +83,14 @@
 
 [hyoo_slides_page_listener_content_quote] {
 	margin: 0;
-	padding: 0;
 	box-shadow: none;
 	background: transparent;
 	color: inherit;
 	align-items: center;
+}
+
+[hyoo_slides_page] [mol_text_embed] {
+    justify-content: center;
 }
 
 [hyoo_slides_page_progress] {
