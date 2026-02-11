@@ -1,0 +1,10 @@
+{
+	"name": "hyoo_slides",
+	"short_name": "hyoo_slides",
+	"description": "",
+	"id": "hyoo_slides",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#000000",
+	"theme_color": "#000000"
+}
