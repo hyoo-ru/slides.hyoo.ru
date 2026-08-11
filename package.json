@@ -128,6 +128,7 @@
     "$mol_state_arg",
     "$mol_state",
     "$mol_action",
+    "$mol_dom_safe",
     "$mol_style_define",
     "$mol_style_guard",
     "$mol_style_pseudo",
