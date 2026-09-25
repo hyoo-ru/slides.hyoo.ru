@@ -92,7 +92,7 @@
     justify-content: center;
 }
 [hyoo_slides_page] [mol_text_embed_object] {
-	max-height: calc( 80vh - 14rem );
+	max-height: calc( 80vh - 6rem );
 }
 
 [hyoo_slides_page_progress] {
