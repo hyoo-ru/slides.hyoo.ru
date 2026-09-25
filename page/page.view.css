@@ -91,6 +91,9 @@
 [hyoo_slides_page] [mol_text_embed] {
     justify-content: center;
 }
+[hyoo_slides_page] [mol_text_embed_object] Х
+	aspect-ratio: 16/9;
+}
 
 [hyoo_slides_page_progress] {
 	flex: 0 0 auto;
