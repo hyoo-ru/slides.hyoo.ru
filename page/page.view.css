@@ -102,5 +102,6 @@
 
 [hyoo_slides_page_link] {
 	padding: 0 .75rem;
+	min-height: 0;
 	justify-content: center;
 }
