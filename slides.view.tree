@@ -72,8 +72,8 @@ $hyoo_slides $mol_view
 			current_y? <=> slide? 0
 			current_x? <=> slide? 0
 		<= Touch $mol_touch
-			swipe_to_left?event <=> event_next?event null
-			swipe_to_right?event <=> event_prev?event null
+			swipe_to_left? <=> event_next? null
+			swipe_to_right? <=> event_prev? null
 		<= Speech_next $mol_speech
 			event_catch? <=> event_next? null
 			patterns <= speech_next /
