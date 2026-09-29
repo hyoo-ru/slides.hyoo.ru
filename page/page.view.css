@@ -91,6 +91,9 @@
 [hyoo_slides_page] [mol_text_embed] {
     justify-content: center;
 }
+[hyoo_slides_page] [mol_text_embed_object] {
+	max-height: calc( 80vh - 6rem );
+}
 
 [hyoo_slides_page_progress] {
 	flex: 0 0 auto;
@@ -99,5 +102,6 @@
 
 [hyoo_slides_page_link] {
 	padding: 0 .75rem;
+	min-height: 0;
 	justify-content: center;
 }
