@@ -12091,7 +12091,8 @@ var $;
 				"https://nin-jin.github.io/slides/fibers/": "Квантовая механика вычисления на JS", 
 				"https://nin-jin.github.io/slides/testing/": "Фрактальное тестирование", 
 				"https://nin-jin.github.io/slides/consensus/": "Консистентно о Консенсусе", 
-				"https://nin-jin.github.io/slides/absurd/": "Проблема останова лжеца Гёделя и брадобрея Кантора"
+				"https://nin-jin.github.io/slides/absurd/": "Проблема останова лжеца Гёделя и брадобрея Кантора", 
+				"https://page.hyoo.ru/#!=671ht8_aj3wgq": "Giper Baza − отечественная инфраструктура нового поколения"
 			};
 		}
 		Loader(){

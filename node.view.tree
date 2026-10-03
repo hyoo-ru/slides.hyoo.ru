@@ -750,6 +750,7 @@ $hyoo_slides $mol_view
 		https://nin-jin.github.io/slides/testing/ \Фрактальное тестирование
 		https://nin-jin.github.io/slides/consensus/ \Консистентно о Консенсусе
 		https://nin-jin.github.io/slides/absurd/ \Проблема останова лжеца Гёделя и брадобрея Кантора
+		https://page.hyoo.ru/#!=671ht8_aj3wgq \Giper Baza − отечественная инфраструктура нового поколения
 	Loader $mol_frame
 		uri <= uri_slides \
 	Page* $hyoo_slides_page
