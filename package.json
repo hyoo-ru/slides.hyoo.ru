@@ -172,6 +172,7 @@
     "$mol_keyboard",
     "$mol_button_typed",
     "$mol_dom_event",
+    "$mol_dom_transfer",
     "$mol_paginator",
     "$mol_bar",
     "$mol_icon_chevron_left",
